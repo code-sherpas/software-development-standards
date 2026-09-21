@@ -12,7 +12,7 @@ https://raw.githubusercontent.com/code-sherpas/software-development-standards/ma
 
 ## How to wire this into a repository
 
-A consuming repository carries a section in its `AGENTS.md` that tells the agent to read these standards, when, and how much. That section has one canonical copy here: [agents-md-section.md](agents-md-section.md). Copy it verbatim; do not adapt it per repository.
+A consuming repository carries a section in its `AGENTS.md` that tells the agent to read these standards, when, and how much. That section has one canonical copy here: [setup/agents-md-section.md](setup/agents-md-section.md). Copy it verbatim; do not adapt it per repository.
 
 **Current section version: 1**
 

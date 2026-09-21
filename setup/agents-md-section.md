@@ -78,5 +78,5 @@ Mandatory and non-negotiable. It applies to:
   no longer be in context. Re-read it.
 
 _Section version 1 — canonical copy at
-[agents-md-section.md](https://github.com/code-sherpas/software-development-standards/blob/main/agents-md-section.md).
+[agents-md-section.md](https://github.com/code-sherpas/software-development-standards/blob/main/setup/agents-md-section.md).
 Edit it there, never here._
