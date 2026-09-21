@@ -208,6 +208,10 @@ Purely additive DDL that touches no existing row is out of scope: a new nullable
 
 If the data is evidence of a failure, an audit trail, or the only record that something happened, it is **not** orphaned: it is retained. Then this gate still applies, inverted — say in the change that it is retained, why, and for how long. "We keep it forever because nobody decided" is the same unbounded growth wearing a better excuse.
 
+**If you cannot ship the mechanism, stop and say so.** Report what accumulates, **at what rate**, what would remove it, and what leaving it costs — storage, a data-erasure request that will miss it, or a future migration that has to decide what to do with rows nobody can explain. Waiving this gate is the user's call and must be explicit. If it is waived, the debt is written down **with the rate**: "some orphans accumulate" is not something anyone can prioritise.
+
+**Why this rule exists.** Nothing warns you. An orphan breaks no test, fails no check, and costs nothing the day it is created — it surfaces later as a bill, as an erasure request that cannot find data the domain no longer points at, or as a migration blocked on rows whose meaning is gone with the person who wrote them. Sweep jobs tend to be written **after** their orphans appeared, which is the pattern this gate exists to break. And object storage does not clean itself: unless a bucket carries a lifecycle rule, every byte that leaves is a byte someone explicitly deleted.
+
 ## Review Questions
 
 Before integrating, ask:
