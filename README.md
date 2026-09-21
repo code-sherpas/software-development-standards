@@ -1,4 +1,4 @@
-# Code Sherpas Software Standards
+# Code Sherpas Software Development Standards
 
 Principles, patterns and conventions for writing software at Code Sherpas. Each file is one standard, self-contained, and normative: it states what the code must look like and how to review it.
 
@@ -7,7 +7,7 @@ Principles, patterns and conventions for writing software at Code Sherpas. Each 
 Repositories reference these files from their `AGENTS.md` / `CLAUDE.md` by URL. There is no versioning: consumers always read `main`, so a merge here reaches every repository in its next session.
 
 ```
-https://raw.githubusercontent.com/code-sherpas/standards/main/<standard>.md
+https://raw.githubusercontent.com/code-sherpas/software-development-standards/main/<standard>.md
 ```
 
 ## Index (36 standards)
