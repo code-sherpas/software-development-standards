@@ -10,6 +10,14 @@ Repositories reference these files from their `AGENTS.md` / `CLAUDE.md` by URL. 
 https://raw.githubusercontent.com/code-sherpas/software-development-standards/main/<standard>.md
 ```
 
+## How to wire this into a repository
+
+A consuming repository carries a section in its `AGENTS.md` that tells the agent to read these standards, when, and how much. That section has one canonical copy here: [agents-md-section.md](agents-md-section.md). Copy it verbatim; do not adapt it per repository.
+
+**Current section version: 1**
+
+At session start an agent reads this index anyway, so it compares that number against the version stated at the end of its own copy at no extra cost. When they differ, the copy in the repository is stale and the agent says so instead of silently working from outdated instructions.
+
 ## Index (36 standards)
 
 ### Domain model
