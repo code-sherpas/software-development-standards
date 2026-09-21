@@ -1,6 +1,6 @@
 # Code Sherpas Software Development Standards
 
-Principles, patterns and conventions for writing software at Code Sherpas. Each file is one standard, self-contained, and normative: it states what the code must look like and how to review it.
+Principles, patterns and conventions for developing software at Code Sherpas. Each file is one standard, self-contained, and normative: it states what the code must look like and how to review it.
 
 ## How to consume these standards
 
