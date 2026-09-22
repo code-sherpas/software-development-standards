@@ -18,7 +18,7 @@ A consuming repository carries a section in its `AGENTS.md` that tells the agent
 
 At session start an agent reads this index anyway, so it compares that number against the version stated at the end of its own copy at no extra cost. When they differ, the copy in the repository is stale and the agent says so instead of silently working from outdated instructions.
 
-## Index (37 standards)
+## Index (38 standards)
 
 ### Domain model
 
@@ -66,6 +66,10 @@ At session start an agent reads this index anyway, so it compares that number ag
 - [Neverthrow Return Types](neverthrow-return-types.md) — Model every compatible function and method with `neverthrow` return types.
 - [Neverthrow Exception Wrapping](neverthrow-wrap-exceptions.md) — Capture recoverable exceptions with `neverthrow` helpers instead of ad hoc `try/catch`.
 - [Prefer Named Functions Over Anonymous Functions](prefer-named-functions.md) — When defining a function, prefer a named function over an anonymous one, regardless of the technology stack.
+
+### User interface
+
+- [Accessibility](accessibility.md) — Every interface shipped is accessible, targeting WCAG 2.2 Level AA: native semantics before ARIA, full keyboard operation, visible and unobscured focus, contrast and reflow, announced dynamic changes, and the criteria WCAG 2.2 added for dragging, target size, redundant entry and accessible authentication.
 
 ### Shipping changes
 
