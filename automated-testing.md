@@ -1,4 +1,4 @@
-# Meaningful Tests
+# Automated Testing
 
 ## Goal
 
@@ -8,7 +8,9 @@ The test that never fails costs more than no test: it takes time to write, time 
 
 ## What Counts as In Scope
 
-Any test being written, reviewed or repaired, at any level. It governs what a test asserts and how its doubles are built, not which tests to write or where they run.
+Any test being written, reviewed or repaired, at any level.
+
+This standard is where the organization's testing rules live, and it grows as they are decided. Today it covers **what a test asserts and how its doubles are built**. It does not yet cover which tests to write, where each kind runs, or what a suite is expected to include — when those are decided, they belong here.
 
 ## The Test Asserts Behaviour, Not Implementation
 

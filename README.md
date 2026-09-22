@@ -76,7 +76,7 @@ At session start an agent reads this index anyway, so it compares that number ag
 
 ### Testing
 
-- [Meaningful Tests](meaningful-tests.md) — A test earns its place by failing when the behaviour it describes breaks and not otherwise: assert what a caller can observe rather than how the subject is built, never assert on a double, and have each double name the situation instead of restating how it is assembled.
+- [Automated Testing](automated-testing.md) — Where the testing rules live, starting with what makes a test worth having: it fails when the behaviour it describes breaks and not otherwise, it asserts what a caller can observe rather than how the subject is built, it never asserts on a double, and each double names the situation instead of restating how it is assembled.
 - [Model-Interpreted Features](model-interpreted-features.md) — When a model interprets what the user asked, the feature ships a corpus and the corpus is the test suite: one table crossing the shapes an object can take with the kinds of request that stress it, split across unit tests that gate CI, a thin e2e subset, and an evaluation harness run by hand that names what it missed.
 
 ### Shipping changes
