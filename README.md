@@ -18,7 +18,7 @@ A consuming repository carries a section in its `AGENTS.md` that tells the agent
 
 At session start an agent reads this index anyway, so it compares that number against the version stated at the end of its own copy at no extra cost. When they differ, the copy in the repository is stale and the agent says so instead of silently working from outdated instructions.
 
-## Index (42 standards)
+## Index (43 standards)
 
 ### Domain model
 
@@ -76,6 +76,7 @@ At session start an agent reads this index anyway, so it compares that number ag
 
 ### Testing
 
+- [Meaningful Tests](meaningful-tests.md) — A test earns its place by failing when the behaviour it describes breaks and not otherwise: assert what a caller can observe rather than how the subject is built, never assert on a double, and have each double name the situation instead of restating how it is assembled.
 - [Model-Interpreted Features](model-interpreted-features.md) — When a model interprets what the user asked, the feature ships a corpus and the corpus is the test suite: one table crossing the shapes an object can take with the kinds of request that stress it, split across unit tests that gate CI, a thin e2e subset, and an evaluation harness run by hand that names what it missed.
 
 ### Shipping changes
