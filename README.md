@@ -70,7 +70,7 @@ At session start an agent reads this index anyway, so it compares that number ag
 ### User interface
 
 - [Accessibility](accessibility.md) — Every interface shipped is accessible, targeting WCAG 2.2 Level AA: native semantics before ARIA, full keyboard operation, visible and unobscured focus, contrast and reflow, announced dynamic changes, and the criteria WCAG 2.2 added for dragging, target size, redundant entry and accessible authentication.
-- [Internationalization](internationalization.md) — Every string a person reads is localized in every supported locale: the locales are one list that prose must not restate, keys are typed so a missing one does not compile, each concept has one catalogue and one resolver, the database stores keys rather than display text, and sentences are whole messages rather than concatenated fragments.
+- [Internationalization](internationalization.md) — Every string a person reads is localized in every supported locale: the locales are one list everything else derives from, keys are typed so a missing one does not compile, each concept has one catalogue and one resolver, the database stores keys rather than display text, and sentences are whole messages rather than concatenated fragments.
 
 ### Shipping changes
 

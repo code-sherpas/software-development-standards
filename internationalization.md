@@ -19,11 +19,7 @@ Out of scope: log lines, internal error identifiers, and developer-facing toolin
 
 ## The Supported Locales Are ONE List
 
-**There is exactly one place that says which locales exist, and everything else derives from it.** Declaring them a second time anywhere is how a locale comes to exist halfway.
-
-**The second list does not have to be code.** This is the part that gets missed, and it is worth stating plainly: prose counts. A sentence in a contributing guide that says "the three supported languages" is a second list, and it is the worst kind, because no test can fail on a sentence. It goes stale in silence while the code moves on, and the language that was added last ends up half-implemented because nobody ever read about it in an instruction.
-
-**If you write a number of locales, you have created the second list.** Write "every locale in the list" and name the list, never "all three" and never an enumeration.
+**There is exactly one place that says which locales exist, and everything else derives from it.** Anything that declares them again is how a locale comes to exist halfway.
 
 **Where the list lives matters.** It belongs where every consumer can read it and none of them owns it — not inside the frontend, not inside one service. And it has to be reachable from the tests: a list that can only be reached through a global mock is a list no test can check. If importing the real list from a test is impossible for a technical reason, that reason is a defect in where the list lives, not a fact to work around.
 
@@ -121,7 +117,6 @@ Temporal values themselves follow the project's temporal standards; this section
 When reading or reviewing a change that produces text, ask:
 
 - Is every visible string in the catalogues, in every locale the list declares?
-- Does anything in this change — code **or prose** — state which locales exist, or how many?
 - Is any sentence built by concatenation, or any plural decided by a conditional?
 - Does any key get built at runtime from a value?
 - Does this concept already have a catalogue and a resolver somewhere else?
