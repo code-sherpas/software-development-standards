@@ -12,25 +12,6 @@ Any test being written, reviewed or repaired, at any level.
 
 This standard is where the organization's testing rules live, and it grows as they are decided. Today it covers **what a test asserts and how its doubles are built**. It does not yet cover which tests to write, where each kind runs, or what a suite is expected to include — when those are decided, they belong here.
 
-## The Test Asserts Behaviour, Not Implementation
-
-**Describe what the subject does, not how it does it.** The name says the behaviour and the expected outcome; the assertion checks the outcome a caller could observe.
-
-A test coupled to implementation fails when nothing broke — a rename, an extracted function, a reordered call — and passing it again means editing the test until it agrees with the code, which is the moment it stops being evidence of anything.
-
-Signals that a test is asserting implementation:
-
-- it reaches into private state, or into a field no caller reads;
-- it asserts the **order** of calls that have no ordering requirement;
-- it asserts that a collaborator **was called**, when what matters is the result the caller gets;
-- it repeats the implementation inside the assertion, so both are wrong together and it still passes.
-
-## The Question That Settles It
-
-**Would this test still pass if I deleted the implementation it claims to test?**
-
-If yes, it is testing something else — a double, a fixture, the framework, or its own arrangement. Ask it of any test that looks suspicious, and of every test that has never failed.
-
 ## Do Not Test the Double
 
 A double stands in for a collaborator. Asserting on the double asserts on the arrangement, and the arrangement always agrees with itself.
@@ -42,23 +23,6 @@ Assert on **what the subject handed over** instead — that the collaborator was
 **Avoid doubling what does not need it.** A simple child, a pure function, a value object: using the real thing is cheaper to write and fails for real reasons. Reach for a double when the collaborator is slow, non-deterministic, remote, or hard to drive into the state you need.
 
 **Keep a double as simple as the test needs.** A double that simulates internal state, loading phases or timing is a second implementation, maintained forever, and wrong in ways nobody notices. For a callback, expose the smallest way to invoke it and nothing else.
-
-## A Double Names the Scenario, Not the Mechanics
-
-Give each collaborator its own double, next to the thing it doubles, and have that file expose **helpers named after the situation** rather than leaving every test to assemble the mechanics.
-
-```
-// The test says which situation it is in
-givenTheRequesterBelongsToTheOrganization()
-givenTheRequesterDoesNotBelongToTheOrganization()
-
-// rather than restating, in every test, how that situation is built
-collaborator.check.mockReturnValue(failureOf(new NotAuthorized("...")))
-```
-
-Three things improve at once: the test reads as the scenario it describes; the shape of a failure is defined once instead of copied into every test that needs it; and changing that shape does not touch the tests.
-
-Import the double before the production code it replaces when the test framework requires it, and prefer a dedicated double file over assembling one inline — an inline double is the copy that drifts.
 
 ## Cover the Failures, Not Only the Happy Path
 
