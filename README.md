@@ -18,7 +18,7 @@ A consuming repository carries a section in its `AGENTS.md` that tells the agent
 
 At session start an agent reads this index anyway, so it compares that number against the version stated at the end of its own copy at no extra cost. When they differ, the copy in the repository is stale and the agent says so instead of silently working from outdated instructions.
 
-## Index (43 standards)
+## Index (44 standards)
 
 ### Domain model
 
@@ -33,6 +33,7 @@ At session start an agent reads this index anyway, so it compares that number ag
 
 ### Business logic
 
+- [Dependency Direction](dependency-direction.md) — Business logic declares the interfaces it needs and infrastructure implements them from outside: the interface belongs to the caller rather than mirroring a vendor's API, the clock and the id generator are dependencies too, and adapters at the edge translate and delegate rather than decide.
 - [Business Logic](business-logic.md) — Define business logic as the rules, algorithms, and workflows in software that govern how data is created, stored, and transformed so real business policies become automated actions.
 - [Typical Domain-Entity Entry Points for Business Logic](business-logic-typical-domain-entity-entry-points.md) — When deciding which business-logic entry points to implement around a domain-entity type, prefer a standard set of entry points instead of inventing ad hoc operations.
 - [One Entry Point per Module for Business Logic](business-logic-entry-point-one-per-module.md) — Every business-logic entry point must be a separate module.
