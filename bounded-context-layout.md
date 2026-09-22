@@ -27,7 +27,7 @@ src/contexts/
     shared/                   what the context's own modules share
 ```
 
-**`domain`** — models, business rules, and the interfaces of the collaborators the business logic needs. It imports nothing from the other three.
+**`domain`** — [domain entities](domain-entity.md), often called models or domain models; [domain services](domain-service.md), for the logic that spans aggregates and belongs to no single one of them; business rules; and the interfaces of the collaborators the business logic needs. It imports nothing from the other three.
 
 **`application`** — the business-logic entry points, one per module, orchestrating the operation. See [One Entry Point per Module](business-logic-entry-point-one-per-module.md).
 
