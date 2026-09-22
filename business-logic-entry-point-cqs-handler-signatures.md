@@ -37,6 +37,8 @@ Always define a `...Command` or `...Query` type and use it as that single parame
 Examples:
 
 ```ts
+import { ResultAsync } from 'neverthrow'
+
 type CreateReservationCommand = {
   requesterId: RequesterId
   carClass: CarClass
@@ -44,9 +46,11 @@ type CreateReservationCommand = {
   endsAt: ZonedDateTime
 }
 
+type CreateReservationError = RequesterIsNotAuthorized | CarClassIsUnavailable
+
 function createReservationCommandHandler(
   command: CreateReservationCommand,
-): Promise<CreateReservationCommandHandlerSuccess> {
+): ResultAsync<CreateReservationCommandHandlerSuccess, CreateReservationError> {
   // ...
 }
 ```
@@ -72,6 +76,8 @@ On successful completion, use these return shapes:
 
 Use a named success type whenever the handler is allowed to return business data. The purpose is to keep the signature stable and consistent if the success result later needs to carry a more complex object with multiple fields.
 
+**In TypeScript and JavaScript the handler returns that success type inside a `ResultAsync`**, per [Neverthrow Return Types](neverthrow-return-types.md): the named success type is the success parameter, and the failure parameter is an explicit domain error type. Do not mark the handler `async`, and do not return `Promise<Result<...>>`. The TypeScript examples below show it; the examples in other languages show the shape of the signature and say nothing about their error model.
+
 ### Command Success Types
 
 For command handlers:
@@ -89,9 +95,11 @@ type ApproveOrderCommand = {
   approverId: UserId
 }
 
+type ApproveOrderError = OrderNotFound | OrderIsNotApprovable | ApproverIsNotAuthorized
+
 function approveOrderCommandHandler(
   command: ApproveOrderCommand,
-): Promise<void> {
+): ResultAsync<void, ApproveOrderError> {
   // ...
 }
 ```
@@ -119,9 +127,11 @@ type CreateOrderCommandHandlerSuccess = {
   orderId: OrderId
 }
 
+type CreateOrderError = CustomerNotFound | OrderLinesAreEmpty
+
 function createOrderCommandHandler(
   command: CreateOrderCommand,
-): Promise<CreateOrderCommandHandlerSuccess> {
+): ResultAsync<CreateOrderCommandHandlerSuccess, CreateOrderError> {
   // ...
 }
 ```
@@ -146,9 +156,11 @@ type FindOrderByIdQueryHandlerSuccess = {
   order: Order
 }
 
+type FindOrderByIdError = OrderNotFound | RequesterIsNotAuthorized
+
 function findOrderByIdQueryHandler(
   query: FindOrderByIdQuery,
-): Promise<FindOrderByIdQueryHandlerSuccess> {
+): ResultAsync<FindOrderByIdQueryHandlerSuccess, FindOrderByIdError> {
   // ...
 }
 ```
@@ -192,9 +204,11 @@ type SearchOrdersQueryHandlerSuccess = {
   totalCount: number
 }
 
+type SearchOrdersError = RequesterIsNotAuthorized | InvalidFilterAttribute
+
 function searchOrdersQueryHandler(
   query: SearchOrdersQuery,
-): Promise<SearchOrdersQueryHandlerSuccess> {
+): ResultAsync<SearchOrdersQueryHandlerSuccess, SearchOrdersError> {
   // ...
 }
 ```
