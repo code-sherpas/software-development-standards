@@ -42,6 +42,21 @@ If any of these conditions is not met, this standard does not apply.
    - Use the exact isolation level name or constant that the project's database and library expect.
    - Map the conceptual levels (READ UNCOMMITTED, READ COMMITTED, REPEATABLE READ) to the project's specific syntax.
 
+## Write Conflicts Are the Price of REPEATABLE READ
+
+Choosing REPEATABLE READ for command handlers comes with an obligation the caller has to honour: **when two transactions write the same row, the database aborts the loser and tells it to run again.** In PostgreSQL that is SQLSTATE `40001`.
+
+It is not a failure of the operation. It is the snapshot going stale, and the operation was correct — somebody simply got there first.
+
+**Retrying is opt-in, and it must stay opt-in.** A retry re-runs the transactional operation from the top. The database work is rolled back; anything the flow already did *outside* the database is not. A handler that opened an account with a payment provider, published a post or sent an email before the conflict would do it twice. Only the entry point knows whether its own flow can be replayed.
+
+When an entry point does opt in:
+
+1. **Re-read, inside the transactional operation, whatever you are about to write.** The point of running again is to work from a current snapshot. An entity captured before the transaction would write back exactly the state the winner had just moved on from — turning a conflict the database detected into a silent overwrite, which is worse than the conflict. A sweep that listed its rows up front re-reads each one when its turn comes, rather than reusing what the listing returned.
+2. **Tell the write that the failure is expected**, so a conflict that is recovered from does not reach error tracking — see [Expected Failure Reporting](expected-failure-reporting.md). The conflict that outlives every attempt is still reported, and that report is not optional.
+
+**Two writers on one row is a shape, not an accident.** The common one is a projection refreshed on demand by a screen and refreshed on a schedule by a background job. When a feature adds a second writer to a row, it needs this treatment. Entry points with a single writer surface a conflict as an ordinary error, which is the correct outcome for them.
+
 ## Delegation to the Database Transaction Standard
 
 The isolation level is set when calling `runWithinTransaction` from [Database Transaction for Business Logic Entry Points](business-logic-entry-point-database-transaction.md). That function takes an options object — which carries the isolation level — and the callback with the logic to execute inside the transaction. The isolation level rules remain the same: query handlers use the least blocking level, command handlers use REPEATABLE READ.
