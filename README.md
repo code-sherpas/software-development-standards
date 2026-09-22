@@ -18,7 +18,7 @@ A consuming repository carries a section in its `AGENTS.md` that tells the agent
 
 At session start an agent reads this index anyway, so it compares that number against the version stated at the end of its own copy at no extra cost. When they differ, the copy in the repository is stale and the agent says so instead of silently working from outdated instructions.
 
-## Index (40 standards)
+## Index (41 standards)
 
 ### Domain model
 
@@ -66,6 +66,7 @@ At session start an agent reads this index anyway, so it compares that number ag
 - [Neverthrow Return Types](neverthrow-return-types.md) — Model every compatible function and method with `neverthrow` return types.
 - [Neverthrow Exception Wrapping](neverthrow-wrap-exceptions.md) — Capture recoverable exceptions with `neverthrow` helpers instead of ad hoc `try/catch`.
 - [Prefer Named Functions Over Anonymous Functions](prefer-named-functions.md) — When defining a function, prefer a named function over an anonymous one, regardless of the technology stack.
+- [Expected Failure Reporting](expected-failure-reporting.md) — A component must not report a failure its caller is about to recover from: the severity of a failure is not knowable where it is raised, so the caller tells the operation when a failure is expected, and the predicate lives inside only when the failure always means the same thing there.
 
 ### User interface
 
