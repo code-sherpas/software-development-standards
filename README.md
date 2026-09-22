@@ -18,7 +18,7 @@ A consuming repository carries a section in its `AGENTS.md` that tells the agent
 
 At session start an agent reads this index anyway, so it compares that number against the version stated at the end of its own copy at no extra cost. When they differ, the copy in the repository is stale and the agent says so instead of silently working from outdated instructions.
 
-## Index (41 standards)
+## Index (42 standards)
 
 ### Domain model
 
@@ -67,6 +67,7 @@ At session start an agent reads this index anyway, so it compares that number ag
 - [Neverthrow Exception Wrapping](neverthrow-wrap-exceptions.md) — Capture recoverable exceptions with `neverthrow` helpers instead of ad hoc `try/catch`.
 - [Prefer Named Functions Over Anonymous Functions](prefer-named-functions.md) — When defining a function, prefer a named function over an anonymous one, regardless of the technology stack.
 - [Failure Reporting](failure-reporting.md) — A component fails whenever it cannot do its job, always; reporting that failure to observability is a separate decision, and it belongs to whoever knows the context, because the same error is an incident for one caller and an expected outcome for another.
+- [Serialization Boundaries](serialization-boundaries.md) — Whatever crosses a serialization boundary arrives as data and nothing else, losing methods, class identity, non-enumerable fields and the jurisdiction of the tools that enforced its guarantees: design what crosses so the domain survives, and rebuild the type on arrival through one door.
 
 ### User interface
 
