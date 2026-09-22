@@ -18,7 +18,7 @@ A consuming repository carries a section in its `AGENTS.md` that tells the agent
 
 At session start an agent reads this index anyway, so it compares that number against the version stated at the end of its own copy at no extra cost. When they differ, the copy in the repository is stale and the agent says so instead of silently working from outdated instructions.
 
-## Index (38 standards)
+## Index (39 standards)
 
 ### Domain model
 
@@ -70,6 +70,7 @@ At session start an agent reads this index anyway, so it compares that number ag
 ### User interface
 
 - [Accessibility](accessibility.md) — Every interface shipped is accessible, targeting WCAG 2.2 Level AA: native semantics before ARIA, full keyboard operation, visible and unobscured focus, contrast and reflow, announced dynamic changes, and the criteria WCAG 2.2 added for dragging, target size, redundant entry and accessible authentication.
+- [Internationalization](internationalization.md) — Every string a person reads is localized in every supported locale: the locales are one list that prose must not restate, keys are typed so a missing one does not compile, each concept has one catalogue and one resolver, the database stores keys rather than display text, and sentences are whole messages rather than concatenated fragments.
 
 ### Shipping changes
 
