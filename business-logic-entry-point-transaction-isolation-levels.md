@@ -53,7 +53,7 @@ It is not a failure of the operation. It is the snapshot going stale, and the op
 When an entry point does opt in:
 
 1. **Re-read, inside the transactional operation, whatever you are about to write.** The point of running again is to work from a current snapshot. An entity captured before the transaction would write back exactly the state the winner had just moved on from — turning a conflict the database detected into a silent overwrite, which is worse than the conflict. A sweep that listed its rows up front re-reads each one when its turn comes, rather than reusing what the listing returned.
-2. **Tell the write that the failure is expected**, so a conflict that is recovered from does not reach error tracking — see [Expected Failure Reporting](expected-failure-reporting.md). The conflict that outlives every attempt is still reported, and that report is not optional.
+2. **Tell the write that the failure is expected**, so a conflict that is recovered from does not reach error tracking — see [Failure Reporting](failure-reporting.md). The conflict that outlives every attempt is still reported, and that report is not optional.
 
 **Two writers on one row is a shape, not an accident.** The common one is a projection refreshed on demand by a screen and refreshed on a schedule by a background job. When a feature adds a second writer to a row, it needs this treatment. Entry points with a single writer surface a conflict as an ordinary error, which is the correct outcome for them.
 
