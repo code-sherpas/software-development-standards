@@ -26,7 +26,7 @@ Nothing in a repository enforces these gates. A platform with no branch protecti
 4. **If the change migrates already-stored data, you have run the migration yourself** against a dataset representing the variety of possible initial states, and verified the resulting data.
 5. **If the change can leave data behind that nothing will need again, it ships the mechanism that removes it** — and you have seen that mechanism delete something.
 6. **The diff is the change you think it is.** Not roughly — its file count and its deletions match what the change claims to do.
-7. **Every comment, suggestion or request the review raised has been read and attended to.** Attended to means acted on, or answered saying why not — by you, having read it. A thread marked resolved is not evidence of that, and neither is one gone outdated on its own; a bot's comment counts like anyone's, and green checks are not an answer to any of them, since the comment exists precisely where a check did not look.
+7. **Every comment, suggestion or request the review raised has been read and attended to, and every review thread is marked resolved.** Attended to means acted on, or answered saying why not — by you, having read it. Both halves are required and neither implies the other: an unresolved thread blocks the merge however well it was answered, and a thread marked resolved is not evidence that anyone attended to it, and neither is one gone outdated on its own. A bot's comment counts like anyone's, and green checks are not an answer to any of them, since the comment exists precisely where a check did not look.
 
 Conditions 3, 4 and 5 are the gates below, and they are verified by having done them. Verify 1, 2, 6 and 7 explicitly before merging.
 
@@ -54,8 +54,9 @@ git diff --name-status $(git merge-base origin/main <branch>) <branch>
 gh api repos/{owner}/{repo}/pulls/<pr-number>/comments \
   --jq '.[] | "\(.user.login)\t\(.path)\t\(.body[0:200] | gsub("\n";" "))"'
 
-# …and which of those threads is still open. Resolution is not on the REST
-# comment, only on the GraphQL thread that groups them.
+# …and which of those threads is still open. This must print nothing: any
+# UNRESOLVED line blocks the merge. Resolution is not on the REST comment, only
+# on the GraphQL thread that groups them.
 gh api graphql -F owner={owner} -F repo={repo} -F pr=<pr-number> -f query='
   query($owner:String!,$repo:String!,$pr:Int!){ repository(owner:$owner,name:$repo){
     pullRequest(number:$pr){ reviewThreads(first:100){ nodes{
@@ -68,8 +69,9 @@ gh api graphql -F owner={owner} -F repo={repo} -F pr=<pr-number> -f query='
 - **Do not trust the platform's merge-state field for condition 1.** GitHub only reports `BEHIND` when the base branch *requires* branches to be up to date; with no branch protection a behind pull request still reports `CLEAN` or `UNSTABLE`. Compare commits instead.
 - **A cancelled check is not a passed check.** A workflow with `cancel-in-progress: true` cancels the previous run on every new push — re-run it, don't waive it.
 - **To bring a change up to date**, merge the main branch into it (or rebase it) and push. Then wait: checks that were green against the old base must run again against the new head.
+- **Resolve a thread only after attending to it.** Mark it resolved once you have acted on it or answered it, not to clear the list. If you answered saying why not and the reviewer disagrees, the thread is not settled: leave it open until you have agreed on it.
 - **Never use auto-merge.** It fires as soon as the platform's requirements are met, and with no branch protection there are none — it merges immediately, behind and red included. Inspect the checks and merge manually.
-- **Re-read the threads after satisfying condition 1.** Rebasing or merging the main branch in moves the lines, the platform marks the threads outdated, and an outdated thread scrolls past as if it had been dealt with. Condition 7 is also where a bot comment matters most: a scanner whose findings arrive only as review comments is invisible to every check.
+- **Re-read the threads after satisfying condition 1.** Rebasing or merging the main branch in moves the lines, the platform marks the threads outdated, and an outdated thread scrolls past as if it had been dealt with. Outdated is not resolved: it still has to be attended to and marked resolved. Condition 7 is also where a bot comment matters most: a scanner whose findings arrive only as review comments is invisible to every check.
 
 ### Why condition 6 exists: green checks do not mean the diff is what you think
 
@@ -218,7 +220,7 @@ Before integrating, ask:
 
 - Does the head contain the tip of the main branch, and has every check concluded successfully?
 - Do the diff's file count and deletions match what the change claims to do?
-- Has every review comment been read and attended to, including the bots' and the ones the platform marked outdated?
+- Has every review comment been read and attended to, including the bots' and the ones the platform marked outdated — and is every review thread marked resolved?
 - Did *you* run the pre-merge plan, or exercise the change by hand, and observe the outcomes?
 - If data already stored is transformed: did you run the migration against a dataset containing the old shape, the already-migrated shape, the absent, the broken, and what must not be touched — and assert on the resulting counts?
 - If the change can leave data behind: did you name the mechanism that removes it, and watch it delete something?
