@@ -6,6 +6,8 @@ Before a change enters the main branch, five gates must hold. They are hard gate
 
 The gates are executed by whoever *integrates* the change, not by whoever wrote it. A report from the author, from a previous session, or from another agent is evidence about their run, not yours.
 
+The gates end where the main branch begins. What happens after the change deploys — using it in production the way its consumers do — is [Post-Deploy Verification](post-deploy-verification.md), and a change is not done until that holds too.
+
 ## What Counts as In Scope
 
 Every route into the main branch, without exception:
