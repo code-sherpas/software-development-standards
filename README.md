@@ -18,7 +18,7 @@ A consuming repository carries a section in its `AGENTS.md` that tells the agent
 
 At session start an agent reads this index anyway, so it compares that number against the version stated at the end of its own copy at no extra cost. When they differ, the copy in the repository is stale and the agent says so instead of silently working from outdated instructions.
 
-## Index (46 standards)
+## Index (47 standards)
 
 ### Domain model
 
@@ -85,6 +85,7 @@ At session start an agent reads this index anyway, so it compares that number ag
 
 - [Pre-Merge Gates](pre-merge-gates.md) — Before a change enters the main branch, five gates must hold: the change is ready to merge, its pre-merge plan was run by whoever integrates it, it was exercised by hand, any data migration was run against a representative dataset, and any data it leaves behind ships the mechanism that removes it.
 - [Post-Deploy Verification](post-deploy-verification.md) — A change is done only once it has been used in production the way its real consumers use it — a person through the interface, another application through its contract, an agent through its path — on a deploy confirmed to carry it, with dedicated test accounts, and when it fails the person is told with the evidence and decides whether to revert.
+- [Stacked Pull Requests](stacked-pull-requests.md) — Stack a pull request only on a change it depends on: no global stack, one stack per line of work, fixes made in the layer they belong to, every layer validated against the stack's base, and merging a layer integrates — and gates — every layer below it.
 
 ### Integration
 
