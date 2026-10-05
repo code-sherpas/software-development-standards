@@ -13,7 +13,7 @@ The gates end where the main branch begins. What happens after the change deploy
 Every route into the main branch, without exception:
 
 - merging a pull request or merge request, or asking the platform to merge one;
-- merging a layer of a stacked pull request, which integrates every unmerged layer below it — see [Stacked Pull Requests](stacked-pull-requests.md);
+- merging a layer of a stack of changes, which integrates every unmerged layer below it — see [Stacked Changes](stacked-changes.md);
 - committing or pushing directly to the main branch in trunk-based mode;
 - fast-forwarding, rebasing or cherry-picking commits onto the main branch, locally or remotely.
 
