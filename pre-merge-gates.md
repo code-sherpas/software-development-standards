@@ -12,7 +12,7 @@ The gates end where the main branch begins. What happens after the change deploy
 
 Every route into the main branch, without exception:
 
-- merging a pull request or merge request, or asking the platform to merge one;
+- merging a pull request or merge request, or asking the platform to merge one — and adding one to a merge queue is asking;
 - merging a layer of a stack of changes, which integrates every unmerged layer below it — see [Stacked Changes](stacked-changes.md);
 - committing or pushing directly to the main branch in trunk-based mode;
 - fast-forwarding, rebasing or cherry-picking commits onto the main branch, locally or remotely.
@@ -21,10 +21,10 @@ Nothing in a repository enforces these gates. A platform with no branch protecti
 
 ## Gate 1: The Change Is Ready to Merge
 
-**Do not merge a pull request — and do not ask the platform to merge it for you — unless all seven conditions hold:**
+**Do not merge a change request — and do not ask the platform to merge it for you, which includes adding it to a merge queue — unless all seven conditions hold:**
 
-1. **The head already contains the tip of the main branch.** A branch cut before the current main was validated against a base that no longer exists.
-2. **Every check has concluded successfully.** Not pending, not failing, not cancelled, not skipped.
+1. **The tree that will land contains the tip of the main branch.** A change validated on a base that no longer exists was validated against nothing that will run.
+2. **Every check the main branch requires has concluded successfully on the tree that will land.** Not pending, not failing, not cancelled, not skipped.
 3. **You have exercised the change yourself, locally** — its pre-merge plan if it has one, and by hand in the running application unless it is evident that the change cannot introduce a regression, even with no plan written.
 4. **If the change migrates already-stored data, you have run the migration yourself** against a dataset representing the variety of possible initial states, and verified the resulting data.
 5. **If the change can leave data behind that nothing will need again, it ships the mechanism that removes it** — and you have seen that mechanism delete something.
@@ -33,7 +33,21 @@ Nothing in a repository enforces these gates. A platform with no branch protecti
 
 Conditions 3, 4 and 5 are the gates below, and they are verified by having done them. Verify 1, 2, 6 and 7 explicitly before merging.
 
+### Who verifies conditions 1 and 2 depends on the route
+
+Conditions 1 and 2 are about **the tree the main branch will have once the change lands**, not about any particular branch. What changes from one route to another is which tree that is, and who can see it before it lands:
+
+- **Merging the change request directly.** The tree that lands is the change request's head, as the platform will merge it. You verify both conditions on that head, explicitly, before merging — with the commands below.
+- **Through a merge queue.** The tree that lands is the one the queue builds: the main branch, the changes ahead in the queue, and this one. Only the queue can see that tree, so the queue verifies both conditions. A check that did not run, or was skipped, on the change request's own head does not break condition 2 here, because that head is not what lands. What you verify instead is that the queue can be trusted with it:
+  - the queue waits for **every check the main branch requires**, and every one of them runs on the queue's build. A queue configured to wait for nothing validates nothing, and a check skipped on the queue's build is not a passed check;
+  - nothing lands on the main branch except through the queue — or every route that bypasses it is a known, accepted risk, written down where the team can see it.
+- **Pushing directly to the main branch.** The tree that lands is the commit you push. Verify both conditions on that commit: it contains the remote tip of the main branch, and the checks ran on it before the push.
+
+**Adding a change to a merge queue is asking for the merge.** Everything else in this standard — conditions 3 to 7, and Gates 2 to 5 — holds *before* you add it, because nothing after that point waits for you.
+
 ### Verifying conditions 1, 2, 6 and 7 on GitHub
+
+Conditions 1 and 2 below are for merging the change request directly. Through a merge queue, verify the queue instead — see the block after this one. Conditions 6 and 7 are verified the same way on every route.
 
 ```bash
 # 1. Is the head up to date with main? `behind_by` must be 0.
@@ -69,11 +83,25 @@ gh api graphql -F owner={owner} -F repo={repo} -F pr=<pr-number> -f query='
         | "UNRESOLVED\t\(.comments.nodes[0].author.login)\t\(.path)"'
 ```
 
+Through a merge queue, conditions 1 and 2 rest on how the queue is configured, so read the configuration rather than trusting it:
+
+```bash
+# Does the main branch require a merge queue, and which checks must pass?
+# Both rules must appear, and every required check must be one the queue's
+# build (the `merge_group` event) actually reports.
+gh api repos/{owner}/{repo}/rules/branches/main \
+  --jq '.[] | select(.type == "merge_queue" or .type == "required_status_checks")'
+
+# Who can bypass it? Anyone listed lands on the main branch without the queue.
+gh api repos/{owner}/{repo}/rulesets --jq '.[] | {name, id}'
+gh api repos/{owner}/{repo}/rulesets/<ruleset-id> --jq '.bypass_actors'
+```
+
 - **Do not trust the platform's merge-state field for condition 1.** GitHub only reports `BEHIND` when the base branch *requires* branches to be up to date; with no branch protection a behind pull request still reports `CLEAN` or `UNSTABLE`. Compare commits instead.
 - **A cancelled check is not a passed check.** A workflow with `cancel-in-progress: true` cancels the previous run on every new push — re-run it, don't waive it.
-- **To bring a change up to date**, merge the main branch into it (or rebase it) and push. Then wait: checks that were green against the old base must run again against the new head.
+- **To bring a change up to date**, merge the main branch into it (or rebase it) and push. Then wait: checks that were green against the old base must run again against the new head. A merge queue does this for you: it builds every entry on top of the current main branch.
 - **Resolve a thread only after attending to it.** Mark it resolved once you have acted on it or answered it, not to clear the list. If you answered saying why not and the reviewer disagrees, the thread is not settled: leave it open until you have agreed on it.
-- **Never use auto-merge.** It fires as soon as the platform's requirements are met, and with no branch protection there are none — it merges immediately, behind and red included. Inspect the checks and merge manually.
+- **Never use auto-merge outside a merge queue.** It fires as soon as the platform's requirements are met, and with no branch protection there are none — it merges immediately, behind and red included. Inspect the checks and merge manually. A merge queue is different because it does not merge when the change request's own requirements are met: it merges once its own build of the tree that will land has passed every required check, which is what conditions 1 and 2 ask for. That holds only while the queue is configured as described above.
 - **Re-read the threads after satisfying condition 1.** Rebasing or merging the main branch in moves the lines, the platform marks the threads outdated, and an outdated thread scrolls past as if it had been dealt with. Outdated is not resolved: it still has to be attended to and marked resolved. Condition 7 is also where a bot comment matters most: a scanner whose findings arrive only as review comments is invisible to every check.
 
 ### Why condition 6 exists: green checks do not mean the diff is what you think
@@ -221,7 +249,8 @@ If the data is evidence of a failure, an audit trail, or the only record that so
 
 Before integrating, ask:
 
-- Does the head contain the tip of the main branch, and has every check concluded successfully?
+- Does the tree that will land contain the tip of the main branch, and has every required check concluded successfully on it — on the head when merging directly, on the queue's build when the change goes through a merge queue?
+- If it goes through a merge queue: does the queue wait for every required check, does every one of them run on the queue's build, and is every route around the queue a written, accepted risk?
 - Do the diff's file count and deletions match what the change claims to do?
 - Has every review comment been read and attended to, including the bots' and the ones the platform marked outdated — and is every review thread marked resolved?
 - Did *you* run the pre-merge plan, or exercise the change by hand, and observe the outcomes?
@@ -234,7 +263,7 @@ If the answer to any of them is no, the integration is off.
 
 When integrating a change, state:
 
-- which conditions of Gate 1 you verified, and how;
+- which conditions of Gate 1 you verified, and how — and, for a change that went through a merge queue, how you checked that the queue waits for every required check;
 - which pre-merge plan you ran, or how you exercised the change by hand, and what you observed;
 - for a data migration: what the starting dataset contained, and the counts before and after;
 - for leftover data: which mechanism removes it, and what you saw it delete;
