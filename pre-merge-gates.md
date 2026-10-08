@@ -192,6 +192,8 @@ The two gates above are about the application: they ask whether the screen still
 
 Purely additive DDL that touches no existing row is out of scope: a new nullable column with no backfill, a new empty table, a new index. **If it ships with a backfill, it is not additive.**
 
+This gate asks whether the data survives the migration. Whether the version still running survives it is a separate question, and a change that removes, renames or narrows what that version reads must also follow [Expand-Contract Schema Changes](expand-contract-schema-changes.md).
+
 **What counts as a representative starting dataset.** For every initial state the migration can meet, it must contain at least one row or object:
 
 - **the old shape** — what the migration is supposed to transform;
