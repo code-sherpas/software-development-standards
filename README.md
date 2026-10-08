@@ -90,7 +90,7 @@ At session start an agent reads this index anyway, so it compares that number ag
 
 ### Operations
 
-- [Error Report Triage](error-report-triage.md) — When an error is reported, first find out whether it is already resolved; if not, gather every fact the system holds, find its duplicates, and decide whether it is the application's error, the user's — whose report is removed and whose repetition is made less likely, never by making it the application's — or neither; then record it as a defect task written in domain language, with root cause, reporting point and sourced evidence, and ask before starting the fix.
+- [Fixing Reported Errors](fixing-reported-errors.md) — When an error is reported, first find out whether it is already resolved; if not, gather every fact the system holds, find its duplicates, reproduce it, and decide whether it is the application's error, the user's — whose report is removed and whose repetition is made less likely, never by making it the application's — or neither; record it as a defect task written in domain language, with root cause, reporting point, the layer that owns the fix and sourced evidence, and ask before starting the fix; then fix it at that layer with its regression test, and close the task only once the deploy is live and the error has stayed quiet.
 
 ### Integration
 
