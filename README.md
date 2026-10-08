@@ -18,7 +18,7 @@ A consuming repository carries a section in its `AGENTS.md` that tells the agent
 
 At session start an agent reads this index anyway, so it compares that number against the version stated at the end of its own copy at no extra cost. When they differ, the copy in the repository is stale and the agent says so instead of silently working from outdated instructions.
 
-## Index (48 standards)
+## Index (49 standards)
 
 ### Domain model
 
@@ -87,6 +87,10 @@ At session start an agent reads this index anyway, so it compares that number ag
 - [Post-Deploy Verification](post-deploy-verification.md) — A change is done only once it has been used in production the way its real consumers use it — a person through the interface, another application through its contract, an agent through its path — on a deploy confirmed to carry it, with dedicated test accounts, and when it fails the person is told with the evidence and decides whether to revert.
 - [Stacked Changes](stacked-changes.md) — Stack a change only on a change it depends on, whatever the platform calls it — a pull request, a merge request: no global stack, one stack per line of work, every layer validated against the stack's base, merge the lowest ready layer one at a time, and a group lands only when all of it is verified and it is one change in production.
 - [Expand-Contract Schema Changes](expand-contract-schema-changes.md) — During a deploy two versions run against the same storage, so a change that removes, renames or narrows anything stored is split across deploys — expand, migrate, contract — the contract step names the deploy that removed the last reader, and the repository enforces it with an automated check.
+
+### Operations
+
+- [Error Report Triage](error-report-triage.md) — When an error is reported, first find out whether it is already resolved; if not, gather every fact the system holds, find its duplicates, and decide whether it is the application's error, the user's — whose report is removed and whose repetition is made less likely, never by making it the application's — or neither; then record it as a defect task written in domain language, with root cause, reporting point and sourced evidence, and ask before starting the fix.
 
 ### Integration
 
