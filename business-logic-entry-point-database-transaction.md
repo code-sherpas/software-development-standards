@@ -23,6 +23,25 @@ This exception is **only** for handlers that perform no writes. Command handlers
 
 When a handler reads over the pool, its repository read methods must work **without** a transaction. Keep the transaction parameter optional and fall back to the pooled client when it is absent, so the same repository method serves both a command handler's transaction and a query handler's pooled read (this composes with the optional-transaction shape the execution-context and repository standards already describe).
 
+## Exception: reads from another service happen before the transaction, not inside it
+
+A business-logic entry point that needs an answer from another service — a payment processor, an identity provider, any remote API — to decide what to write MUST NOT keep a database transaction open while it waits for that answer. It asks first, outside any transaction, and then opens a short transaction that does the database work.
+
+The rationale:
+
+- **A transaction cannot undo a call to another service.** Rolling back the database does not take back what the other service did or said, so keeping the call inside the transaction buys no atomicity.
+- **An open transaction pins a pooled connection for as long as the other service takes**, and holds its snapshot for that long. Remote latency becomes pool exhaustion and wider write-conflict windows.
+- **The ORM expires a transaction that stays open past its limit.** Measured in this organization: three reads from a payment processor took 5.2 s together, the write that followed landed on a transaction the ORM had already expired after 5 s, and the record stayed stale. Raising the limit only moves the cliff, unless every call also has a deadline — and then the connection is still held until it.
+
+The exception covers only calls that **change nothing at the other service** — retrievals. A call that creates, charges, sends or publishes is a side effect, and where it sits relative to the transaction is a separate decision.
+
+When an entry point takes this exception:
+
+1. **Decide inside a transaction, ask outside it, write inside another.** Everything the entry point checks before asking — authentication, authorization, feature availability, whether the work is needed at all — stays in a transaction (or a pooled read, for a query handler). The call to the other service happens after it closes. The write gets a transaction of its own.
+2. **The write transaction re-reads what it is about to change and revalidates it** against what the question was based on. If the record moved on while the other service was answering — it now refers to a different external object, say — the answer describes a state that no longer exists: write nothing, and let the next run ask again. Writing it anyway would undo the change that happened in between.
+3. **Every call to the other service has a deadline**, so a service that never answers cannot hold the entry point — or a job that runs entry points one after another — indefinitely.
+4. **The write transaction can be retried on a write conflict** under the rules in [Transaction Isolation Levels](business-logic-entry-point-transaction-isolation-levels.md): it re-reads, so a retry starts from the current state, and it does not call the other service again.
+
 ## What Counts as In Scope
 
 Apply this standard to code that does one or more of these things:
@@ -231,6 +250,7 @@ When reading or reviewing code, ask:
 - Is the entire flow wrapped in a single transaction?
 - Is the transaction opened at the entry-point level, not inside inner helpers?
 - Do all database-accessing steps, including business constraints, run inside the transaction?
+- Does the entry point wait for another service while a transaction is open? If it reads from one, does it ask before the transaction, and does the write revalidate what the answer was based on?
 - Is the project's existing transaction mechanism used?
 
 If the answer is yes, apply this standard.
