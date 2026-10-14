@@ -2,7 +2,7 @@
 
 ## Goal
 
-Before a change enters the main branch, five gates must hold. They are hard gates, not formalities: each one covers a failure that no automated check in a normal project ever looks at.
+Before a change enters the main branch, six gates must hold. They are hard gates, not formalities: each one covers a failure that no automated check in a normal project ever looks at.
 
 The gates are executed by whoever *integrates* the change, not by whoever wrote it. A report from the author, from a previous session, or from another agent is evidence about their run, not yours.
 
@@ -21,7 +21,7 @@ Nothing in a repository enforces these gates. A platform with no branch protecti
 
 ## Gate 1: The Change Is Ready to Merge
 
-**Do not merge a change request — and do not ask the platform to merge it for you, which includes adding it to a merge queue — unless all seven conditions hold:**
+**Do not merge a change request — and do not ask the platform to merge it for you, which includes adding it to a merge queue — unless all eight conditions hold:**
 
 1. **The tree that will land contains the tip of the main branch.** A change validated on a base that no longer exists was validated against nothing that will run.
 2. **Every check the main branch requires has concluded successfully on the tree that will land.** Not pending, not failing, not cancelled, not skipped.
@@ -30,8 +30,9 @@ Nothing in a repository enforces these gates. A platform with no branch protecti
 5. **If the change can leave data behind that nothing will need again, it ships the mechanism that removes it** — and you have seen that mechanism delete something.
 6. **The diff is the change you think it is.** Not roughly — its file count and its deletions match what the change claims to do.
 7. **Every comment, suggestion or request the review raised has been read and attended to, and every review thread is marked resolved.** Attended to means acted on, or answered saying why not — by you, having read it. Both halves are required and neither implies the other: an unresolved thread blocks the merge however well it was answered, and a thread marked resolved is not evidence that anyone attended to it, and neither is one gone outdated on its own. A bot's comment counts like anyone's, and green checks are not an answer to any of them, since the comment exists precisely where a check did not look.
+8. **If the change adds or changes an entry point, or what one returns, you have called it as someone who must be refused**, seen the refusal, and checked that nobody receives data that is not theirs.
 
-Conditions 3, 4 and 5 are the gates below, and they are verified by having done them. Verify 1, 2, 6 and 7 explicitly before merging.
+Conditions 3, 4, 5 and 8 are the gates below, and they are verified by having done them. Verify 1, 2, 6 and 7 explicitly before merging.
 
 ### Who verifies conditions 1 and 2 depends on the route
 
@@ -43,7 +44,7 @@ Conditions 1 and 2 are about **the tree the main branch will have once the chang
   - nothing lands on the main branch except through the queue — or every route that bypasses it is a known, accepted risk, written down where the team can see it.
 - **Pushing directly to the main branch.** The tree that lands is the commit you push. Verify both conditions on that commit: it contains the remote tip of the main branch, and the checks ran on it before the push.
 
-**Adding a change to a merge queue is asking for the merge.** Everything else in this standard — conditions 3 to 7, and Gates 2 to 5 — holds *before* you add it, because nothing after that point waits for you.
+**Adding a change to a merge queue is asking for the merge.** Everything else in this standard — conditions 3 to 8, and Gates 2 to 6 — holds *before* you add it, because nothing after that point waits for you.
 
 ### Verifying conditions 1, 2, 6 and 7 on GitHub
 
@@ -247,6 +248,42 @@ If the data is evidence of a failure, an audit trail, or the only record that so
 
 **Why this rule exists.** Nothing warns you. An orphan breaks no test, fails no check, and costs nothing the day it is created — it surfaces later as a bill, as an erasure request that cannot find data the domain no longer points at, or as a migration blocked on rows whose meaning is gone with the person who wrote them. Sweep jobs tend to be written **after** their orphans appeared, which is the pattern this gate exists to break. And object storage does not clean itself: unless a bucket carries a lifecycle rule, every byte that leaves is a byte someone explicitly deleted.
 
+## Gate 6: You Have Exercised the Paths That Must Be Refused
+
+Gates 2 and 3 exercise the change as someone who is allowed to use it. From there a fault in access control — [OWASP A01:2025 Broken Access Control](https://top10.owasp.org/2025/A01_2025-Broken_Access_Control/) — is invisible: the person who may do something sees exactly the same thing whether or not everybody else may too. It is Gate 3 again, from the side of whoever must not get through.
+
+**You MUST NOT integrate a change that adds or changes an entry point, or changes what one returns, until you have called it as someone who must be refused and seen the refusal, and have checked that nobody receives data that is not theirs.**
+
+**What counts as an entry point.** Anything a caller outside the process can invoke: an HTTP endpoint, an RPC, a GraphQL resolver, a server-side action a page posts to, a webhook receiver, a message consumer, a page or component rendered on the server that reads data for the request. **What one returns** changes when a response gains a field, a query widens, a relation is loaded into it, or an entity is returned whole where a reduced version used to be.
+
+A change that touches no entry point and no response is out of scope — say so when integrating it. Gate 3's closed list of exemptions applies here unchanged.
+
+**Who must be refused.** Take it from the entry point's authorization rule — the one its task writes down and its [authorization constraint](business-logic-ensure-authorized-requester.md) encodes — and cover every distinction the rule draws. Typically:
+
+- **nobody** — no session, or an expired one;
+- **someone from another tenant or organization**, asking for this one's resource by its identifier;
+- **someone in the same tenant whose role does not allow the action**;
+- **someone who may see the resource but not do this to it** — read but not write, attend but not host;
+- **another member**, when the action belongs to the resource's owner.
+
+**Call the operation, not the screen.** A screen that hides the button protects nothing: the operation behind it is still reachable. Send the request the interface would send — same endpoint, same payload, someone else's identifier where the rule says it must not be accepted — with the refused identity's credentials. That the control does not appear is Gate 3's business, and no evidence here.
+
+**What counts as having seen the refusal:**
+
+- the response is the refusal the project models — its not-authorized or not-authenticated error — not a generic failure, and not a crash that happens to stop the operation;
+- **nothing changed**: check the stored state, not only the response. A write that happened before the check, or half of it, is the defect;
+- a resource that belongs to another tenant is not confirmed to exist by the refusal, when the project's rule says it must not be.
+
+**Nobody receives what is not theirs.** For every response the change adds or widens, call it as each role that can reach it and read the payload itself — the raw response, not the screen. A field the interface does not render has still been sent. A list holds only the rows that caller may see; an entity returned to a role entitled to a reduced version carries only that version.
+
+**An automated test counts as the exercise only if it does what the steps above ask**: it calls the real entry point as the refused identity, and asserts the refusal and the unchanged state. Name it. A test of the authorization rule with the entry point's collaborators doubled does not count — it proves the rule, not that the entry point applies it.
+
+**Write down what you ran.** As with Gate 3, put the refused calls in the change's pre-merge plan — the identity, the request, the refusal expected — so whoever integrates next inherits them instead of re-deriving them.
+
+**If you cannot exercise it autonomously and reliably** — no second account, no second tenant, no way to send the request outside the interface — **stop and ask for what you need**, with the same four points as Gate 2. Waiving this gate is the user's call and must be explicit.
+
+**Why this rule exists.** Every other check runs as someone who may. A type checker and a linter do not know an authorization check is missing; a unit test of a rule with its collaborators doubled passes whether or not the entry point calls the rule; end-to-end specs are written for the person the feature is for; and a reviewer reads the code that is there, not the line that is not. A missing check is an absence, and an absence only shows when someone who must be refused tries. **Measured in this organization:** a server-side action that created organizations relied on the guard in the layout of the admin area that showed it. The action's request does not run the layout, so any signed-in person who sent it created an organization. The screen was correct, every check was green, and the operation was open to everyone.
+
 ## Review Questions
 
 Before integrating, ask:
@@ -258,6 +295,7 @@ Before integrating, ask:
 - Did *you* run the pre-merge plan, or exercise the change by hand, and observe the outcomes?
 - If data already stored is transformed: did you run the migration against a dataset containing the old shape, the already-migrated shape, the absent, the broken, and what must not be touched — and assert on the resulting counts?
 - If the change can leave data behind: did you name the mechanism that removes it, and watch it delete something?
+- If the change adds or changes an entry point, or what one returns: did you call it — the operation, not the screen — as each identity its rule must refuse, see the refusal and the unchanged state, and read what every role that can reach it receives?
 
 If the answer to any of them is no, the integration is off.
 
@@ -269,4 +307,5 @@ When integrating a change, state:
 - which pre-merge plan you ran, or how you exercised the change by hand, and what you observed;
 - for a data migration: what the starting dataset contained, and the counts before and after;
 - for leftover data: which mechanism removes it, and what you saw it delete;
+- for an entry point or a response: which identities you called it as, what each received, and that the refused ones changed nothing — or that the change touches no entry point and no response;
 - any gate that was waived, who waived it, and in which words.
