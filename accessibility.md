@@ -88,6 +88,7 @@ Out of scope: code with no user-facing surface — a repository, a migration, a 
 - **Authentication does not require a cognitive function test** (3.3.8): no puzzle, no transcription, no memorising a code across screens, unless an alternative exists. **Allow paste in password and one-time-code fields** — blocking it breaks password managers and is the most common way this criterion fails.
 - **Help is in the same place on every page** (3.2.6): contact, support link, chat — consistent relative order, not a different corner per screen.
 - Actions that are legal, financial or destructive are reversible, confirmed, or checked for errors before submission.
+- **A switch names what turning it on does, and on means something becomes possible** (2.4.6, 3.3.2). Name the capability, not the restriction: "Send messages in the chat", on by default, rather than "Block the chat". The text beside the switch says what happens in its current state, and changes with it. A switch whose on state removes something makes its off state a double negative — off means "not blocked" — and the person has to stop and work out which way it goes. Two cases are not switches of this kind: a one-off action that restricts ("Mute everyone") is a button, and a mode with a name of its own ("Exam mode") may turn several restrictions on, because its name says so.
 
 ## Dynamic Content and Announcements
 
@@ -140,6 +141,7 @@ When reading or reviewing a change that touches an interface, ask:
 - Is anything that changes dynamically announced, from a live region that already existed?
 - Are pointer targets at least 24×24, or spaced so they behave as if they were?
 - Does authentication allow paste, and does the form avoid asking twice for the same thing?
+- Does every switch say what turning it on does, and does on make something possible rather than take it away?
 
 ## Report the Outcome
 
