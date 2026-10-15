@@ -41,6 +41,8 @@ Out of scope: how to split a change into commits within one change request.
 
 **Keep stacks short and land them from the bottom.** A layer that is ready merges; it does not wait for the rest to be written. A stack that keeps growing while nothing lands is the global stack again, owned by one person.
 
+**A small piece of a lower layer is not a reason to stack the whole change on it.** When what the new change needs from a layer below is a helper, a hook, a query or a field — not the layer's behaviour — land that piece on its own first, or write the change against the trunk without it. Stacked on the whole layer, the change waits for everything below it to be reviewed, verified and merged, for the sake of a few lines. Measured in this organization: a change needing two small pieces of the layer below waited behind four layers of it, each landing one queue build after the other.
+
 **If a dependency turns out not to exist, take the change request out of the stack** and retarget it to the trunk, rather than letting the stack carry it.
 
 ## Working Inside a Stack
