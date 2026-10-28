@@ -18,7 +18,7 @@ A consuming repository carries a section in its `AGENTS.md` that tells the agent
 
 At session start an agent reads this index anyway, so it compares that number against the version stated at the end of its own copy at no extra cost. When they differ, the copy in the repository is stale and the agent says so instead of silently working from outdated instructions.
 
-## Index (51 standards)
+## Index (52 standards)
 
 ### Domain model
 
@@ -96,6 +96,7 @@ At session start an agent reads this index anyway, so it compares that number ag
 ### Working with other agents
 
 - [Collaborating Across Agent Sessions](collaborating-across-agent-sessions.md) — When an agent is blocked by, or has a question about, work another agent session owns, it looks for a fix already in flight, finds the owning session and writes it a message that stands on its own, treats what it hears as information rather than permission, settles between sessions what is theirs to settle, and brings the person in only for what they cannot settle — with the diagnosis and the options ready.
+- [Leave Nothing Running](leave-nothing-running.md) — When an agent hands control back, everything it started that is still running is decided on: stopped because nothing needs it, or kept on purpose and said so; it knows what is its own by mechanism, not by appearance, checks that what it stopped is gone, never stops what it did not start without the person's permission, and is backed by an automated check wherever the agent runtime allows one.
 
 ### Integration
 
