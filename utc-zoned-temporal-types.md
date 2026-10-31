@@ -6,6 +6,12 @@ When the stack supports timezone-aware built-in or standard-library temporal typ
 
 Treat this standard as normalization guidance for timezone-aware temporal values. The key question is whether the code can use a built-in temporal type that carries timezone semantics. If it can, represent the value in UTC instead of server-local time, user-local time, or an arbitrary geographic timezone.
 
+**This standard governs instants, not civil times.** An instant is a point on the global timeline whose meaning does not depend on any region's clock rules: when a record was created, when a payment settled, when a lease expires, when a timer ends. Normalizing an instant to UTC loses nothing.
+
+A **civil time** is a wall-clock time a person chose in a place — "Tuesday at 18:00 in Madrid" for a lesson, an appointment, a recurring meeting. What that person fixed is the reading on Madrid's clock, not an instant, and the instant it maps to changes whenever Madrid's rules change between the moment it is stored and the moment it happens. Storing it as a UTC instant keeps the instant and silently moves the meeting. Civil times are out of scope here: they are stored as a local date-time plus a geographic timezone, as [Built-In Temporal Types](built-in-temporal-types.md) describes.
+
+The test: if the rules of the person's timezone changed before the value comes due, should it still read the same on their clock? If yes, it is a civil time. If it should still happen at the same absolute moment — or it already happened — it is an instant, and this standard applies.
+
 ## What Counts as In Scope
 
 Apply this standard to code that does one or more of these things:
@@ -40,6 +46,7 @@ Apply this standard to code that does one or more of these things:
 1. Determine whether the value can be timezone-aware.
    - Identify whether the field, parameter, or contract represents a datetime or timestamp that the stack can model with a timezone-aware built-in type.
    - Ignore date-only and time-only values that do not carry timezone semantics.
+   - Ignore civil times — wall-clock times a person chose in a geographic timezone and that must keep their local reading if that timezone's rules change. They follow [Built-In Temporal Types](built-in-temporal-types.md).
 
 2. Detect built-in timezone-aware support in the stack.
    - Identify the native or standard-library temporal types that support timezone-aware values.
@@ -72,6 +79,7 @@ Apply this standard to code that does one or more of these things:
 
 When reading or reviewing code, ask:
 
+- Is this value an instant, or a civil time a person chose in a place? Only an instant belongs here.
 - Can this value be represented with a built-in timezone-aware temporal type?
 - If so, is the code using that type instead of a naive local datetime?
 - Is the timezone explicitly UTC?

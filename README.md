@@ -62,8 +62,8 @@ At session start an agent reads this index anyway, so it compares that number ag
 
 ### Types, errors and style
 
-- [Built-In Temporal Types](built-in-temporal-types.md) — Represent temporal values with built-in or standard-library temporal types that match their real meaning.
-- [UTC Zoned Temporal Types](utc-zoned-temporal-types.md) — When the stack supports timezone-aware built-in or standard-library temporal types, use those types and set their timezone to UTC.
+- [Built-In Temporal Types](built-in-temporal-types.md) — Represent temporal values with built-in or standard-library temporal types that match their real meaning, and tell instants from civil times: a wall-clock time a person chose in a place is stored as a local date-time plus a canonical IANA zone, with the instant derived from it.
+- [UTC Zoned Temporal Types](utc-zoned-temporal-types.md) — Instants — what happened, or must happen at an absolute moment — use timezone-aware built-in types set to UTC; civil times a person chose in a place are out of scope.
 - [ISO 8601 Millisecond Precision](iso8601-millisecond-precision.md) — When a temporal value must be represented textually, use ISO 8601.
 - [Neverthrow Return Types](neverthrow-return-types.md) — Model every compatible function and method with `neverthrow` return types.
 - [Neverthrow Exception Wrapping](neverthrow-wrap-exceptions.md) — Capture recoverable exceptions with `neverthrow` helpers instead of ad hoc `try/catch`.
