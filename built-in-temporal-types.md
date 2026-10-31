@@ -33,13 +33,29 @@ Apply this standard to code that does one or more of these things:
    - Prefer timezone identifiers with real timezone rules, such as IANA zone IDs.
    - Do not treat a numeric UTC offset as an equivalent replacement for a geographic timezone.
 
-3. If the stack separates the instant from the timezone identifier, keep both explicitly.
-   - Use the built-in temporal type for the timestamp or datetime value.
-   - Store the geographic timezone as an explicit timezone identifier, typically an IANA zone string, when that is how the stack preserves timezone rules.
+3. If the stack separates the date-time from the timezone identifier, keep both explicitly — and decide first which date-time it is.
+   - For an **instant** that must also remember where it happened, use the built-in timezone-aware type for the instant, normalized to UTC per [UTC Zoned Temporal Types](utc-zoned-temporal-types.md), and store the geographic timezone as an explicit identifier next to it.
+   - For a **civil time** — a wall-clock time a person chose in a place — store the local date-time without an offset, using the stack's local date-time type, and the geographic timezone as an explicit identifier next to it. See "Civil Times Chosen by a Person" below.
+   - Store the timezone as an IANA zone identifier when that is how the stack preserves timezone rules.
 
 4. Keep offsets as boundary details, not as the source of timezone truth.
    - Offsets may appear in serialized formats or protocol payloads when required by the boundary.
    - Do not use the offset alone as the durable representation of a timezone-aware business value.
+
+## Civil Times Chosen by a Person
+
+Some date-times are not instants. When a person schedules a lesson for "Tuesday at 18:00 in Madrid", what they fixed is the reading on Madrid's clock. The instant it corresponds to depends on Madrid's timezone rules, and those rules change — countries adopt, drop or move daylight saving time, sometimes with weeks of notice. A value stored as an instant keeps the instant and silently moves the meeting to 17:00 or 19:00 local time. Nobody chose that.
+
+So a civil time is stored as what the person chose, and the instant is derived from it:
+
+1. **Store the local date-time and the geographic timezone, and no instant as the source of truth.** Use the stack's local (offset-free) date-time type for the first and an IANA zone identifier for the second — `2026-11-03T18:00` and `Europe/Madrid`. Derive the instant when it is needed, with the timezone rules in force at that moment. A derived instant may be cached for querying and sorting, as long as it is recomputed when the rules change and is never treated as the original.
+2. **Accept only a canonical IANA zone identifier.** A runtime that resolves a string to a timezone usually accepts much more than IANA zones: fixed offsets such as `+01:00`, legacy abbreviations such as `EST`, aliases such as `US/Eastern`, or different casing. Reject a fixed offset — it is not a geographic timezone — and store the canonical identifier the runtime resolves to, so that two equal timezones compare equal.
+3. **Resolve the local times a daylight saving transition makes invalid when the value is written, not when it is read.** A local time that does not exist (skipped by a spring-forward transition) is rejected or explicitly adjusted at input. A local time that occurs twice (repeated by a fall-back transition) is disambiguated by an explicit, documented policy. Reading a stored civil time must not fail: if a rules change later makes a stored local time invalid, the reader resolves it by the same policy and the record stays readable — one unreadable value must not take down every list it appears in.
+4. **Keep instants and civil times apart.** Compare, sort and filter on the derived instant; display in the timezone the product decides — the civil time's own timezone, or the viewer's — and say which.
+
+Examples of civil times: scheduled lessons, appointments, recurring meetings, opening hours, the time a reminder fires "every day at 9:00". Examples of instants: `createdAt`, `paidAt`, a lease or token expiry, the end of a timer that is already running.
+
+The test: if the rules of the person's timezone changed before the value comes due, should it still read the same on their clock? If yes, it is a civil time. If it should still happen at the same absolute moment — or it already happened — it is an instant.
 
 ## Detection Workflow
 
@@ -83,6 +99,9 @@ When reading or reviewing code, ask:
 - Is the code using a built-in or standard-library temporal type that matches that meaning?
 - If timezone matters, is a geographic timezone preserved?
 - Is the code relying on an offset where a real timezone identifier is required?
+- Is this date-time an instant, or a civil time a person chose in a place? If it is a civil time, is it stored as a local date-time plus an IANA zone, with the instant derived rather than stored as the truth?
+- Does the code accept only canonical IANA zone identifiers, rejecting fixed offsets and storing the canonical form?
+- Are skipped and repeated local times resolved when the value is written, and can every stored civil time still be read if the rules change?
 - Would changing this code risk losing daylight saving time correctness or collapsing a temporal type into a generic string?
 
 If the answer is yes, apply this standard.
@@ -94,3 +113,4 @@ When finishing the task:
 - state which temporal values or types were identified or changed
 - state which built-in or standard-library temporal types were used, and why
 - state how geographic timezone handling was implemented or preserved
+- state which date-times were classified as instants and which as civil times, and why
