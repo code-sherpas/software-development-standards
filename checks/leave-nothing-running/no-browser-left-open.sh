@@ -3,8 +3,9 @@
 # detect: an agent does not hand control back with a visible Playwright
 # browser it opened still open. checks/checks.tsv says when it runs; the
 # contract every check keeps is in the README's «Automated checks». The rule
-# lives in the standard, not here: the message below names it and links it
-# instead of restating it.
+# lives in the standard, not here: the message below says only what was
+# found and what to decide, and the runner puts the standard's name and link
+# in front of it.
 #
 # Measured 2026-10-28: after the Playwright MCP's `planner_setup_page`,
 # `browser_close` answered «No open tabs» and left the Chromium window and its
@@ -90,4 +91,4 @@ done
 left_open="$(printf '%s\n' $left_open | sort -n | paste -sd ',' - | sed 's/,/, /g')"
 [ -z "$left_open" ] && exit 0
 
-printf '%s\n' "Leave Nothing Running (https://raw.githubusercontent.com/code-sherpas/software-development-standards/main/leave-nothing-running.md): a visible Playwright browser this session opened is still open (PID ${left_open}). Decide before ending the turn. If nothing needs it, close it: browser_close, and if the window is still there, end that browser and the Playwright worker or script that launched it. If you keep it, say in your reply which window and why."
+printf '%s\n' "A visible Playwright browser this session opened is still open (PID ${left_open}). Decide before ending the turn. If nothing needs it, close it: browser_close, and if the window is still there, end that browser and the Playwright worker or script that launched it. If you keep it, say in your reply which window and why."

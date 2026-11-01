@@ -20,8 +20,6 @@ import { fileURLToPath } from "node:url";
 // warning after that is the runner's job, tested where the runner lives.
 
 const CHECK = join(dirname(fileURLToPath(import.meta.url)), "no-browser-left-open.sh");
-const STANDARD =
-  "https://raw.githubusercontent.com/code-sherpas/software-development-standards/main/leave-nothing-running.md";
 const CHROME = "/home/someone/.cache/ms-playwright/chromium-1248/chrome-linux64/chrome";
 const MAC_CHROMIUM =
   "/Users/someone/Library/Caches/ms-playwright/chromium-1248/chrome-mac/Chromium.app/Contents/MacOS/Chromium";
@@ -67,9 +65,9 @@ describe("no-browser-left-open check", () => {
 
     assert.equal(status, 0);
     assert.match(reason, /PID 41/);
-    // The rule lives in the standard: the message names it and links it.
-    assert.ok(reason.startsWith("Leave Nothing Running"));
-    assert.ok(reason.includes(STANDARD));
+    // What was found, not the rule: the runner puts the standard's name and
+    // link in front of it.
+    assert.match(reason, /^A visible Playwright browser this session opened is still open/);
     // A decision, not an order: a window still needed stays open, said in the reply.
     assert.match(reason, /If nothing needs it, close it/);
     assert.match(reason, /If you keep it, say in your reply which window and why/);
@@ -88,7 +86,7 @@ describe("no-browser-left-open check", () => {
     it(`reports a browser opened ${description}`, () => {
       const { output } = runCheck([...processes]);
 
-      assert.match(output, /^Leave Nothing Running/);
+      assert.match(output, /^A visible Playwright browser/);
     });
   }
 

@@ -13,8 +13,10 @@ import { fileURLToPath } from "node:url";
 // names and run them. So nothing but this test keeps the two sides together.
 // Every line must name a standard that exists, and a script inside that
 // standard's own folder, on an event a runner handles. The standard must name
-// its scripts, so a reader can get from the rule to its check. And no script
-// may sit here unlisted, where no runner would ever run it.
+// its scripts, so a reader can get from the rule to its check. No script may
+// sit here unlisted, where no runner would ever run it, and no standard may
+// name a script that is no longer listed. Every script has its own test next
+// to it.
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const CHECKS = join(ROOT, "checks");
@@ -79,6 +81,23 @@ describe("the automated checks", () => {
       });
     });
   }
+
+  it("are each tested next to their script", () => {
+    for (const script of new Set(checks.map(({ script }) => script))) {
+      const test = script.replace(/\.sh$/, ".test.ts");
+      assert.ok(existsSync(join(ROOT, test)), `${script} has no ${test}`);
+    }
+  });
+
+  it("are all still listed when a standard names them", () => {
+    const listed = new Set(checks.map(({ script }) => script));
+    const standards = readdirSync(ROOT).filter((name) => name.endsWith(".md") && name !== "README.md");
+    for (const standard of standards) {
+      for (const [script] of readFileSync(join(ROOT, standard), "utf8").matchAll(/checks\/[a-z0-9-]+\/[a-z0-9-]+\.sh/g)) {
+        assert.ok(listed.has(script), `${standard} names ${script}, which checks/checks.tsv does not list`);
+      }
+    }
+  });
 
   it("leave no script unlisted, where no runner would run it", () => {
     const listed = new Set(checks.map(({ script }) => script));
