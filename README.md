@@ -25,11 +25,11 @@ Some standards are backed by a script that the agent runtime runs at a given mom
 A check script:
 
 - reads the runtime's hook input on stdin (for Claude Code, the JSON with `session_id`);
-- prints nothing when it finds nothing. When it finds something, it prints one message for the agent that **names the standard and links it** instead of restating the rule;
+- prints nothing when it finds nothing. When it finds something, it prints one message for the agent: what it found and what the agent has to decide. It does not restate the rule or link it. **The runner puts the standard's name and link in front of every finding**, taken from `checks.tsv`, so the agent always has the whole rule at hand and no check can forget it;
 - exits 0 whenever it ran. A non-zero exit means the check itself failed: the runner reports that failure and does not stop the agent;
 - does not decide what happens to the agent. Whether a finding stops the turn, and that it stops it only once, is the runner's job.
 
-`checks/checks.test.ts` keeps the manifest, the scripts and the standards consistent. Each check has its own test next to it.
+`checks/checks.test.ts` keeps the manifest, the scripts and the standards consistent: nothing listed is missing, nothing present is unlisted, and no standard names a check that is gone. Each check has its own test next to it, `<check>.test.ts`, and that is checked too.
 
 ## Contributing
 
