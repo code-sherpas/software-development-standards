@@ -68,6 +68,7 @@ A check covers the resources it knows how to detect. What it does not detect sti
 The checks of this standard live in this repository, next to it — see [Automated checks](README.md#automated-checks):
 
 - `checks/leave-nothing-running/no-browser-left-open.sh` — a visible Playwright browser this session opened, still open when the turn or a sub-agent's run ends.
+- `checks/leave-nothing-running/no-server-left-listening.sh` — a process this session's agent started, still listening on a TCP port when the turn or a sub-agent's run ends: a development server, a watcher, a preview. What Claude Code runs for itself, such as an MCP server, is not counted.
 
 ## Why This Rule Exists
 

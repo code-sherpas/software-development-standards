@@ -58,7 +58,9 @@ session_of() {
     *) printf '%s' "$recorded"; return ;;
   esac
   if [ -r "/proc/$pid/environ" ]; then
-    tr '\0' '\n' < "/proc/$pid/environ" 2>/dev/null | sed -n 's/^CLAUDE_CODE_SESSION_ID=//p' | head -1
+    # Readable by mode is not readable: the kernel refuses the environment of
+    # a process this user cannot trace, such as `systemd --user`.
+    { tr '\0' '\n' < "/proc/$pid/environ"; } 2>/dev/null | sed -n 's/^CLAUDE_CODE_SESSION_ID=//p' | head -1
   else
     ps -E -ww -o command= -p "$pid" 2>/dev/null | tr ' ' '\n' | sed -n 's/^CLAUDE_CODE_SESSION_ID=//p' | head -1
   fi

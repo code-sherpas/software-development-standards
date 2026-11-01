@@ -6,3 +6,5 @@
 # event	standard	script
 Stop	leave-nothing-running.md	checks/leave-nothing-running/no-browser-left-open.sh
 SubagentStop	leave-nothing-running.md	checks/leave-nothing-running/no-browser-left-open.sh
+Stop	leave-nothing-running.md	checks/leave-nothing-running/no-server-left-listening.sh
+SubagentStop	leave-nothing-running.md	checks/leave-nothing-running/no-server-left-listening.sh
