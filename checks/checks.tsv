@@ -1,0 +1,8 @@
+# Which script checks which standard, and on which agent-runtime event it runs.
+# One check per line, three fields separated by a TAB: the event, the standard
+# the check backs, and the script, both relative to the root of this repository.
+# The README's «Automated checks» says what a script must do.
+
+# event	standard	script
+Stop	leave-nothing-running.md	checks/leave-nothing-running/no-browser-left-open.sh
+SubagentStop	leave-nothing-running.md	checks/leave-nothing-running/no-browser-left-open.sh

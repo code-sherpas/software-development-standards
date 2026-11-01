@@ -1,0 +1,49 @@
+name: ci
+
+on:
+  pull_request:
+    branches: ["main"]
+  # The merge queue's build of the tree that will land: `main`, the entries
+  # ahead in the queue and this one. Every job runs ONLY there, as in
+  # alexandria-web-application and claude-code-plugins. On `pull_request` each
+  # job is skipped at job level, so a push to a pull request starts no runner,
+  # and `quality_checks` reports the success the ruleset needs before the queue
+  # accepts the pull request: GitHub requires the same checks to enter the
+  # queue as the queue waits for, and offers no way to require them in one
+  # place only. A green pull request means nothing has been checked yet.
+  merge_group:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    # The checks run on the developers' machines, Linux and macOS, and read
+    # the process table differently on each, so both run the tests.
+    if: ${{ github.event_name == 'merge_group' }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: node --test 'checks/**/*.test.ts'
+
+  # The one check the ruleset requires. It accepts only `success` from every
+  # job it needs, so a skipped or cancelled job fails the queue's build. Adding
+  # a job means adding it here, never to the ruleset.
+  quality_checks:
+    needs: [test]
+    if: ${{ always() && github.event_name == 'merge_group' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Every job succeeded
+        env:
+          NEEDS: ${{ toJSON(needs) }}
+        run: |
+          jq -r 'to_entries[] | "\(.value.result)\t\(.key)"' <<< "$NEEDS"
+          jq -e 'all(.[]; .result == "success")' <<< "$NEEDS" > /dev/null
