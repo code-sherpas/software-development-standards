@@ -18,6 +18,23 @@ A consuming repository carries a section in its `AGENTS.md` that tells the agent
 
 At session start an agent reads this index anyway, so it compares that number against the version stated at the end of its own copy at no extra cost. When they differ, the copy in the repository is stale and the agent says so instead of silently working from outdated instructions.
 
+## Automated checks
+
+Some standards are backed by a script that the agent runtime runs at a given moment, such as the end of a turn. **A check belongs to the standard it backs**: it lives at `checks/<standard>/<check>.sh`, the standard names it, and [checks/checks.tsv](checks/checks.tsv) says on which event it runs. A runner, such as the `base` plugin of [code-sherpas/claude-code-plugins](https://github.com/code-sherpas/claude-code-plugins) for Claude Code, knows nothing but this repository. It reads `checks.tsv` from `main` and downloads the scripts it names, keeping the last copy it got for when it cannot reach GitHub, and then runs them. A merge here reaches every session's next check, the same way it reaches every session's next read.
+
+A check script:
+
+- reads the runtime's hook input on stdin (for Claude Code, the JSON with `session_id`);
+- prints nothing when it finds nothing. When it finds something, it prints one message for the agent that **names the standard and links it** instead of restating the rule;
+- exits 0 whenever it ran. A non-zero exit means the check itself failed: the runner reports that failure and does not stop the agent;
+- does not decide what happens to the agent. Whether a finding stops the turn, and that it stops it only once, is the runner's job.
+
+`checks/checks.test.ts` keeps the manifest, the scripts and the standards consistent. Each check has its own test next to it.
+
+## Contributing
+
+`main` changes only through the merge queue: `gh pr merge <n>` puts a pull request in it, and the queue's build of the tree that will land must pass `quality_checks`. A push to a pull request runs nothing, so a green pull request means nothing has been checked yet. The tests run on Linux and macOS, the systems the checks run on: `node --test 'checks/**/*.test.ts'` (Node 24 or later).
+
 ## Index (52 standards)
 
 ### Domain model

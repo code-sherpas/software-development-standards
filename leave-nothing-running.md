@@ -65,6 +65,10 @@ A rule an agent has to remember is followed until the turn it is not. Where the 
 
 A check covers the resources it knows how to detect. What it does not detect still falls under this standard.
 
+The checks of this standard live in this repository, next to it — see [Automated checks](README.md#automated-checks):
+
+- `checks/leave-nothing-running/no-browser-left-open.sh` — a visible Playwright browser this session opened, still open when the turn or a sub-agent's run ends.
+
 ## Why This Rule Exists
 
 **Measured in this organization, on 2026-10-28.** An agent finished its turn with a browser window it had opened still on the person's screen. Nothing was wrong with the work, and nothing told the agent the window was there.
