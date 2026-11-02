@@ -69,6 +69,8 @@ If the project has no task tracker, ask how to proceed. Do not leave the result 
 
 Refining ends here. Say which phase comes next — the prototype, if the task says it needs one, or splitting it — and that it starts in a new session from the task.
 
+End with the exact instruction to carry on, ready to copy: clear the context — in Claude Code, `/clear` — then run the next phase with the task's link, for example `/build-prototype <task link>` or `/to-increments <task link>`. An agent cannot clear its own context: the person does, and the instruction leaves them nothing to work out.
+
 ## Why This Rule Exists
 
 **Measured in this organization, 2026-11-01:** in the repository where most work happens, a call to the model carried a median of 566,000 tokens of context, and sessions that went from understanding a request to building it in one conversation lasted days. Reading that context again on every call was two thirds of all the usage. The same initiative, run phase by phase from a task, needs each phase to read only the task and what that phase produces.
@@ -93,4 +95,4 @@ When refining ends, state:
 - the task, with its link;
 - the decisions taken by the agent, for the person to review;
 - the questions left open, if any, and what each blocks;
-- the next phase, and that it starts in a new session.
+- the next phase, as the exact instruction to clear the context and run it with the task's link.
