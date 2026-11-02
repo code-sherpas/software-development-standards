@@ -35,7 +35,7 @@ A check script:
 
 `main` changes only through the merge queue: `gh pr merge <n>` puts a pull request in it, and the queue's build of the tree that will land must pass `quality_checks`. A push to a pull request runs nothing, so a green pull request means nothing has been checked yet. The tests run on Linux and macOS, the systems the checks run on: `node --test 'checks/**/*.test.ts'` (Node 24 or later).
 
-## Index (52 standards)
+## Index (53 standards)
 
 ### Domain model
 
@@ -98,6 +98,10 @@ A check script:
 
 - [Automated Testing](automated-testing.md) — Where the testing rules live, starting with what makes a test worth having: it fails when the behaviour it describes breaks and not otherwise, it asserts what a caller can observe rather than how the subject is built, it never asserts on a double, and each double names the situation instead of restating how it is assembled.
 - [Model-Interpreted Features](model-interpreted-features.md) — When a model interprets what the user asked, the feature ships a corpus and the corpus is the test suite: one table crossing the shapes an object can take with the kinds of request that stress it, split across unit tests that gate CI, a thin e2e subset, and an evaluation harness run by hand that names what it missed.
+
+### Planning work
+
+- [Refining Work](refining-work.md) — Before work is split or built, the request becomes one task in the project's task tracker that settles what will be done and why: facts come from the documentation through sub-agents, the interview asks one question at a time until none is open, terms and decisions go in the task while the product documentation waits for what reaches production, the draft is confirmed once, and the next phase starts in a new session from the task alone.
 
 ### Shipping changes
 
