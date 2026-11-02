@@ -121,3 +121,11 @@ Standards below 2: none.
 1. C14 and C18 each carry 12–17 standards. Keep them as dense "full entry point" cases, or split each into two smaller cases (at the cost of the 30-case ceiling)?
 1. For agent-workflow cases (C03, C05, C09, C27), should the case text include the role prompt the agent would actually receive (coordinator, builder, reviewer, verifier), or only the situation?
 1. Stack variety: two cases are non-TypeScript (C16 Kotlin, C23 Python). Is that enough, or should the main stack be even more dominant / less?
+
+## Decisions on the open questions (David, 2026-11-02)
+
+1. Broad standards are labelled expected in **every** case where they apply, not only in the cases built around them.
+2. Dense cases (C14, C18) are **not** split: real increments touch 15–25 standards, and that is where a standard is most easily missed. The small cases already cover each standard for diagnosis.
+3. Every case includes what the agent would really receive: the hook's instruction to read the index and, in code cases, its role's brief (builder or reviewer; verifier or coordinator in agent-workflow cases).
+4. Two non-TypeScript cases are enough.
+5. Choosing a near-miss standard is only reported, never a failure.
