@@ -46,7 +46,7 @@ A check script:
 - [Domain Entity Typed IDs](domain-entity-typed-ids.md) — Choose the right level of type distinction for domain entity identifiers based on whether the project's type system is nominal or structural.
 - [Domain Entity UUIDv4 IDs](domain-entity-uuidv4-ids.md) — Represent domain entity identifiers with UUIDv4.
 - [Immutable Domain Entities](immutable-domain-entities.md) — Apply the immutable design pattern when writing or changing domain entities.
-- [Domain Service](domain-service.md) — When domain logic involves multiple aggregates and does not naturally belong to any single one of them, encapsulate that logic in a domain service.
+- [Domain Service](domain-service.md) — When domain logic involves multiple aggregates and does not naturally belong to any single one of them, encapsulate that logic in a domain service; logic that a single aggregate can own goes on that aggregate, never in a service.
 
 ### Business logic
 
