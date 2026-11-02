@@ -67,3 +67,16 @@ Two deterministic checks, no model involved:
 
 - [corpus.test.ts](corpus.test.ts), on every tree: every case has a valid front matter and its expected standards; every label names a standard that exists, with its reason and source; every standard declares its scope in a «What Counts as» section, has one entry in the index, and is expected in at least 2 cases.
 - [scope-changes.ts](scope-changes.ts), in the merge queue against the queue's base: when a standard is added or its «What Counts as» section changes, the same change must update its entry in the index and at least one of its cases (a case file, a case newly naming it, or what `expected.json` says about it). A changed scope tested on the cases of the old one is a false green.
+
+## The test with the model
+
+[run.ts](run.ts) asks `claude-opus-5-5`, the model the agents run on, 3 times per case which standards it would read in full, giving it the hook's instruction, the index of this tree, its role's brief and the case. It fails when any run misses an expected standard; what it chose beyond them, near misses included, is only reported. It writes `report.md` and `results.json`, and in CI also the job's summary.
+
+```
+npm ci
+node evals/index/run.ts --dry-run --cases C14   # what the agent receives; calls nothing
+node evals/index/run.ts                         # every case, 3 runs: some 900,000 tokens
+node evals/index/run.ts --cases C13,C14 --runs 1
+```
+
+In the merge queue, the job `index_model_test` runs it only when [model-test-needed.ts](model-test-needed.ts) finds a standard added or removed or an index entry changed; otherwise it passes without calling the model. It needs the repository secret `ANTHROPIC_API_KEY`, and fails without it. It can also be started by hand (`workflow_dispatch`). No fallback model is used: a refusal is a failed run, not an answer from another model.

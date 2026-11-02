@@ -148,3 +148,19 @@ function entryFor(corpus: Corpus, id: string, standard: string): unknown {
     nearMiss: entry?.near_miss.includes(standard),
   };
 }
+
+// Why a change needs the test with the model, or nothing when it does not: it
+// runs only when what an agent reads to choose changes — a standard added or
+// removed, or a standard's entry in the README's index.
+export function indexChanges(before: Corpus, after: Corpus): string[] {
+  const reasons: string[] = [];
+  for (const [name, now] of after.standards) {
+    const then = before.standards.get(name);
+    if (!then) reasons.push(`${name} is new`);
+    else if (then.indexEntry !== now.indexEntry) reasons.push(`${name}'s index entry changed`);
+  }
+  for (const name of before.standards.keys()) {
+    if (!after.standards.has(name)) reasons.push(`${name} was removed`);
+  }
+  return reasons;
+}

@@ -12,6 +12,9 @@ on:
   # queue as the queue waits for, and offers no way to require them in one
   # place only. A green pull request means nothing has been checked yet.
   merge_group:
+  # The standards index test with the model, by hand: to measure the index
+  # before changing it, or after a change to the hook or a role's brief.
+  workflow_dispatch:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -49,11 +52,44 @@ jobs:
           node-version: 24
       - run: node evals/index/scope-changes.ts "${{ github.event.merge_group.base_sha }}"
 
+  # The standards index test with the model: an agent that read only the
+  # index must choose every standard each case expects, in each of 3 runs.
+  # About 900,000 tokens a run, so in the queue it runs only when a standard
+  # is added or removed or an index entry changes; otherwise the job passes
+  # without calling the model. Without ANTHROPIC_API_KEY it fails: a change to
+  # the index that nobody tested must not land.
+  index_model_test:
+    if: ${{ github.event_name == 'merge_group' || github.event_name == 'workflow_dispatch' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - id: needed
+        if: ${{ github.event_name == 'merge_group' }}
+        run: node evals/index/model-test-needed.ts "${{ github.event.merge_group.base_sha }}"
+      - if: ${{ github.event_name == 'workflow_dispatch' || steps.needed.outputs.needed == 'true' }}
+        run: npm ci
+      - if: ${{ github.event_name == 'workflow_dispatch' || steps.needed.outputs.needed == 'true' }}
+        run: node evals/index/run.ts --out evals/index/results/ci
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      - if: ${{ always() && (github.event_name == 'workflow_dispatch' || steps.needed.outputs.needed == 'true') }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: index-model-test
+          path: evals/index/results/ci
+          if-no-files-found: ignore
+
   # The one check the ruleset requires. It accepts only `success` from every
   # job it needs, so a skipped or cancelled job fails the queue's build. Adding
   # a job means adding it here, never to the ruleset.
   quality_checks:
-    needs: [test, scope_changes]
+    needs: [test, scope_changes, index_model_test]
     if: ${{ always() && github.event_name == 'merge_group' }}
     runs-on: ubuntu-latest
     steps:
