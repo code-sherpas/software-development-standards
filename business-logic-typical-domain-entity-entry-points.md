@@ -15,6 +15,14 @@ Treat the domain entity as the organizing center. Start from the entity type, th
 - explicit assign or add operations for entity associations
 - explicit check-whether-can-be operations for boolean feasibility checks
 
+## What Counts as In Scope
+
+Deciding which business-logic entry points to implement around a domain-entity type, and what kind each one is: creating, editing open-ended fields, retrieving by id, searching, deleting, changing a finite state, associating entities, or checking whether an action is allowed.
+
+Out of scope:
+
+- the signatures, return shapes and payload types of those entry points, when other standards govern them, such as [CQS Handler Signatures for Business Logic Entry Points](business-logic-entry-point-cqs-handler-signatures.md). Their rules apply too.
+
 ## Basic Entry Points
 
 Given a domain-entity type, prefer these basic entry points:

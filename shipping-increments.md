@@ -6,6 +6,14 @@
 
 This is the phase after [Splitting Work into Increments](splitting-work-into-increments.md). It starts in a new session, from the task, and it can be run as many times as the task has increments left.
 
+## What Counts as In Scope
+
+Shipping the increments of a task already split — see [Splitting Work into Increments](splitting-work-into-increments.md): building, reviewing, merging, deploying and verifying each one in production.
+
+Out of scope:
+
+- a task not yet split into increments: split it first.
+
 ## Arguments
 
 The phase takes the task and, optionally:

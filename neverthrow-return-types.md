@@ -6,7 +6,9 @@ Model every compatible function and method with `neverthrow` return types.
 
 This standard governs return signatures only. If the task also changes how thrown exceptions or rejected promises are captured, apply [Neverthrow Exception Wrapping](neverthrow-wrap-exceptions.md) alongside this standard.
 
-Apply this rule to:
+## What Counts as In Scope
+
+The return type of every function and method in TypeScript or JavaScript code:
 
 - standalone functions
 - exported module functions
@@ -17,7 +19,10 @@ Apply this rule to:
 
 Do not treat nesting as an exception. A method inside a class or object follows the same rule as a top-level function.
 
-The only allowed exception is an incompatible boundary enforced by the surrounding technology, library, or framework.
+Out of scope:
+
+- an incompatible boundary enforced by the surrounding technology, library, or framework — the only allowed exception. `neverthrow` is still kept inside it: see «Detect Compatibility First»;
+- how thrown exceptions or rejected promises are captured: that is [Neverthrow Exception Wrapping](neverthrow-wrap-exceptions.md).
 
 ## Detect Compatibility First
 

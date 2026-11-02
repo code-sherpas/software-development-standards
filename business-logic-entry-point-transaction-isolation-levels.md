@@ -11,7 +11,7 @@ If the persistence technology does not support configurable isolation levels, th
 
 A read-only query handler has a further option: because the least-blocking isolation level provides no cross-statement snapshot, the handler MAY skip the interactive transaction altogether and read over the connection pool instead of opening one at the least-blocking level. See the exception in [Database Transaction for Business Logic Entry Points](business-logic-entry-point-database-transaction.md). When it does open a transaction, the rule below (least-blocking level for query handlers, REPEATABLE READ for command handlers) still applies.
 
-## When This Standard Applies
+## What Counts as In Scope
 
 This standard applies only when all four conditions are met:
 
