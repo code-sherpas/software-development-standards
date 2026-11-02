@@ -129,3 +129,11 @@ Standards below 2: none.
 3. Every case includes what the agent would really receive: the hook's instruction to read the index and, in code cases, its role's brief (builder or reviewer; verifier or coordinator in agent-workflow cases).
 4. Two non-TypeScript cases are enough.
 5. Choosing a near-miss standard is only reported, never a failure.
+
+## After labelling (2026-11-03)
+
+The expected sets are in [expected.json](expected.json), labelled as [labelling/decisions.md](labelling/decisions.md) says; the "Covers" column above was the design, not the label. Where they differ:
+
+- Description-only cases carry only the standards of their phase: none of the three labellers applied a code-level standard to refining, splitting or triaging (C01 built-in-temporal-types and internationalization, C04 failure-reporting, C07 built-in-temporal-types, C08 accessibility, integration-logic and internationalization). Neither did any apply domain-entity-typed-ids to C16 or built-in-temporal-types to C25.
+- Three designed near misses were wrong and are expected instead: C12 expand-contract-schema-changes (its report is required of every change to what is stored), C13 domain-service (only it says single-aggregate logic belongs on the aggregate), C23 leave-nothing-running (the local worker the builder starts to try the job). That leaves 8 near-miss cases, and none for those three standards.
+- Every standard is still expected in at least 2 cases.
