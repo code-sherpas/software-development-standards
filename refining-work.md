@@ -93,6 +93,7 @@ A task that leaves questions open moves them into the code, where each one is an
 When refining ends, state:
 
 - the task, with its link;
+- the standards read in full, and why each one applies;
 - the decisions taken by the agent, for the person to review;
 - the questions left open, if any, and what each blocks;
 - the next phase, as the exact instruction to clear the context and run it with the task's link.
