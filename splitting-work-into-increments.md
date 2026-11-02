@@ -90,6 +90,7 @@ Splitting ends here. End with the exact instruction to carry on, ready to copy: 
 When splitting ends, state:
 
 - the task and its increments, with links, in delivery order;
+- the standards read in full, and why each one applies;
 - the flag strategy;
 - the corrections made to the task, for the person to review;
 - the next phase, as the exact instruction to clear the context and run it with the task's link.
