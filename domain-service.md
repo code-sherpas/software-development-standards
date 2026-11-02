@@ -18,10 +18,11 @@ Apply this standard to code that does one or more of these things:
 - places cross-aggregate domain logic directly in a business-logic entry point instead of a domain service
 - places cross-aggregate domain logic on one aggregate where it does not naturally belong
 - introduces a new business rule that spans multiple aggregates
+- defines a domain service, or anything named or shaped as one, whose logic involves a single aggregate — that logic belongs on the aggregate, not in a service (rule 6)
 
 Do not apply this standard when:
 
-- the logic involves only entities within the same aggregate — that logic belongs on the aggregate root
+- the logic involves only entities within the same aggregate and already lives on that aggregate
 - the logic is pure orchestration — loading entities, calling create or update, managing transactions — that belongs in the entry point
 - the logic is infrastructure-related — persistence, messaging, external API calls — that belongs in the infrastructure layer
 
