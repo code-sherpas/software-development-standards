@@ -31,13 +31,29 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 24
-      - run: node --test 'checks/**/*.test.ts'
+      - run: node --test 'checks/**/*.test.ts' 'evals/**/*.test.ts'
+
+  # A standard added, or a scope («What Counts as») changed, owes the index
+  # test its index entry and its cases in the same change; otherwise the test
+  # with the model keeps passing on the cases of the old scope. Compared with
+  # the queue's base, the `main` this change lands on.
+  scope_changes:
+    if: ${{ github.event_name == 'merge_group' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: node evals/index/scope-changes.ts "${{ github.event.merge_group.base_sha }}"
 
   # The one check the ruleset requires. It accepts only `success` from every
   # job it needs, so a skipped or cancelled job fails the queue's build. Adding
   # a job means adding it here, never to the ruleset.
   quality_checks:
-    needs: [test]
+    needs: [test, scope_changes]
     if: ${{ always() && github.event_name == 'merge_group' }}
     runs-on: ubuntu-latest
     steps:

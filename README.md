@@ -33,7 +33,7 @@ A check script:
 
 ## Contributing
 
-`main` changes only through the merge queue: `gh pr merge <n>` puts a pull request in it, and the queue's build of the tree that will land must pass `quality_checks`. A push to a pull request runs nothing, so a green pull request means nothing has been checked yet. The tests run on Linux and macOS, the systems the checks run on: `node --test 'checks/**/*.test.ts'` (Node 24 or later).
+`main` changes only through the merge queue: `gh pr merge <n>` puts a pull request in it, and the queue's build of the tree that will land must pass `quality_checks`. A push to a pull request runs nothing, so a green pull request means nothing has been checked yet. The tests run on Linux and macOS, the systems the checks run on: `node --test 'checks/**/*.test.ts' 'evals/**/*.test.ts'` (Node 24 or later). A change that adds a standard or changes its «What Counts as» section must update, in the same change, its entry in the index below and its cases in [evals/index](evals/index/README.md); the queue checks it with `node evals/index/scope-changes.ts <base>`.
 
 ## Index (55 standards)
 
