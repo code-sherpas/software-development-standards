@@ -60,3 +60,10 @@ The test, like the real agent, receives three parts in this order:
 ## Expected standards
 
 [expected.json](expected.json) holds, per case, the standards that apply (`expected`), each with the reason and its source, and the standards it is a near miss for (`near_miss`). The test fails when any of a case's runs misses one of its expected standards; choosing a near miss, or any other standard not expected, is only reported. How the labels were made, and every decision on a disagreement, is in [labelling/](labelling/decisions.md).
+
+## What keeps the corpus whole
+
+Two deterministic checks, no model involved:
+
+- [corpus.test.ts](corpus.test.ts), on every tree: every case has a valid front matter and its expected standards; every label names a standard that exists, with its reason and source; every standard declares its scope in a «What Counts as» section, has one entry in the index, and is expected in at least 2 cases.
+- [scope-changes.ts](scope-changes.ts), in the merge queue against the queue's base: when a standard is added or its «What Counts as» section changes, the same change must update its entry in the index and at least one of its cases (a case file, a case newly naming it, or what `expected.json` says about it). A changed scope tested on the cases of the old one is a false green.
