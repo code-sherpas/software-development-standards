@@ -8,6 +8,15 @@ A task is shipped one increment at a time: each one reaches production, is used 
 
 This is the phase after [Refining Work](refining-work.md), and after the prototype when the task needs one. It starts in a new session, from the task.
 
+## What Counts as In Scope
+
+A task that has been refined — see [Refining Work](refining-work.md) — and prototyped, if it needs a prototype, and that is about to be built: from a single increment to an initiative of dozens.
+
+Out of scope:
+
+- a request whose outcome, limits or behaviour are not yet settled: refine it first;
+- a task already split, whose increments are being shipped: that is [Shipping Increments](shipping-increments.md).
+
 ## The Rule
 
 ### 1. Read the task, and the code through sub-agents

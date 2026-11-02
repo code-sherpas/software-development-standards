@@ -1,13 +1,15 @@
 # Write Persistence Representations
 
-Applies to persistence-layer data representations in any stack — ORM entities, schema definitions, table mappings, document models, collection definitions, and similar database-facing code — in frameworks such as Prisma, TypeORM, Sequelize, Drizzle, Mongoose, Hibernate/JPA, Doctrine, Ecto, Active Record, or equivalent persistence technologies.
-
 ## Goal
 
 Write or update the persistence representation that maps application data to the storage technology in use.
 
 Keep business defaults out of the representation layer. Let callers, services, commands, factories, or explicit write flows provide values instead of database or ORM defaults.
 Enforce the rule that representation definitions must not declare default values, except for the creation-time audit field such as `createdAt`, `created_at`, `inserted_at`, or an equivalent project-specific name.
+
+## What Counts as In Scope
+
+Applies to persistence-layer data representations in any stack — ORM entities, schema definitions, table mappings, document models, collection definitions, and similar database-facing code — in frameworks such as Prisma, TypeORM, Sequelize, Drizzle, Mongoose, Hibernate/JPA, Doctrine, Ecto, Active Record, or equivalent persistence technologies.
 
 ## Detect the Representation Style
 

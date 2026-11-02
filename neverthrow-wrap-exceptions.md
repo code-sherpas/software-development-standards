@@ -6,6 +6,19 @@ Capture recoverable exceptions with `neverthrow` helpers instead of ad hoc `try/
 
 This standard governs exception capture only. If the task also changes public return signatures, apply [Neverthrow Return Types](neverthrow-return-types.md) alongside this standard.
 
+## What Counts as In Scope
+
+Every place in TypeScript or JavaScript code where a recoverable failure enters as a thrown exception or a rejected promise:
+
+- hand-written `try/catch`, and `.catch(...)` used only to convert a failure;
+- calls to APIs that may throw: third-party libraries, parsers, database, network and file-system clients, schema validators, serialization code;
+- promise-returning functions that may reject.
+
+Out of scope:
+
+- APIs that already return `Result` or `ResultAsync`: they are composed, not wrapped;
+- public return signatures: that is [Neverthrow Return Types](neverthrow-return-types.md).
+
 ## Detect Exception Sources
 
 1. Identify where failures currently enter the code.
