@@ -67,7 +67,7 @@ Show the whole plan in one message: the increments with their stories, the graph
 
 ### 7. Hand off
 
-Splitting ends here. End with the exact instruction to carry on, ready to copy: clear the context — in Claude Code, `/clear` — then start shipping with the task's link, for example `/ship-increments <task link>`. An agent cannot clear its own context: the person does.
+Splitting ends here. End with the exact instruction to carry on, ready to copy: clear the context — in Claude Code, `/clear` — then start shipping with the task's link, by the name the agent runtime lists the skill under — in Claude Code with the `base` plugin, `/base:ship-increments <task link>`. An agent cannot clear its own context: the person does.
 
 ## Why This Rule Exists
 
