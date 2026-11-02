@@ -56,3 +56,7 @@ The test, like the real agent, receives three parts in this order:
 | `increment-verifier` | C09 |
 | `none` | C10 |
 | `increment-reviewer` | C15, C16, C18, C21, C25, C26, C28 |
+
+## Expected standards
+
+[expected.json](expected.json) holds, per case, the standards that apply (`expected`), each with the reason and its source, and the standards it is a near miss for (`near_miss`). The test fails when any of a case's runs misses one of its expected standards; choosing a near miss, or any other standard not expected, is only reported. How the labels were made, and every decision on a disagreement, is in [labelling/](labelling/decisions.md).

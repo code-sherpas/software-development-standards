@@ -1,0 +1,2114 @@
+{
+  "C01": {
+    "applies": [
+      {
+        "standard": "refining-work",
+        "reason": "A request whose outcome and limits (notice windows per clinic, locales, notification, time zones) are not settled; the refine role turns it into a task with no open questions."
+      }
+    ],
+    "considered_not_applies": [
+      {
+        "standard": "internationalization",
+        "reason": "Its scope is changes producing text; refining writes a task, not product text — the locales become a decision in the task."
+      },
+      {
+        "standard": "built-in-temporal-types",
+        "reason": "Governs code representing temporal values; the clock-change concern is recorded as a requirement in the task, not implemented while refining."
+      },
+      {
+        "standard": "utc-zoned-temporal-types",
+        "reason": "Code-level standard about instants; nothing is coded while refining (and clinic-local appointment times are civil times anyway)."
+      },
+      {
+        "standard": "accessibility",
+        "reason": "Applies to changes producing an interface; refining produces a task."
+      },
+      {
+        "standard": "state-coherent-prototypes",
+        "reason": "Refining only states whether a prototype is needed; building it is a later phase."
+      },
+      {
+        "standard": "splitting-work-into-increments",
+        "reason": "Splitting comes after the task is refined; out of scope for an unsettled request."
+      },
+      {
+        "standard": "fixing-reported-errors",
+        "reason": "This is a new capability request, not a reported error."
+      }
+    ]
+  },
+  "C02": {
+    "applies": [
+      {
+        "standard": "splitting-work-into-increments",
+        "reason": "A refined task about to be built; the agent splits it into increments, graph, order and flag strategy."
+      },
+      {
+        "standard": "expand-contract-schema-changes",
+        "reason": "Renaming customers.phone and the API field under rolling deploys is destructive; the split must place expand, migrate and contract (after the 90-day deprecation) in separate increments/deploys."
+      }
+    ],
+    "considered_not_applies": [
+      {
+        "standard": "pre-merge-gates",
+        "reason": "Splitting only needs each increment to be shippable alone; the gates themselves are run when each increment is integrated."
+      },
+      {
+        "standard": "refining-work",
+        "reason": "The task is already refined; splitting corrects it only if the code proves it wrong."
+      },
+      {
+        "standard": "internationalization",
+        "reason": "CSV content and labels are built later; splitting writes no product text."
+      },
+      {
+        "standard": "shipping-increments",
+        "reason": "Shipping is the next phase, out of scope for splitting."
+      },
+      {
+        "standard": "write-persistence-representations",
+        "reason": "No schema is written while splitting."
+      }
+    ]
+  },
+  "C03": {
+    "applies": [
+      {
+        "standard": "shipping-increments",
+        "reason": "The run ships a split task's increments with maximum 4, 2 in parallel and stacking; the coordinator's whole procedure."
+      },
+      {
+        "standard": "stacked-changes",
+        "reason": "Stacking is allowed, so increments with open blockers are stacked on their change requests, and merging layers integrates lower ones."
+      },
+      {
+        "standard": "pre-merge-gates",
+        "reason": "The coordinator puts approved change requests in the merge queue, which is asking for the merge; the gates and queue conditions must hold."
+      },
+      {
+        "standard": "post-deploy-verification",
+        "reason": "Each increment is shipped only once its deploy is confirmed and verified in production by a verifier the coordinator starts, and failures go to the person."
+      }
+    ],
+    "considered_not_applies": [
+      {
+        "standard": "collaborating-across-agent-sessions",
+        "reason": "Builders, reviewers and verifiers are this run's own sub-agents, not independent sessions owning other work."
+      },
+      {
+        "standard": "leave-nothing-running",
+        "reason": "The coordinator does not itself start servers or browsers; its sub-agents are bound by it in their own runs."
+      },
+      {
+        "standard": "splitting-work-into-increments",
+        "reason": "The task is already split; only shipping is in scope."
+      }
+    ]
+  },
+  "C04": {
+    "applies": [
+      {
+        "standard": "fixing-reported-errors",
+        "reason": "An error-tracker issue pasted by support; triage (resolved?, gather, classify, root cause, task, ask) before any fix."
+      }
+    ],
+    "considered_not_applies": [
+      {
+        "standard": "failure-reporting",
+        "reason": "Applies only if triage finds a report that should not exist; nothing suggests this TypeError is a user error."
+      },
+      {
+        "standard": "built-in-temporal-types",
+        "reason": "The stack trace points at time-zone handling, but triage ends at a task and a question; no code is written yet."
+      },
+      {
+        "standard": "integration-logic",
+        "reason": "The failing clinic-calendar client is integration code, but triage does not change it."
+      },
+      {
+        "standard": "post-deploy-verification",
+        "reason": "Only referenced by Step 1's evidence of a fix being live; no change is shipped in triage."
+      },
+      {
+        "standard": "pre-merge-gates",
+        "reason": "No change is integrated during triage."
+      }
+    ]
+  },
+  "C05": {
+    "applies": [
+      {
+        "standard": "shipping-increments",
+        "reason": "The agent runs as an increment builder; the standard defines the builder's duties (tests, docs, decisions, gates, review, opening the change request, stopping)."
+      },
+      {
+        "standard": "collaborating-across-agent-sessions",
+        "reason": "Main is red because of PR #741 from another session (PROJ-498); the builder must look for a fix in flight and message that session before escalating."
+      },
+      {
+        "standard": "pre-merge-gates",
+        "reason": "Getting PROJ-522 ready to merge needs conditions 1–2 (up to date, every required check green); a red check it does not own cannot be waived."
+      },
+      {
+        "standard": "post-deploy-verification",
+        "reason": "The change reaches production and is not on Gate 3's closed exemption list; proposing it means writing its post-deploy plan."
+      }
+    ],
+    "considered_not_applies": [
+      {
+        "standard": "stacked-changes",
+        "reason": "PROJ-522 does not need code from an open change; stacking it on a fix would be stacking without a dependency."
+      },
+      {
+        "standard": "automated-testing",
+        "reason": "The failing test belongs to the other session; the builder does not write or repair it."
+      },
+      {
+        "standard": "leave-nothing-running",
+        "reason": "The branch is already done and reviewed; nothing in this step starts a long-running process."
+      }
+    ]
+  },
+  "C06": {
+    "applies": [
+      {
+        "standard": "state-coherent-prototypes",
+        "reason": "Turning static pages into a clickable reviewed prototype with two roles, a role switcher, invite edge cases and an out-of-design payment step."
+      },
+      {
+        "standard": "accessibility",
+        "reason": "The prototype is held to the product's accessibility baseline (keyboard, labels, errors, reflow at 320px, targets), which this standard governs."
+      },
+      {
+        "standard": "automated-testing",
+        "reason": "Verifying the prototype means writing scenario scripts that drive it and assert on what each place shows."
+      },
+      {
+        "standard": "leave-nothing-running",
+        "reason": "Running and clicking through it in desktop and mobile viewports starts a server and browsers that must be stopped or declared."
+      },
+      {
+        "standard": "prefer-named-functions",
+        "reason": "The code defines functions and callbacks; the standard decides when they must be named."
+      }
+    ],
+    "considered_not_applies": [
+      {
+        "standard": "internationalization",
+        "reason": "The prototype is not a shipped product change and no locales are asked for."
+      },
+      {
+        "standard": "neverthrow-return-types",
+        "reason": "Prototype functions are UI handlers and render functions (incompatible boundaries) with no failure model."
+      },
+      {
+        "standard": "pre-merge-gates",
+        "reason": "The prototype is a design artifact, not a change being integrated into production."
+      },
+      {
+        "standard": "post-deploy-verification",
+        "reason": "Nothing reaches production."
+      }
+    ]
+  },
+  "C07": {
+    "applies": [
+      {
+        "standard": "refining-work",
+        "reason": "An unsettled request (what may be moved, what is refused, what 'can't wreck calendars' means) to be refined into a task."
+      },
+      {
+        "standard": "model-interpreted-features",
+        "reason": "Typed requests become calendar operations; the standard requires acceptance criteria on what is verifiable, never promising the model is right, and a corpus as part of the feature."
+      }
+    ],
+    "considered_not_applies": [
+      {
+        "standard": "built-in-temporal-types",
+        "reason": "Time-zone handling of moved events is implementation; refining writes no code."
+      },
+      {
+        "standard": "integration-logic",
+        "reason": "Using the existing LLM provider is a later implementation concern."
+      },
+      {
+        "standard": "accessibility",
+        "reason": "No interface is built while refining."
+      },
+      {
+        "standard": "splitting-work-into-increments",
+        "reason": "Comes after refinement."
+      }
+    ]
+  },
+  "C08": {
+    "applies": [
+      {
+        "standard": "splitting-work-into-increments",
+        "reason": "A refined task (flag, internal team first) to split into usable increments with a graph and flag strategy."
+      }
+    ],
+    "considered_not_applies": [
+      {
+        "standard": "model-interpreted-features",
+        "reason": "Its scope excludes generation with no downstream action; the summary is shown as text only."
+      },
+      {
+        "standard": "accessibility",
+        "reason": "Keyboard and screen-reader acceptance is built by the increments, not by splitting."
+      },
+      {
+        "standard": "internationalization",
+        "reason": "Language of the summary is built later, not while splitting."
+      },
+      {
+        "standard": "integration-logic",
+        "reason": "The llm-gateway client is reused when building, not touched while splitting."
+      },
+      {
+        "standard": "refining-work",
+        "reason": "The task is already refined."
+      }
+    ]
+  },
+  "C09": {
+    "applies": [
+      {
+        "standard": "post-deploy-verification",
+        "reason": "Verifying PROJ-416 in production as its consumer: test account, test card, receipt mailbox, the back-from-payment path, neighbourhood and error tracking."
+      },
+      {
+        "standard": "shipping-increments",
+        "reason": "The verifier role in the shipping procedure: uses the shipped increment in production, changes nothing, reports briefly."
+      },
+      {
+        "standard": "leave-nothing-running",
+        "reason": "A headless Chromium (pid 48213) and an SSH tunnel to the production replica (pid 48240) it started are still running and must be stopped or declared before handing back."
+      }
+    ],
+    "considered_not_applies": [
+      {
+        "standard": "fixing-reported-errors",
+        "reason": "The checkout bug fix is verified as part of the increment; the verifier does not triage or close error reports."
+      },
+      {
+        "standard": "pre-merge-gates",
+        "reason": "The change is already merged and deployed."
+      },
+      {
+        "standard": "collaborating-across-agent-sessions",
+        "reason": "Nothing blocks on another session."
+      }
+    ]
+  },
+  "C10": {
+    "applies": [
+      {
+        "standard": "post-deploy-verification",
+        "reason": "Replacing a production environment secret with a redeploy and turning a flag on for every account are configuration/third-party changes that reach production; they must be confirmed live and verified as consumers use them, with credentials never passing through the conversation."
+      }
+    ],
+    "considered_not_applies": [
+      {
+        "standard": "pre-merge-gates",
+        "reason": "No route into the main branch: no code change is integrated."
+      },
+      {
+        "standard": "leave-nothing-running",
+        "reason": "CLI commands that complete; nothing long-running is started (the deploy is the deliverable)."
+      },
+      {
+        "standard": "shipping-increments",
+        "reason": "Not an increment of a split task."
+      }
+    ]
+  },
+  "C11": {
+    "applies": [
+      {
+        "standard": "shipping-increments",
+        "reason": "The agent runs as an increment builder; the standard defines the builder's duties (tests, docs, decisions, gates, review, opening the change request, stopping)."
+      },
+      {
+        "standard": "expand-contract-schema-changes",
+        "reason": "RENAME COLUMN shipped with the code that reads the new name under rolling restarts is destructive; it must be split into expand/migrate/contract, which makes the increment larger than stated (correct the task / ask)."
+      },
+      {
+        "standard": "pre-merge-gates",
+        "reason": "Renaming a column over existing rows is a data migration (Gate 4: representative dataset and counts), plus the usual plan and exercise by hand."
+      },
+      {
+        "standard": "post-deploy-verification",
+        "reason": "The change reaches production and is not on Gate 3's closed exemption list; proposing it means writing its post-deploy plan."
+      },
+      {
+        "standard": "automated-testing",
+        "reason": "The builder writes the increment's tests; the standard governs what they assert, their doubles and failure-path coverage."
+      },
+      {
+        "standard": "leave-nothing-running",
+        "reason": "Exercising the change by hand (Gate 3) means starting a dev server, database container or browser that must be stopped or declared before handing back."
+      },
+      {
+        "standard": "write-persistence-representations",
+        "reason": "The Prisma model Customer is edited; only the createdAt default is allowed."
+      },
+      {
+        "standard": "integration-logic",
+        "reason": "The Prisma repository mapping and the CSV import translate between the app and external representations (database, CSV contract)."
+      },
+      {
+        "standard": "repository-no-business-logic",
+        "reason": "Repository methods (toRow/toCustomer, searchCustomers) are edited and must remain persistence-only."
+      },
+      {
+        "standard": "domain-entity",
+        "reason": "The Customer domain entity's field changes; it is a Readonly type alias rather than a class."
+      },
+      {
+        "standard": "immutable-domain-entities",
+        "reason": "Customer's fields are being redefined; immutability of the entity applies."
+      },
+      {
+        "standard": "business-logic-entry-point-primitive-input-types",
+        "reason": "ImportCustomerCommand's field is renamed; command fields must stay primitive."
+      },
+      {
+        "standard": "neverthrow-return-types",
+        "reason": "TypeScript functions are written or edited; their return signatures must be Result/ResultAsync except at incompatible framework boundaries."
+      }
+    ],
+    "considered_not_applies": [
+      {
+        "standard": "business-logic-entry-point-repository-operations",
+        "reason": "No repository method signature is added or renamed."
+      },
+      {
+        "standard": "business-logic-entry-point-repository-domain-types",
+        "reason": "Repository signatures are unchanged; Prisma types stay inside the implementation."
+      },
+      {
+        "standard": "prefer-named-functions",
+        "reason": "No function is defined; only bodies of named functions change."
+      },
+      {
+        "standard": "internationalization",
+        "reason": "No user-facing copy changes; the CSV header stays 'Phone'."
+      },
+      {
+        "standard": "stacked-changes",
+        "reason": "Increment 2 waits for this one; nothing is stacked."
+      }
+    ]
+  },
+  "C12": {
+    "applies": [
+      {
+        "standard": "shipping-increments",
+        "reason": "The agent runs as an increment builder; the standard defines the builder's duties (tests, docs, decisions, gates, review, opening the change request, stopping)."
+      },
+      {
+        "standard": "write-persistence-representations",
+        "reason": "A new Prisma model and table: status @default(pending) is a forbidden business default; only created_at's default is allowed."
+      },
+      {
+        "standard": "expand-contract-schema-changes",
+        "reason": "A schema change to stored data; the builder must classify it (additive, not destructive) and keep the repository's check."
+      },
+      {
+        "standard": "utc-zoned-temporal-types",
+        "reason": "due_at and created_at are instants stored as TIMESTAMP without time zone; sent_at lacks millisecond precision — instants must be tz-aware UTC."
+      },
+      {
+        "standard": "built-in-temporal-types",
+        "reason": "Defines temporal fields mapped to persistence; type must match meaning."
+      },
+      {
+        "standard": "domain-entity-uuidv4-ids",
+        "reason": "The reminder id is a UUID column mapping a domain entity identifier to persistence."
+      },
+      {
+        "standard": "pre-merge-gates",
+        "reason": "Builder passes the gates; additive DDL is outside Gate 4, but Gate 5 asks what removes reminders that are sent or cancelled."
+      },
+      {
+        "standard": "post-deploy-verification",
+        "reason": "The change reaches production and is not on Gate 3's closed exemption list; proposing it means writing its post-deploy plan."
+      },
+      {
+        "standard": "leave-nothing-running",
+        "reason": "Applying the migration locally means starting a database container that must be stopped or declared."
+      }
+    ],
+    "considered_not_applies": [
+      {
+        "standard": "automated-testing",
+        "reason": "No application code reads or writes the table; there is nothing to test beyond the migration applying."
+      },
+      {
+        "standard": "aggregate-boundaries",
+        "reason": "Only a persistence relation is declared; no domain entity is written in this increment."
+      },
+      {
+        "standard": "domain-entity-reference-direction",
+        "reason": "The Invoice.reminders relation is a Prisma representation, not a domain entity reference."
+      },
+      {
+        "standard": "iso8601-millisecond-precision",
+        "reason": "No textual temporal representation is produced or parsed."
+      },
+      {
+        "standard": "integration-logic",
+        "reason": "No code communicates with the database yet."
+      }
+    ]
+  },
+  "C13": {
+    "applies": [
+      {
+        "standard": "shipping-increments",
+        "reason": "The agent runs as an increment builder; the standard defines the builder's duties (tests, docs, decisions, gates, review, opening the change request, stopping)."
+      },
+      {
+        "standard": "domain-entity",
+        "reason": "Invoice is a new domain entity written as a type alias plus standalone functions; the standard requires a class co-locating identity, state, invariants and behaviour."
+      },
+      {
+        "standard": "immutable-domain-entities",
+        "reason": "Invoice's transitions must return new immutable instances with the same identity."
+      },
+      {
+        "standard": "domain-entity-typed-ids",
+        "reason": "New InvoiceId/InvoiceLineId in TypeScript; follow the project's branded convention consistently."
+      },
+      {
+        "standard": "domain-entity-uuidv4-ids",
+        "reason": "Ids generated with randomUUID; identity format UUIDv4 as string."
+      },
+      {
+        "standard": "domain-entity-reference-optionality",
+        "reason": "customerId is required; paidOn optional; lines a non-null collection."
+      },
+      {
+        "standard": "aggregate-boundaries",
+        "reason": "Invoice references Customer (another aggregate, by id) and owns InvoiceLines; the boundary must be decided and documented in the agent instructions file."
+      },
+      {
+        "standard": "domain-entity-reference-direction",
+        "reason": "A new Invoice→Customer reference must be justified by Invoice's own behaviour."
+      },
+      {
+        "standard": "domain-service",
+        "reason": "InvoiceTotalsService is a 'domain service' over a single aggregate; the standard says that logic belongs on the aggregate."
+      },
+      {
+        "standard": "business-logic",
+        "reason": "Totals and the draft→issued→paid lifecycle are business rules."
+      },
+      {
+        "standard": "business-logic-ensure-business-constraints",
+        "reason": "markAsPaid's 'only an issued invoice can be paid' precondition is a business constraint."
+      },
+      {
+        "standard": "built-in-temporal-types",
+        "reason": "paidOn is a date-only value (Temporal.PlainDate)."
+      },
+      {
+        "standard": "dependency-direction",
+        "reason": "The domain generates ids with randomUUID inside itself; the id generator is an ambient dependency to declare."
+      },
+      {
+        "standard": "bounded-context-layout",
+        "reason": "Creates the billing context's domain and imports another context's domain model (customers)."
+      },
+      {
+        "standard": "neverthrow-return-types",
+        "reason": "TypeScript functions are written or edited; their return signatures must be Result/ResultAsync except at incompatible framework boundaries."
+      },
+      {
+        "standard": "prefer-named-functions",
+        "reason": "The code defines functions and callbacks; the standard decides when they must be named."
+      },
+      {
+        "standard": "automated-testing",
+        "reason": "The builder writes the increment's tests; the standard governs what they assert, their doubles and failure-path coverage."
+      },
+      {
+        "standard": "pre-merge-gates",
+        "reason": "Shipping-increments makes the builder pass every applicable pre-merge gate (pre-merge plan, exercising by hand, refusal paths, leftover data) before the change request."
+      },
+      {
+        "standard": "post-deploy-verification",
+        "reason": "The change reaches production and is not on Gate 3's closed exemption list; proposing it means writing its post-deploy plan."
+      }
+    ],
+    "considered_not_applies": [
+      {
+        "standard": "leave-nothing-running",
+        "reason": "Pure domain code exercised by unit tests; no server or browser is needed."
+      },
+      {
+        "standard": "business-logic-typical-domain-entity-entry-points",
+        "reason": "No entry points in this increment."
+      },
+      {
+        "standard": "business-logic-entry-point-command-query-separation",
+        "reason": "No entry points yet; issueInvoice command comes in increment 2."
+      },
+      {
+        "standard": "utc-zoned-temporal-types",
+        "reason": "paidOn is date-only, not an instant."
+      },
+      {
+        "standard": "neverthrow-wrap-exceptions",
+        "reason": "Nothing called here throws."
+      }
+    ]
+  },
+  "C14": {
+    "applies": [
+      {
+        "standard": "shipping-increments",
+        "reason": "The agent runs as an increment builder; the standard defines the builder's duties (tests, docs, decisions, gates, review, opening the change request, stopping)."
+      },
+      {
+        "standard": "pre-merge-gates",
+        "reason": "Adds a server action (an entry point): Gate 6 refusal calls (no session, other clinic, no appointments:write) plus plan and exercising by hand."
+      },
+      {
+        "standard": "post-deploy-verification",
+        "reason": "The change reaches production and is not on Gate 3's closed exemption list; proposing it means writing its post-deploy plan."
+      },
+      {
+        "standard": "automated-testing",
+        "reason": "The builder writes the increment's tests; the standard governs what they assert, their doubles and failure-path coverage."
+      },
+      {
+        "standard": "leave-nothing-running",
+        "reason": "Exercising the change by hand (Gate 3) means starting a dev server, database container or browser that must be stopped or declared before handing back."
+      },
+      {
+        "standard": "business-logic",
+        "reason": "Working-hours and no-overlap rules, booking workflow."
+      },
+      {
+        "standard": "business-logic-entry-point-command-query-separation",
+        "reason": "createAppointment is a create command returning only the id."
+      },
+      {
+        "standard": "business-logic-entry-point-cqs-handler-signatures",
+        "reason": "Handler name, single command parameter, CommandHandlerSuccess with the id, ResultAsync."
+      },
+      {
+        "standard": "business-logic-entry-point-transaction-isolation-levels",
+        "reason": "A command in a transaction uses ReadCommitted; it must be REPEATABLE READ, and concurrent bookings of one slot produce write conflicts."
+      },
+      {
+        "standard": "business-logic-entry-point-database-transaction",
+        "reason": "The whole flow (checks, reads, create) runs in one transaction via runWithinTransaction."
+      },
+      {
+        "standard": "business-logic-entry-point-execution-context",
+        "reason": "runWithinContext/currentRequester supply request-scoped data."
+      },
+      {
+        "standard": "business-logic-ensure-authenticated-requester",
+        "reason": "The unauthenticated check is inline instead of an ensureRequesterIsAuthenticated constraint returning the requester id."
+      },
+      {
+        "standard": "business-logic-ensure-authorized-requester",
+        "reason": "The appointments:write permission check is inline; it must be a module-private ensureRequesterIsAuthorized after authentication."
+      },
+      {
+        "standard": "business-logic-ensure-business-constraints",
+        "reason": "ensureSlotIsBookable is a business constraint (unit success, error on violation)."
+      },
+      {
+        "standard": "business-logic-entry-point-repository-interface",
+        "reason": "The handler imports concrete repositories from secondary-adapter instead of receiving interfaces from outside."
+      },
+      {
+        "standard": "business-logic-entry-point-use-repositories",
+        "reason": "All persistence goes through repositories."
+      },
+      {
+        "standard": "business-logic-entry-point-repository-operations",
+        "reason": "New findManyByClinicianIdBetween and findByClinicianId; naming, absence and error model."
+      },
+      {
+        "standard": "business-logic-entry-point-repository-domain-types",
+        "reason": "New repository method signature must use domain types."
+      },
+      {
+        "standard": "business-logic-entry-point-one-per-module",
+        "reason": "One entry point per module file."
+      },
+      {
+        "standard": "business-logic-entry-point-colocate-types",
+        "reason": "Command, success and error types live in the handler's file."
+      },
+      {
+        "standard": "business-logic-entry-point-prefer-top-level-functions",
+        "reason": "The entry point is a top-level function."
+      },
+      {
+        "standard": "business-logic-entry-point-primitive-input-types",
+        "reason": "CreateAppointmentCommand fields must be primitives (startsAt as ISO string)."
+      },
+      {
+        "standard": "business-logic-typical-domain-entity-entry-points",
+        "reason": "Choosing the 'create' entry point for Appointment."
+      },
+      {
+        "standard": "domain-service",
+        "reason": "slot-booking-service applies a rule across the clinician schedule and other appointments (multiple aggregates); no infrastructure."
+      },
+      {
+        "standard": "neverthrow-wrap-exceptions",
+        "reason": "Temporal.Instant.from(command.startsAt) throws on bad input and must be wrapped."
+      },
+      {
+        "standard": "neverthrow-return-types",
+        "reason": "TypeScript functions are written or edited; their return signatures must be Result/ResultAsync except at incompatible framework boundaries."
+      },
+      {
+        "standard": "prefer-named-functions",
+        "reason": "The code defines functions and callbacks; the standard decides when they must be named."
+      },
+      {
+        "standard": "built-in-temporal-types",
+        "reason": "Instants, PlainTime working hours and the schedule's IANA time zone."
+      },
+      {
+        "standard": "utc-zoned-temporal-types",
+        "reason": "startsAt/endsAt are instants."
+      },
+      {
+        "standard": "iso8601-millisecond-precision",
+        "reason": "startsAt arrives as text and is parsed."
+      },
+      {
+        "standard": "dependency-direction",
+        "reason": "Thin server action; the handler constructs/imports its infrastructure instead of receiving it."
+      },
+      {
+        "standard": "serialization-boundaries",
+        "reason": "The server action's return value crosses to the client; it carries a discriminant (ok/error kind)."
+      },
+      {
+        "standard": "bounded-context-layout",
+        "reason": "Files placed by context and layer; imports from the access context."
+      }
+    ],
+    "considered_not_applies": [
+      {
+        "standard": "business-logic-entry-point-domain-entity-payload-types",
+        "reason": "A create command returns only the id, not entity data."
+      },
+      {
+        "standard": "failure-reporting",
+        "reason": "Nothing is reported to error tracking here; write conflicts surface as ordinary errors for a single-writer command."
+      },
+      {
+        "standard": "aggregate-boundaries",
+        "reason": "No new entity relationship is introduced in the diff."
+      },
+      {
+        "standard": "expand-contract-schema-changes",
+        "reason": "No stored schema changes in this diff."
+      }
+    ]
+  },
+  "C15": {
+    "applies": [
+      {
+        "standard": "shipping-increments",
+        "reason": "The agent runs as an increment reviewer; the standard defines what the reviewer checks and that it never edits the change."
+      },
+      {
+        "standard": "business-logic",
+        "reason": "Order lifecycle (open, cancelled) and 'a cancelled order cannot be changed' are business rules."
+      },
+      {
+        "standard": "business-logic-entry-point-command-query-separation",
+        "reason": "create/update/cancel return OrderDto; commands must not return data (create only its id)."
+      },
+      {
+        "standard": "business-logic-entry-point-cqs-handler-signatures",
+        "reason": "Methods are not ...CommandHandler/...QueryHandler with a single command/query and named success types."
+      },
+      {
+        "standard": "business-logic-entry-point-one-per-module",
+        "reason": "OrderService bundles four entry points by entity."
+      },
+      {
+        "standard": "business-logic-entry-point-colocate-types",
+        "reason": "Command types sit in a shared types/index.ts barrel."
+      },
+      {
+        "standard": "business-logic-entry-point-prefer-top-level-functions",
+        "reason": "A class with a constructor holding dependencies wraps the entry points."
+      },
+      {
+        "standard": "business-logic-entry-point-primitive-input-types",
+        "reason": "Create/UpdateOrderCommand carry the Order domain entity."
+      },
+      {
+        "standard": "business-logic-entry-point-domain-entity-payload-types",
+        "reason": "findById returns OrderDto instead of Order."
+      },
+      {
+        "standard": "business-logic-entry-point-use-repositories",
+        "reason": "The service calls PrismaClient directly."
+      },
+      {
+        "standard": "business-logic-entry-point-repository-interface",
+        "reason": "There is no repository interface for the entry points to depend on."
+      },
+      {
+        "standard": "business-logic-entry-point-database-transaction",
+        "reason": "Read-then-write flows (update, cancel) run without a wrapping transaction."
+      },
+      {
+        "standard": "business-logic-entry-point-execution-context",
+        "reason": "Entry points do not set up an execution context."
+      },
+      {
+        "standard": "business-logic-ensure-authenticated-requester",
+        "reason": "Staff-only operations have no authentication constraint."
+      },
+      {
+        "standard": "business-logic-ensure-authorized-requester",
+        "reason": "Staff-only operations have no authorization constraint."
+      },
+      {
+        "standard": "business-logic-ensure-business-constraints",
+        "reason": "'order must be open' checks are inline instead of ensure constraints."
+      },
+      {
+        "standard": "business-logic-typical-domain-entity-entry-points",
+        "reason": "cancel should be markOrderAsCancelled; changing lines vs update."
+      },
+      {
+        "standard": "domain-entity",
+        "reason": "Order is a type alias, not a class with behaviour."
+      },
+      {
+        "standard": "immutable-domain-entities",
+        "reason": "Defines Order's fields and transitions."
+      },
+      {
+        "standard": "domain-entity-uuidv4-ids",
+        "reason": "Order ids are autoincrement integers, not UUIDv4."
+      },
+      {
+        "standard": "domain-entity-typed-ids",
+        "reason": "Defines the type of Order's identifier (number)."
+      },
+      {
+        "standard": "domain-entity-reference-optionality",
+        "reason": "Order holds a single-value customerId reference."
+      },
+      {
+        "standard": "domain-entity-reference-direction",
+        "reason": "Order references the wholesale customer."
+      },
+      {
+        "standard": "aggregate-boundaries",
+        "reason": "Order owns OrderLines (same aggregate) and references the customer by id; boundary to document."
+      },
+      {
+        "standard": "write-persistence-representations",
+        "reason": "New Prisma models with autoincrement defaults and status as free String."
+      },
+      {
+        "standard": "expand-contract-schema-changes",
+        "reason": "New stored tables; classify as additive."
+      },
+      {
+        "standard": "dependency-direction",
+        "reason": "PrismaClient (vendor) is imported into the application layer."
+      },
+      {
+        "standard": "bounded-context-layout",
+        "reason": "A 'types' directory outside the domain/application/adapter layers."
+      },
+      {
+        "standard": "integration-logic",
+        "reason": "The service talks to the database directly."
+      },
+      {
+        "standard": "neverthrow-return-types",
+        "reason": "TypeScript functions are written or edited; their return signatures must be Result/ResultAsync except at incompatible framework boundaries."
+      },
+      {
+        "standard": "neverthrow-wrap-exceptions",
+        "reason": "Prisma calls are wrapped with fromPromise."
+      },
+      {
+        "standard": "prefer-named-functions",
+        "reason": "The code defines functions and callbacks; the standard decides when they must be named."
+      }
+    ],
+    "considered_not_applies": [
+      {
+        "standard": "pre-merge-gates",
+        "reason": "The reviewer reports findings and never integrates; the gates are executed by whoever integrates."
+      },
+      {
+        "standard": "post-deploy-verification",
+        "reason": "The reviewer does not deploy or verify in production; that is the verifier's role."
+      },
+      {
+        "standard": "leave-nothing-running",
+        "reason": "A reviewer reading a diff starts no long-running process."
+      },
+      {
+        "standard": "business-logic-entry-point-transaction-isolation-levels",
+        "reason": "No transaction is opened, so its activation conditions are not met (the database-transaction standard covers the gap)."
+      },
+      {
+        "standard": "business-logic-entry-point-repository-operations",
+        "reason": "No repository is defined in the diff."
+      },
+      {
+        "standard": "automated-testing",
+        "reason": "The diff contains no tests to review."
+      }
+    ]
+  },
+  "C16": {
+    "applies": [
+      {
+        "standard": "shipping-increments",
+        "reason": "The agent runs as an increment reviewer; the standard defines what the reviewer checks and that it never edits the change."
+      },
+      {
+        "standard": "repository-no-business-logic",
+        "reason": "The repository filters by trial length per plan and sets lastChargedAt in save: business rules inside a repository."
+      },
+      {
+        "standard": "business-logic-entry-point-repository-operations",
+        "reason": "save is forbidden (create/update), findActiveForBilling is non-canonical."
+      },
+      {
+        "standard": "business-logic-entry-point-repository-domain-types",
+        "reason": "The repository returns and accepts SubscriptionEntity, a JPA type."
+      },
+      {
+        "standard": "business-logic",
+        "reason": "Trial-end and billing eligibility are business rules."
+      },
+      {
+        "standard": "dependency-direction",
+        "reason": "LocalDateTime.now() and RequestContext read ambiently inside persistence; the clock is an undeclared dependency."
+      },
+      {
+        "standard": "business-logic-entry-point-execution-context",
+        "reason": "The repository reads request-scoped tenant data from a context (RequestContext.current())."
+      },
+      {
+        "standard": "built-in-temporal-types",
+        "reason": "startedAt/lastChargedAt and trial-end comparison use LocalDateTime for instants."
+      },
+      {
+        "standard": "utc-zoned-temporal-types",
+        "reason": "Instants as naive LocalDateTime with server-local now(); must be UTC timezone-aware."
+      },
+      {
+        "standard": "integration-logic",
+        "reason": "JPA queries to the database."
+      },
+      {
+        "standard": "prefer-named-functions",
+        "reason": "The code defines functions and callbacks; the standard decides when they must be named."
+      }
+    ],
+    "considered_not_applies": [
+      {
+        "standard": "business-logic-entry-point-repository-interface",
+        "reason": "Its scope excludes a change that only modifies the repository implementation without changing how the entry point depends on it."
+      },
+      {
+        "standard": "neverthrow-return-types",
+        "reason": "Kotlin, not TypeScript/JavaScript."
+      },
+      {
+        "standard": "domain-entity-typed-ids",
+        "reason": "No identifier type is defined or changed."
+      },
+      {
+        "standard": "write-persistence-representations",
+        "reason": "SubscriptionEntity is not changed."
+      },
+      {
+        "standard": "pre-merge-gates",
+        "reason": "The reviewer reports findings and never integrates; the gates are executed by whoever integrates."
+      },
+      {
+        "standard": "post-deploy-verification",
+        "reason": "The reviewer does not deploy or verify in production; that is the verifier's role."
+      },
+      {
+        "standard": "automated-testing",
+        "reason": "No tests in the diff."
+      }
+    ]
+  },
+  "C17": {
+    "applies": [
+      {
+        "standard": "shipping-increments",
+        "reason": "The agent runs as an increment builder; the standard defines the builder's duties (tests, docs, decisions, gates, review, opening the change request, stopping)."
+      },
+      {
+        "standard": "pre-merge-gates",
+        "reason": "Shipping-increments makes the builder pass every applicable pre-merge gate (pre-merge plan, exercising by hand, refusal paths, leftover data) before the change request."
+      },
+      {
+        "standard": "post-deploy-verification",
+        "reason": "The change reaches production and is not on Gate 3's closed exemption list; proposing it means writing its post-deploy plan."
+      },
+      {
+        "standard": "automated-testing",
+        "reason": "The builder writes the increment's tests; the standard governs what they assert, their doubles and failure-path coverage."
+      },
+      {
+        "standard": "leave-nothing-running",
+        "reason": "Exercising the change by hand (Gate 3) means starting a dev server, database container or browser that must be stopped or declared before handing back."
+      },
+      {
+        "standard": "business-logic",
+        "reason": "Seat transfer rules: owner only, same organization and plan, free seats, at least one remaining."
+      },
+      {
+        "standard": "business-logic-entry-point-command-query-separation",
+        "reason": "transferSeats is a command returning nothing."
+      },
+      {
+        "standard": "business-logic-entry-point-cqs-handler-signatures",
+        "reason": "Handler name, single command parameter, void success in ResultAsync."
+      },
+      {
+        "standard": "business-logic-entry-point-transaction-isolation-levels",
+        "reason": "A command handler uses Serializable; must be REPEATABLE READ."
+      },
+      {
+        "standard": "business-logic-entry-point-database-transaction",
+        "reason": "The flow runs in one runWithinTransaction."
+      },
+      {
+        "standard": "business-logic-entry-point-execution-context",
+        "reason": "runWithinContext and currentRequester."
+      },
+      {
+        "standard": "business-logic-ensure-authenticated-requester",
+        "reason": "Authentication is an inline check instead of the ensure constraint."
+      },
+      {
+        "standard": "business-logic-ensure-authorized-requester",
+        "reason": "Owner check is inline, mixed with other rules, and lets support agents through though acceptance says nobody else."
+      },
+      {
+        "standard": "business-logic-ensure-business-constraints",
+        "reason": "Same organization, same plan, enough free seats are business constraints."
+      },
+      {
+        "standard": "business-logic-entry-point-use-repositories",
+        "reason": "Persistence via subscription and organization repositories."
+      },
+      {
+        "standard": "business-logic-entry-point-repository-interface",
+        "reason": "Concrete repositories imported from secondary adapters (including another context's)."
+      },
+      {
+        "standard": "business-logic-entry-point-repository-operations",
+        "reason": "findById must return an absence value the handler handles."
+      },
+      {
+        "standard": "business-logic-entry-point-repository-domain-types",
+        "reason": "Repository calls pass raw strings and domain Subscriptions."
+      },
+      {
+        "standard": "business-logic-entry-point-one-per-module",
+        "reason": "New entry point module."
+      },
+      {
+        "standard": "business-logic-entry-point-colocate-types",
+        "reason": "Command and error types in the handler's file."
+      },
+      {
+        "standard": "business-logic-entry-point-prefer-top-level-functions",
+        "reason": "Entry point is a top-level function."
+      },
+      {
+        "standard": "business-logic-entry-point-primitive-input-types",
+        "reason": "TransferSeatsCommand fields are primitives."
+      },
+      {
+        "standard": "domain-service",
+        "reason": "Moving seats between two Subscription aggregates is cross-aggregate logic, now inline in the entry point."
+      },
+      {
+        "standard": "domain-entity",
+        "reason": "Subscription and Seat are type aliases being changed."
+      },
+      {
+        "standard": "immutable-domain-entities",
+        "reason": "Seats are moved with splice/push, mutating entities in place."
+      },
+      {
+        "standard": "aggregate-boundaries",
+        "reason": "Seat becomes a child of Subscription; Subscription references Organization by id."
+      },
+      {
+        "standard": "domain-entity-reference-optionality",
+        "reason": "Seat.assignedMember is an optional single-value reference; seats a non-null collection."
+      },
+      {
+        "standard": "domain-entity-reference-direction",
+        "reason": "New Seat→Member reference must be justified by behaviour."
+      },
+      {
+        "standard": "domain-entity-typed-ids",
+        "reason": "New SeatId branded type."
+      },
+      {
+        "standard": "domain-entity-uuidv4-ids",
+        "reason": "New SeatId identifier."
+      },
+      {
+        "standard": "write-persistence-representations",
+        "reason": "The Prisma mapping for seats is the next step of this increment."
+      },
+      {
+        "standard": "expand-contract-schema-changes",
+        "reason": "seatCount becomes seat rows: a change to stored shape the running version reads, needing expand/migrate/contract (and Gate 4)."
+      },
+      {
+        "standard": "dependency-direction",
+        "reason": "Handler imports its infrastructure instead of receiving it."
+      },
+      {
+        "standard": "bounded-context-layout",
+        "reason": "Imports another context's secondary adapter (organizations)."
+      },
+      {
+        "standard": "neverthrow-return-types",
+        "reason": "TypeScript functions are written or edited; their return signatures must be Result/ResultAsync except at incompatible framework boundaries."
+      },
+      {
+        "standard": "prefer-named-functions",
+        "reason": "The code defines functions and callbacks; the standard decides when they must be named."
+      }
+    ],
+    "considered_not_applies": [
+      {
+        "standard": "business-logic-typical-domain-entity-entry-points",
+        "reason": "The operation is decided by the task; transfer is not one of the standard kinds being chosen here."
+      },
+      {
+        "standard": "failure-reporting",
+        "reason": "Nothing is reported to observability."
+      },
+      {
+        "standard": "stacked-changes",
+        "reason": "Nothing is stacked."
+      }
+    ]
+  },
+  "C18": {
+    "applies": [
+      {
+        "standard": "shipping-increments",
+        "reason": "The agent runs as an increment reviewer; the standard defines what the reviewer checks and that it never edits the change."
+      },
+      {
+        "standard": "domain-entity-reference-direction",
+        "reason": "Customer gains invoices only to display them; read-direction belongs in a repository query."
+      },
+      {
+        "standard": "aggregate-boundaries",
+        "reason": "Customer embeds Invoice entities of another aggregate."
+      },
+      {
+        "standard": "domain-entity",
+        "reason": "The Customer entity's fields change."
+      },
+      {
+        "standard": "immutable-domain-entities",
+        "reason": "Customer's field definitions change."
+      },
+      {
+        "standard": "business-logic-entry-point-repository-domain-types",
+        "reason": "InvoiceRepository exposes Prisma InvoiceRow/InvoiceRowStatus in signatures."
+      },
+      {
+        "standard": "business-logic-entry-point-repository-operations",
+        "reason": "Paginated, filtered listing named findManyByCustomerId returning null; findById errors with InvoiceNotFoundError."
+      },
+      {
+        "standard": "business-logic-entry-point-repository-interface",
+        "reason": "Entry points import concrete repositories from secondary adapters."
+      },
+      {
+        "standard": "business-logic-entry-point-use-repositories",
+        "reason": "Entry points read invoices and customers through repositories."
+      },
+      {
+        "standard": "business-logic-entry-point-command-query-separation",
+        "reason": "Both entry points are queries; the check logs a side effect."
+      },
+      {
+        "standard": "business-logic-entry-point-cqs-handler-signatures",
+        "reason": "searchInvoices returns InvoiceRow[] not a QueryHandlerSuccess with total; checkWhether... has two params and no handler suffix."
+      },
+      {
+        "standard": "business-logic-entry-point-domain-entity-payload-types",
+        "reason": "The query returns Prisma rows instead of Invoice."
+      },
+      {
+        "standard": "business-logic-entry-point-primitive-input-types",
+        "reason": "Query status typed as a literal enum."
+      },
+      {
+        "standard": "business-logic-entry-point-transaction-isolation-levels",
+        "reason": "Query handler in a transaction must use the least-blocking level."
+      },
+      {
+        "standard": "business-logic-entry-point-database-transaction",
+        "reason": "checkWhether... reads the database with no transaction or context."
+      },
+      {
+        "standard": "business-logic-entry-point-execution-context",
+        "reason": "checkWhether... does not run within the execution context."
+      },
+      {
+        "standard": "business-logic-ensure-authenticated-requester",
+        "reason": "A null requester skips the clinic check; authentication must come first."
+      },
+      {
+        "standard": "business-logic-ensure-authorized-requester",
+        "reason": "Clinic check inline in search; none at all in checkWhether..., so other clinics can probe invoices."
+      },
+      {
+        "standard": "business-logic-entry-point-one-per-module",
+        "reason": "Each entry point module."
+      },
+      {
+        "standard": "business-logic-entry-point-colocate-types",
+        "reason": "Query and error types colocated."
+      },
+      {
+        "standard": "business-logic-entry-point-prefer-top-level-functions",
+        "reason": "Entry points as top-level functions."
+      },
+      {
+        "standard": "business-logic-typical-domain-entity-entry-points",
+        "reason": "Chooses search and check-whether-can-be-voided entry points."
+      },
+      {
+        "standard": "business-logic",
+        "reason": "The voidability rule (issued, unpaid, < 30 days) is business logic."
+      },
+      {
+        "standard": "dependency-direction",
+        "reason": "Temporal.Now read inside the rule; Prisma types imported into the domain repository interface."
+      },
+      {
+        "standard": "bounded-context-layout",
+        "reason": "Customer domain imports billing domain; billing application imports customers' secondary adapter."
+      },
+      {
+        "standard": "built-in-temporal-types",
+        "reason": "Age computed from issuedAt via hours/24."
+      },
+      {
+        "standard": "neverthrow-return-types",
+        "reason": "TypeScript functions are written or edited; their return signatures must be Result/ResultAsync except at incompatible framework boundaries."
+      },
+      {
+        "standard": "prefer-named-functions",
+        "reason": "The code defines functions and callbacks; the standard decides when they must be named."
+      }
+    ],
+    "considered_not_applies": [
+      {
+        "standard": "domain-entity-reference-optionality",
+        "reason": "The new reference is a collection, which that standard excludes."
+      },
+      {
+        "standard": "failure-reporting",
+        "reason": "console.info is not an error-severity report."
+      },
+      {
+        "standard": "business-logic-ensure-business-constraints",
+        "reason": "checkWhether... is a query returning a boolean, not a constraint guarding execution."
+      },
+      {
+        "standard": "pre-merge-gates",
+        "reason": "The reviewer reports findings and never integrates; the gates are executed by whoever integrates."
+      },
+      {
+        "standard": "post-deploy-verification",
+        "reason": "The reviewer does not deploy or verify in production; that is the verifier's role."
+      },
+      {
+        "standard": "automated-testing",
+        "reason": "No tests in the diff."
+      }
+    ]
+  },
+  "C19": {
+    "applies": [
+      {
+        "standard": "shipping-increments",
+        "reason": "The agent runs as an increment builder; the standard defines the builder's duties (tests, docs, decisions, gates, review, opening the change request, stopping)."
+      },
+      {
+        "standard": "pre-merge-gates",
+        "reason": "A new webhook receiver is an entry point: Gate 6 (unsigned/forged requests refused, nothing changed); event rows written per webhook raise Gate 5's retention question."
+      },
+      {
+        "standard": "post-deploy-verification",
+        "reason": "A webhook consumer: trigger the real event at the provider in production, not a replayed payload."
+      },
+      {
+        "standard": "automated-testing",
+        "reason": "The builder writes the increment's tests; the standard governs what they assert, their doubles and failure-path coverage."
+      },
+      {
+        "standard": "leave-nothing-running",
+        "reason": "Exercising the change by hand (Gate 3) means starting a dev server, database container or browser that must be stopped or declared before handing back."
+      },
+      {
+        "standard": "integration-logic",
+        "reason": "Receives, verifies and interprets the provider's webhook contract."
+      },
+      {
+        "standard": "serialization-boundaries",
+        "reason": "The raw body is cast to PayflowEvent; the type must be rebuilt and validated at arrival."
+      },
+      {
+        "standard": "neverthrow-wrap-exceptions",
+        "reason": "JSON.parse, request.text, timingSafeEqual (throws on length mismatch) and prisma.create in a hand-written try/catch."
+      },
+      {
+        "standard": "neverthrow-return-types",
+        "reason": "TypeScript functions are written or edited; their return signatures must be Result/ResultAsync except at incompatible framework boundaries."
+      },
+      {
+        "standard": "failure-reporting",
+        "reason": "already-paid on a provider retry is expected, yet logged at error and answered 500; reporting must be decided where severity is known."
+      },
+      {
+        "standard": "dependency-direction",
+        "reason": "The route handler writes to Prisma and decides outcomes; adapters translate and delegate."
+      },
+      {
+        "standard": "iso8601-millisecond-precision",
+        "reason": "paidAt is sent to the command as Date.toString(), not ISO 8601 with milliseconds."
+      },
+      {
+        "standard": "built-in-temporal-types",
+        "reason": "created is Unix seconds but new Date treats it as milliseconds."
+      },
+      {
+        "standard": "utc-zoned-temporal-types",
+        "reason": "The payment moment is an instant that must be normalized to UTC."
+      },
+      {
+        "standard": "prefer-named-functions",
+        "reason": "The code defines functions and callbacks; the standard decides when they must be named."
+      }
+    ],
+    "considered_not_applies": [
+      {
+        "standard": "business-logic-entry-point-use-repositories",
+        "reason": "The direct Prisma write is in the route adapter, not an entry point (dependency-direction covers it)."
+      },
+      {
+        "standard": "write-persistence-representations",
+        "reason": "No schema change is shown for payflowEvent; applies only if the model has to be added."
+      },
+      {
+        "standard": "business-logic-entry-point-primitive-input-types",
+        "reason": "markInvoiceAsPaidCommand exists from increment 2 and is not redefined."
+      }
+    ]
+  },
+  "C20": {
+    "applies": [
+      {
+        "standard": "shipping-increments",
+        "reason": "The agent runs as an increment builder; the standard defines the builder's duties (tests, docs, decisions, gates, review, opening the change request, stopping)."
+      },
+      {
+        "standard": "pre-merge-gates",
+        "reason": "Shipping-increments makes the builder pass every applicable pre-merge gate (pre-merge plan, exercising by hand, refusal paths, leftover data) before the change request."
+      },
+      {
+        "standard": "post-deploy-verification",
+        "reason": "The change reaches production and is not on Gate 3's closed exemption list; proposing it means writing its post-deploy plan."
+      },
+      {
+        "standard": "leave-nothing-running",
+        "reason": "Exercising the change by hand (Gate 3) means starting a dev server, database container or browser that must be stopped or declared before handing back."
+      },
+      {
+        "standard": "automated-testing",
+        "reason": "Tests double fetch; failure paths (503, timeout, network) are missing."
+      },
+      {
+        "standard": "integration-logic",
+        "reason": "A client for another team's service and its HTTP contract."
+      },
+      {
+        "standard": "serialization-boundaries",
+        "reason": "The JSON response is cast to PriceResponse; both failure modes and the rebuild of decimals/dates at the edge."
+      },
+      {
+        "standard": "failure-reporting",
+        "reason": "The client reports a 404 (a valid outcome for some callers) to Sentry; components below the decision do not report."
+      },
+      {
+        "standard": "neverthrow-wrap-exceptions",
+        "reason": "fetch and response.json wrapped with fromPromise."
+      },
+      {
+        "standard": "neverthrow-return-types",
+        "reason": "getPrices is async returning Promise and drops errors."
+      },
+      {
+        "standard": "dependency-direction",
+        "reason": "Business logic needs an interface it owns; the vendor-shaped PriceResponse leaks; env read inline."
+      },
+      {
+        "standard": "iso8601-millisecond-precision",
+        "reason": "valid_from is a textual timestamp to parse."
+      },
+      {
+        "standard": "built-in-temporal-types",
+        "reason": "valid_from kept as a string instead of a temporal type."
+      },
+      {
+        "standard": "utc-zoned-temporal-types",
+        "reason": "valid_from is an instant parsed from a boundary."
+      },
+      {
+        "standard": "prefer-named-functions",
+        "reason": "The code defines functions and callbacks; the standard decides when they must be named."
+      }
+    ],
+    "considered_not_applies": [
+      {
+        "standard": "bounded-context-layout",
+        "reason": "The client sits in the quotes context's secondary adapter as the layout expects."
+      },
+      {
+        "standard": "business-logic",
+        "reason": "Fetching a price is integration, not a business rule."
+      },
+      {
+        "standard": "business-logic-entry-point-use-repositories",
+        "reason": "No entry point uses it yet."
+      }
+    ]
+  },
+  "C21": {
+    "applies": [
+      {
+        "standard": "shipping-increments",
+        "reason": "The agent runs as an increment reviewer; the standard defines what the reviewer checks and that it never edits the change."
+      },
+      {
+        "standard": "accessibility",
+        "reason": "Field labelled only by placeholder, error not associated or announced, confirmation not in a live region, colour contrast of teal/red text."
+      },
+      {
+        "standard": "internationalization",
+        "reason": "Hard-coded English copy and toLocaleDateString/TimeString without the app's locale."
+      },
+      {
+        "standard": "built-in-temporal-types",
+        "reason": "A booked 10:30 in Lisbon is a civil time: store local date-time plus IANA zone; new Date(input.startsAt) reads it in the server's zone."
+      },
+      {
+        "standard": "iso8601-millisecond-precision",
+        "reason": "The datetime-local value is parsed from text."
+      },
+      {
+        "standard": "serialization-boundaries",
+        "reason": "The server action returns a Date to the client component."
+      },
+      {
+        "standard": "business-logic",
+        "reason": "Booking an appointment is business logic now living in the server action."
+      },
+      {
+        "standard": "dependency-direction",
+        "reason": "The server action persists directly instead of translating and delegating to an entry point."
+      },
+      {
+        "standard": "business-logic-entry-point-use-repositories",
+        "reason": "Prisma is called directly to create the appointment."
+      },
+      {
+        "standard": "business-logic-entry-point-command-query-separation",
+        "reason": "The booking command returns the appointment's data."
+      },
+      {
+        "standard": "business-logic-entry-point-database-transaction",
+        "reason": "No transaction wraps the write."
+      },
+      {
+        "standard": "business-logic-entry-point-execution-context",
+        "reason": "No entry point sets up the context."
+      },
+      {
+        "standard": "business-logic-ensure-authenticated-requester",
+        "reason": "Anyone can call the server action."
+      },
+      {
+        "standard": "business-logic-ensure-authorized-requester",
+        "reason": "No check that the requester is front-desk staff for the clinic."
+      },
+      {
+        "standard": "neverthrow-return-types",
+        "reason": "bookAppointment returns a plain Promise; neverthrow must be kept inside the boundary."
+      },
+      {
+        "standard": "neverthrow-wrap-exceptions",
+        "reason": "prisma.create may reject and is not captured; the client awaits it unguarded."
+      },
+      {
+        "standard": "domain-entity-uuidv4-ids",
+        "reason": "The appointment is created without generating its UUID id."
+      },
+      {
+        "standard": "prefer-named-functions",
+        "reason": "The code defines functions and callbacks; the standard decides when they must be named."
+      }
+    ],
+    "considered_not_applies": [
+      {
+        "standard": "utc-zoned-temporal-types",
+        "reason": "The clinic-local appointment time is a civil time, which that standard excludes."
+      },
+      {
+        "standard": "write-persistence-representations",
+        "reason": "The schema lines are from increment 1, shown only for context."
+      },
+      {
+        "standard": "expand-contract-schema-changes",
+        "reason": "No stored schema changes in this diff."
+      },
+      {
+        "standard": "business-logic-entry-point-transaction-isolation-levels",
+        "reason": "No transaction is opened, so its conditions are not met."
+      },
+      {
+        "standard": "pre-merge-gates",
+        "reason": "The reviewer reports findings and never integrates; the gates are executed by whoever integrates."
+      },
+      {
+        "standard": "post-deploy-verification",
+        "reason": "The reviewer does not deploy or verify in production; that is the verifier's role."
+      },
+      {
+        "standard": "automated-testing",
+        "reason": "No tests in the diff."
+      }
+    ]
+  },
+  "C22": {
+    "applies": [
+      {
+        "standard": "state-coherent-prototypes",
+        "reason": "Finishing a reviewed prototype whose board and archived screens keep separate card lists; every control must work and state be coherent across screens and devices."
+      },
+      {
+        "standard": "accessibility",
+        "reason": "Icon-only div buttons without names, drag-only reordering (2.5.7), toast without a live region, low contrast, close icon in a span."
+      },
+      {
+        "standard": "automated-testing",
+        "reason": "Scenario scripts are the prototype's regression suite."
+      },
+      {
+        "standard": "leave-nothing-running",
+        "reason": "npm run dev and browsers started to check it on laptop and phone viewports."
+      },
+      {
+        "standard": "prefer-named-functions",
+        "reason": "Non-trivial inline onDragEnd and onArchive callbacks."
+      }
+    ],
+    "considered_not_applies": [
+      {
+        "standard": "internationalization",
+        "reason": "A design prototype, not shipped product text."
+      },
+      {
+        "standard": "neverthrow-return-types",
+        "reason": "Prototype functions are React components and event handlers, incompatible boundaries with no failure model."
+      },
+      {
+        "standard": "pre-merge-gates",
+        "reason": "The prototype is not integrated into production."
+      },
+      {
+        "standard": "post-deploy-verification",
+        "reason": "Nothing reaches production."
+      }
+    ]
+  },
+  "C23": {
+    "applies": [
+      {
+        "standard": "shipping-increments",
+        "reason": "The agent runs as an increment builder; the standard defines the builder's duties (tests, docs, decisions, gates, review, opening the change request, stopping)."
+      },
+      {
+        "standard": "pre-merge-gates",
+        "reason": "A sweep deleting stored objects and marking rows is a data migration under Gate 4 (representative dataset incl. what must not be touched) and a Gate 5 mechanism with a grace period."
+      },
+      {
+        "standard": "post-deploy-verification",
+        "reason": "A scheduled job: observe its effect after it runs on its own schedule in production."
+      },
+      {
+        "standard": "automated-testing",
+        "reason": "The builder writes the increment's tests; the standard governs what they assert, their doubles and failure-path coverage."
+      },
+      {
+        "standard": "failure-reporting",
+        "reason": "'No expired exports' is logged at error severity though it is a routine outcome."
+      },
+      {
+        "standard": "repository-no-business-logic",
+        "reason": "find_purgeable embeds the 7-day grace rule and the kinds filter."
+      },
+      {
+        "standard": "business-logic-entry-point-repository-operations",
+        "reason": "find_purgeable/mark_deleted are non-canonical operation names."
+      },
+      {
+        "standard": "business-logic-entry-point-use-repositories",
+        "reason": "The job persists through a repository but calls S3 directly."
+      },
+      {
+        "standard": "business-logic-entry-point-repository-interface",
+        "reason": "The job constructs the concrete SqlExportRepository; Python supports Protocols."
+      },
+      {
+        "standard": "business-logic-entry-point-database-transaction",
+        "reason": "The flow's database work and an external deletion share session_scope."
+      },
+      {
+        "standard": "business-logic",
+        "reason": "Purge eligibility (expired + 7-day grace, csv/pdf) is a business rule."
+      },
+      {
+        "standard": "dependency-direction",
+        "reason": "datetime.now() and a module-level boto3 client are ambient dependencies inside the logic."
+      },
+      {
+        "standard": "utc-zoned-temporal-types",
+        "reason": "Naive datetime.now() compared with timezone-aware columns."
+      },
+      {
+        "standard": "built-in-temporal-types",
+        "reason": "Temporal cutoffs and stored instants."
+      },
+      {
+        "standard": "integration-logic",
+        "reason": "Deletes objects in S3 and updates rows in the database."
+      },
+      {
+        "standard": "prefer-named-functions",
+        "reason": "The code defines functions and callbacks; the standard decides when they must be named."
+      }
+    ],
+    "considered_not_applies": [
+      {
+        "standard": "leave-nothing-running",
+        "reason": "The nightly job is the deliverable the person asked to keep running, which the standard excludes."
+      },
+      {
+        "standard": "neverthrow-return-types",
+        "reason": "Python, not TypeScript/JavaScript."
+      },
+      {
+        "standard": "neverthrow-wrap-exceptions",
+        "reason": "Python, not TypeScript/JavaScript."
+      },
+      {
+        "standard": "expand-contract-schema-changes",
+        "reason": "No stored schema changes."
+      },
+      {
+        "standard": "bounded-context-layout",
+        "reason": "Placement is unchanged; the change adds no context or module."
+      }
+    ]
+  },
+  "C24": {
+    "applies": [
+      {
+        "standard": "shipping-increments",
+        "reason": "The agent runs as an increment builder; the standard defines the builder's duties (tests, docs, decisions, gates, review, opening the change request, stopping)."
+      },
+      {
+        "standard": "model-interpreted-features",
+        "reason": "The model turns typed text into the filter_invoices call; corpus crossing objects and request classes, deterministic half unit-tested, model interpretation out of CI (the test calls the real provider)."
+      },
+      {
+        "standard": "automated-testing",
+        "reason": "The builder writes the increment's tests; the standard governs what they assert, their doubles and failure-path coverage."
+      },
+      {
+        "standard": "pre-merge-gates",
+        "reason": "Shipping-increments makes the builder pass every applicable pre-merge gate (pre-merge plan, exercising by hand, refusal paths, leftover data) before the change request."
+      },
+      {
+        "standard": "post-deploy-verification",
+        "reason": "The change reaches production and is not on Gate 3's closed exemption list; proposing it means writing its post-deploy plan."
+      },
+      {
+        "standard": "leave-nothing-running",
+        "reason": "Exercising the change by hand (Gate 3) means starting a dev server, database container or browser that must be stopped or declared before handing back."
+      },
+      {
+        "standard": "integration-logic",
+        "reason": "Calls the LLM provider and interprets its tool-use response."
+      },
+      {
+        "standard": "serialization-boundaries",
+        "reason": "Tool input arrives as untyped JSON and is cast into InvoiceFilter."
+      },
+      {
+        "standard": "neverthrow-wrap-exceptions",
+        "reason": "client.messages.create can throw before the promise exists; use ResultAsync.fromThrowable."
+      },
+      {
+        "standard": "neverthrow-return-types",
+        "reason": "TypeScript functions are written or edited; their return signatures must be Result/ResultAsync except at incompatible framework boundaries."
+      },
+      {
+        "standard": "dependency-direction",
+        "reason": "The Anthropic SDK is constructed in the logic, and 'last quarter' needs today's date from an undeclared clock."
+      },
+      {
+        "standard": "built-in-temporal-types",
+        "reason": "issuedFrom/issuedTo are calendar dates turned into Date."
+      },
+      {
+        "standard": "iso8601-millisecond-precision",
+        "reason": "Dates come back as text and are parsed."
+      },
+      {
+        "standard": "accessibility",
+        "reason": "The search box and its 'didn't understand' message are still to be wired."
+      },
+      {
+        "standard": "internationalization",
+        "reason": "The 'didn't understand' message is text a person reads."
+      },
+      {
+        "standard": "prefer-named-functions",
+        "reason": "The code defines functions and callbacks; the standard decides when they must be named."
+      }
+    ],
+    "considered_not_applies": [
+      {
+        "standard": "utc-zoned-temporal-types",
+        "reason": "The filter bounds are date-only values."
+      },
+      {
+        "standard": "failure-reporting",
+        "reason": "No reporting decision is made in this code."
+      },
+      {
+        "standard": "state-coherent-prototypes",
+        "reason": "Production feature, not a prototype."
+      }
+    ]
+  },
+  "C25": {
+    "applies": [
+      {
+        "standard": "shipping-increments",
+        "reason": "The agent runs as an increment reviewer; the standard defines what the reviewer checks and that it never edits the change."
+      },
+      {
+        "standard": "automated-testing",
+        "reason": "Test-only increment; the tests assert on the clock double's call count instead of the parsed result, and would pass if the implementation were broken."
+      }
+    ],
+    "considered_not_applies": [
+      {
+        "standard": "model-interpreted-features",
+        "reason": "parseQuickWhen is deterministic parsing with a fixed grammar, which the standard excludes."
+      },
+      {
+        "standard": "built-in-temporal-types",
+        "reason": "No production temporal code is written or changed."
+      },
+      {
+        "standard": "prefer-named-functions",
+        "reason": "Inline test callbacks are the test framework's idiom."
+      },
+      {
+        "standard": "neverthrow-return-types",
+        "reason": "Test callbacks are fixed-signature boundaries; no production function changes."
+      },
+      {
+        "standard": "pre-merge-gates",
+        "reason": "The reviewer reports findings and never integrates; the gates are executed by whoever integrates."
+      },
+      {
+        "standard": "post-deploy-verification",
+        "reason": "The reviewer does not deploy or verify in production; that is the verifier's role."
+      }
+    ]
+  },
+  "C26": {
+    "applies": [
+      {
+        "standard": "shipping-increments",
+        "reason": "The agent runs as an increment reviewer; the standard defines what the reviewer checks and that it never edits the change."
+      },
+      {
+        "standard": "aggregate-boundaries",
+        "reason": "Records that Invoice and Customer are separate aggregates; the standard says boundary decisions go in the agent instructions file."
+      },
+      {
+        "standard": "domain-entity-reference-direction",
+        "reason": "The decision that Customer does not hold its invoices (a query instead) is this standard's rule."
+      },
+      {
+        "standard": "iso8601-millisecond-precision",
+        "reason": "Documents the API's textual date formats (milliseconds, Z/offset)."
+      }
+    ],
+    "considered_not_applies": [
+      {
+        "standard": "utc-zoned-temporal-types",
+        "reason": "Governs code; the documentation change writes none."
+      },
+      {
+        "standard": "built-in-temporal-types",
+        "reason": "Governs code; no code changes."
+      },
+      {
+        "standard": "serialization-boundaries",
+        "reason": "No boundary code changes."
+      },
+      {
+        "standard": "integration-logic",
+        "reason": "No communication code changes."
+      },
+      {
+        "standard": "pre-merge-gates",
+        "reason": "Documentation-only and the reviewer does not integrate."
+      },
+      {
+        "standard": "post-deploy-verification",
+        "reason": "Documentation is exempt and the reviewer does not deploy."
+      }
+    ]
+  },
+  "C27": {
+    "applies": [
+      {
+        "standard": "shipping-increments",
+        "reason": "The agent runs as an increment builder; the standard defines the builder's duties (tests, docs, decisions, gates, review, opening the change request, stopping)."
+      },
+      {
+        "standard": "stacked-changes",
+        "reason": "#615 is stacked on another session's #612 without agreement and without needing its code (only the same file); CI configuration for stacked PRs is in scope."
+      },
+      {
+        "standard": "collaborating-across-agent-sessions",
+        "reason": "The failure comes from #612, owned by another session (migration missing the column); talk to it rather than change its branch."
+      },
+      {
+        "standard": "pre-merge-gates",
+        "reason": "Getting checks green on the tree that lands and keeping the merge queue requiring quality (conditions 1–2, queue configuration)."
+      }
+    ],
+    "considered_not_applies": [
+      {
+        "standard": "post-deploy-verification",
+        "reason": "CI workflow configuration does not run inside the product: on Gate 3's exemption list."
+      },
+      {
+        "standard": "expand-contract-schema-changes",
+        "reason": "The schema/migration mismatch is #612's change, not this one."
+      },
+      {
+        "standard": "leave-nothing-running",
+        "reason": "Checks run in CI; nothing long-running is started locally."
+      },
+      {
+        "standard": "automated-testing",
+        "reason": "No test is written or changed."
+      }
+    ]
+  },
+  "C28": {
+    "applies": [
+      {
+        "standard": "shipping-increments",
+        "reason": "The agent runs as an increment reviewer; the standard defines what the reviewer checks and that it never edits the change."
+      },
+      {
+        "standard": "bounded-context-layout",
+        "reason": "Moving billing under src/billing by layer; billing-helpers.ts placed in shared/ and shared/notifications reaching into billing's adapters."
+      },
+      {
+        "standard": "dependency-direction",
+        "reason": "send-overdue-digest constructs a concrete Prisma repository; a shared helper imports the Stripe gateway."
+      },
+      {
+        "standard": "business-logic-entry-point-one-per-module",
+        "reason": "invoice-use-cases.ts groups three entry points by entity."
+      },
+      {
+        "standard": "business-logic-entry-point-transaction-isolation-levels",
+        "reason": "Commands use SERIALIZABLE and the query READ COMMITTED."
+      },
+      {
+        "standard": "business-logic-entry-point-database-transaction",
+        "reason": "runWithinTransaction takes a level string and hands repos to the callback."
+      },
+      {
+        "standard": "business-logic-entry-point-execution-context",
+        "reason": "Entry points compose runWithinContext with the transaction."
+      },
+      {
+        "standard": "business-logic-entry-point-cqs-handler-signatures",
+        "reason": "findInvoiceByIdQueryHandler returns Invoice directly instead of a QueryHandlerSuccess."
+      },
+      {
+        "standard": "business-logic-entry-point-repository-interface",
+        "reason": "send-overdue-digest depends on the concrete PrismaInvoiceRepository."
+      },
+      {
+        "standard": "business-logic",
+        "reason": "isInvoiceSettled is a business rule moved into a shared helper."
+      },
+      {
+        "standard": "neverthrow-return-types",
+        "reason": "TypeScript functions are written or edited; their return signatures must be Result/ResultAsync except at incompatible framework boundaries."
+      },
+      {
+        "standard": "prefer-named-functions",
+        "reason": "The code defines functions and callbacks; the standard decides when they must be named."
+      }
+    ],
+    "considered_not_applies": [
+      {
+        "standard": "business-logic-entry-point-domain-entity-payload-types",
+        "reason": "Returning Invoice is the entity type itself; the finding is the signature shape, covered by cqs-handler-signatures."
+      },
+      {
+        "standard": "automated-testing",
+        "reason": "No tests change."
+      },
+      {
+        "standard": "pre-merge-gates",
+        "reason": "The reviewer reports findings and never integrates; the gates are executed by whoever integrates."
+      },
+      {
+        "standard": "post-deploy-verification",
+        "reason": "The reviewer does not deploy or verify in production; that is the verifier's role."
+      },
+      {
+        "standard": "collaborating-across-agent-sessions",
+        "reason": "No other session is involved."
+      }
+    ]
+  },
+  "C29": {
+    "applies": [
+      {
+        "standard": "shipping-increments",
+        "reason": "The agent runs as an increment builder; the standard defines the builder's duties (tests, docs, decisions, gates, review, opening the change request, stopping)."
+      },
+      {
+        "standard": "expand-contract-schema-changes",
+        "reason": "Messages left in the queue for up to 4 days are read by the next version; renaming fields in one deploy breaks them — readers must tolerate both shapes before writers change."
+      },
+      {
+        "standard": "pre-merge-gates",
+        "reason": "Shipping-increments makes the builder pass every applicable pre-merge gate (pre-merge plan, exercising by hand, refusal paths, leftover data) before the change request."
+      },
+      {
+        "standard": "post-deploy-verification",
+        "reason": "The change reaches production and is not on Gate 3's closed exemption list; proposing it means writing its post-deploy plan."
+      },
+      {
+        "standard": "automated-testing",
+        "reason": "The builder writes the increment's tests; the standard governs what they assert, their doubles and failure-path coverage."
+      },
+      {
+        "standard": "leave-nothing-running",
+        "reason": "Exercising the change by hand (Gate 3) means starting a dev server, database container or browser that must be stopped or declared before handing back."
+      },
+      {
+        "standard": "integration-logic",
+        "reason": "Producer and consumer of the InvoiceIssued message on SQS."
+      },
+      {
+        "standard": "serialization-boundaries",
+        "reason": "JSON.parse on arrival with hand-read fields; rebuild the event type through one door."
+      },
+      {
+        "standard": "neverthrow-wrap-exceptions",
+        "reason": "JSON.parse and sqs.send can throw/reject."
+      },
+      {
+        "standard": "neverthrow-return-types",
+        "reason": "TypeScript functions are written or edited; their return signatures must be Result/ResultAsync except at incompatible framework boundaries."
+      },
+      {
+        "standard": "failure-reporting",
+        "reason": "A malformed event is thrown, retried 5 times and dead-lettered; the error includes the record body; decide what is reported."
+      },
+      {
+        "standard": "domain-entity-uuidv4-ids",
+        "reason": "The reminder id switches from nanoid to ulid; domain entity ids must be UUIDv4."
+      },
+      {
+        "standard": "iso8601-millisecond-precision",
+        "reason": "dueAt crosses as ISO text and is parsed back."
+      },
+      {
+        "standard": "built-in-temporal-types",
+        "reason": "dueAt/sendAt temporal values parsed at the boundary."
+      },
+      {
+        "standard": "utc-zoned-temporal-types",
+        "reason": "dueAt is an instant serialized and parsed across the boundary."
+      },
+      {
+        "standard": "domain-entity",
+        "reason": "Reminder's amountDue becomes amountDueCents."
+      },
+      {
+        "standard": "immutable-domain-entities",
+        "reason": "Reminder's fields change."
+      },
+      {
+        "standard": "dependency-direction",
+        "reason": "The consumer builds the domain entity and persists it instead of delegating to an entry point."
+      },
+      {
+        "standard": "prefer-named-functions",
+        "reason": "The code defines functions and callbacks; the standard decides when they must be named."
+      }
+    ],
+    "considered_not_applies": [
+      {
+        "standard": "business-logic-entry-point-repository-operations",
+        "reason": "reminderRepository.save is pre-existing and not changed by the diff."
+      },
+      {
+        "standard": "write-persistence-representations",
+        "reason": "No persistence representation is shown changing."
+      },
+      {
+        "standard": "stacked-changes",
+        "reason": "Producer and consumer ship in one pull request."
+      }
+    ]
+  },
+  "C30": {
+    "applies": [
+      {
+        "standard": "fixing-reported-errors",
+        "reason": "The fix phase (Steps 6–7): apply the task's actions at the named layer, regression test there, stop on contradiction, close only after a live deploy and a quiet window."
+      },
+      {
+        "standard": "failure-reporting",
+        "reason": "Stopping the report of validation 400s is a decision about what reaches the error tracker; the 400 still fails, only for that situation."
+      },
+      {
+        "standard": "pre-merge-gates",
+        "reason": "The fix changes POST /api/bookings, an entry point: plan, exercising by hand and refusal paths before it lands."
+      },
+      {
+        "standard": "post-deploy-verification",
+        "reason": "Step 7 requires the deploy carrying the fix confirmed live and used as the partner widget uses it."
+      },
+      {
+        "standard": "automated-testing",
+        "reason": "A regression test reproducing the widget's body is written."
+      },
+      {
+        "standard": "leave-nothing-running",
+        "reason": "Exercising the route by hand starts a dev server that must be stopped or declared."
+      },
+      {
+        "standard": "integration-logic",
+        "reason": "The adapter receives and validates the partner widget's request contract."
+      },
+      {
+        "standard": "serialization-boundaries",
+        "reason": "The request body is rebuilt into a typed booking request at the edge, once."
+      },
+      {
+        "standard": "neverthrow-wrap-exceptions",
+        "reason": "zod's parse, request.json() and findClinicZone can throw/reject outside any Result."
+      },
+      {
+        "standard": "neverthrow-return-types",
+        "reason": "toBookingRequest is edited and returns a plain object; the route handler is a framework boundary."
+      },
+      {
+        "standard": "dependency-direction",
+        "reason": "The route handler now reads the clinic's zone and decides the fallback; adapters translate and delegate to one entry point."
+      },
+      {
+        "standard": "business-logic",
+        "reason": "'A booking without a location uses the clinic's zone' is a business rule."
+      },
+      {
+        "standard": "built-in-temporal-types",
+        "reason": "The booking's zone is a geographic time zone: it must be a canonical IANA identifier; slotStart is a civil time."
+      },
+      {
+        "standard": "iso8601-millisecond-precision",
+        "reason": "slotStart is parsed from text with z.string() and no format check."
+      },
+      {
+        "standard": "domain-entity-uuidv4-ids",
+        "reason": "siteId and clinicId ids are validated as UUIDs at the boundary."
+      },
+      {
+        "standard": "prefer-named-functions",
+        "reason": "New code defines functions and test callbacks."
+      }
+    ],
+    "considered_not_applies": [
+      {
+        "standard": "utc-zoned-temporal-types",
+        "reason": "The booked slot is a civil time in the clinic's zone, which that standard excludes."
+      },
+      {
+        "standard": "refining-work",
+        "reason": "A reported error is out of refining's scope."
+      },
+      {
+        "standard": "business-logic-entry-point-command-query-separation",
+        "reason": "createBookingCommandHandler is not changed."
+      },
+      {
+        "standard": "accessibility",
+        "reason": "No interface changes; the user-error improvement is not part of this diff."
+      }
+    ]
+  }
+}
