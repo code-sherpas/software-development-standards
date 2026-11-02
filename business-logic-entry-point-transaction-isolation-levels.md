@@ -179,9 +179,10 @@ fun createReservationCommandHandler(
 
 ## Detection Workflow
 
-1. Confirm all three activation conditions.
+1. Confirm all four activation conditions, the ones in «What Counts as In Scope».
    - The entry point is a business-logic entry point.
    - It wraps its flow in a database transaction.
+   - The underlying persistence technology supports configurable isolation levels.
    - It follows Command-Query Separation.
 
 2. Classify the entry point as a command handler or a query handler.
