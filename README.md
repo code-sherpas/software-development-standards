@@ -35,7 +35,7 @@ A check script:
 
 `main` changes only through the merge queue: `gh pr merge <n>` puts a pull request in it, and the queue's build of the tree that will land must pass `quality_checks`. A push to a pull request runs nothing, so a green pull request means nothing has been checked yet. The tests run on Linux and macOS, the systems the checks run on: `node --test 'checks/**/*.test.ts'` (Node 24 or later).
 
-## Index (54 standards)
+## Index (55 standards)
 
 ### Domain model
 
@@ -106,6 +106,7 @@ A check script:
 
 ### Shipping changes
 
+- [Shipping Increments](shipping-increments.md) — A split task is shipped one increment at a time, each built, reviewed, merged, deployed and verified in production before anything that depends on it starts: the session's agent coordinates and talks to the person, a new builder per increment, a different reviewer before the change request, a verifier after the deploy, every one reading the standards index and choosing what it reads in full; questions and merges go to the person, and the run takes a maximum, a number in parallel and an option to stack.
 - [Pre-Merge Gates](pre-merge-gates.md) — Before a change enters the main branch, six gates must hold: the change is ready to merge, its pre-merge plan was run by whoever integrates it, it was exercised by hand, any data migration was run against a representative dataset, any data it leaves behind ships the mechanism that removes it, and any entry point it adds or changes was called as someone who must be refused.
 - [Post-Deploy Verification](post-deploy-verification.md) — A change is done only once it has been used in production the way its real consumers use it — a person through the interface, another application through its contract, an agent through its path — on a deploy confirmed to carry it, with dedicated test accounts, and when it fails the person is told with the evidence and decides whether to revert.
 - [Stacked Changes](stacked-changes.md) — Stack a change only on a change it depends on, whatever the platform calls it — a pull request, a merge request: no global stack, one stack per line of work, every layer validated against the stack's base, merge the lowest ready layer one at a time, and a group lands only when all of it is verified and it is one change in production.
