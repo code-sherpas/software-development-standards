@@ -2,7 +2,7 @@
 // index chooses, for each case, the standards it would read in full, and the
 // test fails when any run misses one the reference labels expect.
 //
-//   node evals/index/run.ts [--runs 3] [--concurrency 6] [--effort xhigh] [--cases C01,C14] [--out <dir>]
+//   node evals/index/run.ts [--runs 3] [--concurrency 6] [--effort medium] [--cases C01,C14] [--out <dir>]
 //   node evals/index/run.ts --dry-run --cases C14   # prints what the agent receives; calls nothing
 //
 // Needs ANTHROPIC_API_KEY (or any credential the Anthropic SDK resolves). Each
@@ -128,7 +128,8 @@ async function main(): Promise<void> {
     options: {
       runs: { type: "string", default: "3" },
       concurrency: { type: "string", default: "6" },
-      effort: { type: "string", default: "xhigh" },
+      // The effort the agents run at: medium, the default of claude-opus-5-5.
+      effort: { type: "string", default: "medium" },
       cases: { type: "string" },
       "dry-run": { type: "boolean", default: false },
       out: { type: "string", default: join(ROOT, "evals/index/results", new Date().toISOString().replaceAll(":", "-")) },

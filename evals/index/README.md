@@ -70,7 +70,7 @@ Two deterministic checks, no model involved:
 
 ## The test with the model
 
-[run.ts](run.ts) asks `claude-opus-5-5`, the model the agents run on, 3 times per case which standards it would read in full, giving it the hook's instruction, the index of this tree, its role's brief and the case. It fails when any run misses an expected standard; what it chose beyond them, near misses included, is only reported. It writes `report.md` and `results.json`, and in CI also the job's summary.
+[run.ts](run.ts) asks `claude-opus-5-5`, the model the agents run on, at the effort they run at (`medium`, its default), 3 times per case which standards it would read in full, giving it the hook's instruction, the index of this tree, its role's brief and the case. It fails when any run misses an expected standard; what it chose beyond them, near misses included, is only reported. It writes `report.md` and `results.json`, and in CI also the job's summary.
 
 ```
 npm ci
