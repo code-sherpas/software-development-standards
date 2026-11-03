@@ -2040,11 +2040,6 @@
         "source": "unanimous"
       },
       {
-        "standard": "prefer-named-functions",
-        "reason": "The code defines functions and callbacks; whether each is named or legitimately anonymous is in scope.",
-        "source": "unanimous"
-      },
-      {
         "standard": "serialization-boundaries",
         "reason": "The event crosses SQS as JSON and is read by hand in the consumer.",
         "source": "unanimous"
