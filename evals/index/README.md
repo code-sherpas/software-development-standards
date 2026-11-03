@@ -68,7 +68,7 @@ The test, like the real agent, receives three parts in this order:
 
 ## Expected standards
 
-[expected.json](expected.json) holds, per case, the standards that apply (`expected`), each with the reason and its source, and the standards it is a near miss for (`near_miss`). The test fails when any of a case's runs misses one of its expected standards; choosing a near miss, or any other standard not expected, is only reported. How the labels were made, and every decision on a disagreement, is in [labelling/](labelling/decisions.md).
+[expected.json](expected.json) holds, per case, the standards that apply (`expected`), each with the reason and its source, and the standards it is a near miss for (`near_miss`). The test fails when most of a case's runs (2 or 3 of 3) miss one of its expected standards, or when a run gives no answer; a standard missed in one run only is reported as unstable, and choosing a near miss, or any other standard not expected, is only reported. How the labels were made, and every decision on a disagreement, is in [labelling/](labelling/decisions.md).
 
 ## What keeps the corpus whole
 
@@ -79,7 +79,7 @@ Two deterministic checks, no model involved:
 
 ## The test with the model
 
-[run.ts](run.ts) asks `claude-opus-5-5`, the model the agents run on, at the effort they run at (`medium`, its default), 3 times per case which standards it would read in full, giving it the hook's instruction, the index of this tree, its role's brief and the case. It fails when any run misses an expected standard; what it chose beyond them, near misses included, is only reported. It writes `report.md` and `results.json`, and in CI also the job's summary.
+[run.ts](run.ts) asks `claude-opus-5-5`, the model the agents run on, at the effort they run at (`medium`, its default), 3 times per case which standards it would read in full, giving it the hook's instruction, the index of this tree, its role's brief and the case. It fails when most runs of a case miss an expected standard: that is a systematic miss of the index. A standard missed in one run of three is reported as unstable, to tune its entry, without blocking: with some 1,200 choices per run, demanding no miss at all would fail most runs of an index that is not getting worse. What it chose beyond the expected standards, near misses included, is only reported. It writes `report.md` and `results.json`, and in CI also the job's summary.
 
 ```
 npm ci

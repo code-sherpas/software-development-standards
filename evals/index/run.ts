@@ -1,6 +1,6 @@
 // The standards index test with the model: an agent that has read only the
 // index chooses, for each case, the standards it would read in full, and the
-// test fails when any run misses one the reference labels expect.
+// test fails when most runs of a case miss one the reference labels expect.
 //
 //   node evals/index/run.ts [--runs 3] [--concurrency 6] [--effort medium] [--cases C01,C14] [--out <dir>]
 //   node evals/index/run.ts --dry-run --cases C14   # prints what the agent receives; calls nothing
@@ -62,6 +62,8 @@ type CaseResult = {
   nearMiss: string[];
   runs: Run[];
   missed: string[];
+  unstable: string[];
+  errored: boolean;
   extra: string[];
 };
 
@@ -90,26 +92,23 @@ async function pool<T, R>(items: T[], size: number, work: (item: T) => Promise<R
 
 function report(results: CaseResult[], runsPerCase: number, usage: Record<string, number>): string {
   const failed = results.filter(function hasMiss(result) {
-    return result.missed.length > 0;
+    return result.missed.length > 0 || result.errored;
   });
   const lines = [
     `# Standards index test — ${failed.length === 0 ? "passed" : `failed in ${failed.length} of ${results.length} cases`}`,
     "",
     `${MODEL}, ${runsPerCase} runs per case. Tokens: ${usage.input} input, ${usage.cacheWrite} cache write, ${usage.cacheRead} cache read, ${usage.output} output.`,
     "",
-    "| Case | Missed (blocks) | Chosen in how many runs | Chosen beyond the expected (reported only) |",
+    "| Case | Missed in most runs (blocks) | Missed in one run (unstable, reported) | Chosen beyond the expected (reported only) |",
     "|---|---|---|---|",
   ];
   for (const result of results) {
-    const counts = result.expected
-      .map(function count(name) {
-        const times = result.runs.filter(function chose(run) {
-          return run.chosen.includes(name);
-        }).length;
-        return times < runsPerCase ? `${name} ${times}/${runsPerCase}` : "";
-      })
-      .filter(Boolean)
-      .join(", ");
+    function withCount(name: string): string {
+      const times = result.runs.filter(function chose(run) {
+        return run.chosen.includes(name);
+      }).length;
+      return `${name} ${times}/${runsPerCase}`;
+    }
     const extra = result.extra
       .map(function label(name) {
         return result.nearMiss.includes(name) ? `${name} (near miss)` : name;
@@ -118,8 +117,9 @@ function report(results: CaseResult[], runsPerCase: number, usage: Record<string
     const errors = result.runs.flatMap(function errorOf(run) {
       return run.error ? [run.error] : [];
     });
+    const missed = result.missed.map(withCount).join(", ") || "—";
     lines.push(
-      `| ${result.id} | ${result.missed.join(", ") || "—"}${errors.length ? ` (errors: ${errors.join("; ")})` : ""} | ${counts || `all ${runsPerCase}/${runsPerCase}`} | ${extra || "—"} |`,
+      `| ${result.id} | ${missed}${errors.length ? ` (no answer: ${errors.join("; ")})` : ""} | ${result.unstable.map(withCount).join(", ") || "—"} | ${extra || "—"} |`,
     );
   }
   return lines.join("\n") + "\n";
@@ -240,7 +240,7 @@ async function main(): Promise<void> {
   console.log(markdown);
   console.log(`Results in ${values.out}`);
   if (results.some(function failed(result) {
-    return result.missed.length > 0;
+    return result.missed.length > 0 || result.errored;
   })) process.exit(1);
 }
 

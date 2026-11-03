@@ -62,7 +62,7 @@ jobs:
       - run: node evals/index/scope-changes.ts "${{ github.event.merge_group.base_sha }}"
 
   # The standards index test with the model: an agent that read only the
-  # index must choose every standard each case expects, in each of 3 runs.
+  # index must choose every standard each case expects in most of 3 runs.
   # About 900,000 tokens a run, so in the queue it runs only when a standard
   # is added or removed or an index entry changes; otherwise the job passes
   # without calling the model. It authenticates with Workload Identity
