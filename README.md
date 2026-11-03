@@ -47,7 +47,7 @@ Read in full every standard whose entry applies to any part of your work: what y
 - [Domain Entity Reference Optionality](domain-entity-reference-optionality.md) — When a domain entity holds a reference to another domain entity, determine whether that reference is required or optional based on whether the entity can exist in a valid domain state without it.
 - [Domain Entity Typed IDs](domain-entity-typed-ids.md) — Choose the right level of type distinction for domain entity identifiers based on whether the project's type system is nominal or structural.
 - [Domain Entity UUIDv4 IDs](domain-entity-uuidv4-ids.md) — Applies wherever a domain entity's id is defined, created, parsed, validated, serialized or mapped to persistence, transport or another application: represent domain entity identifiers with UUIDv4.
-- [Immutable Domain Entities](immutable-domain-entities.md) — Apply the immutable design pattern when writing or changing domain entities.
+- [Immutable Domain Entities](immutable-domain-entities.md) — Applies whenever a domain entity is written or changed, a renamed field included: apply the immutable design pattern.
 - [Domain Service](domain-service.md) — When domain logic involves multiple aggregates and does not naturally belong to any single one of them, encapsulate that logic in a domain service; logic that a single aggregate can own goes on that aggregate, never in a service.
 
 ### Business logic
@@ -83,9 +83,9 @@ When a change writes, changes, moves or reviews a business-logic entry point —
 
 ### Types, errors and style
 
-- [Built-In Temporal Types](built-in-temporal-types.md) — Represent temporal values with built-in or standard-library temporal types that match their real meaning, and tell instants from civil times: a wall-clock time a person chose in a place is stored as a local date-time plus a canonical IANA zone, with the instant derived from it.
-- [UTC Zoned Temporal Types](utc-zoned-temporal-types.md) — Instants — what happened, or must happen at an absolute moment — use timezone-aware built-in types set to UTC; civil times a person chose in a place are out of scope.
-- [ISO 8601 Millisecond Precision](iso8601-millisecond-precision.md) — When a temporal value must be represented textually, use ISO 8601.
+- [Built-In Temporal Types](built-in-temporal-types.md) — Applies to any code that defines, creates, parses, stores, sends or converts a date or time, also one that only passes through a message, a row or an API. Represent temporal values with built-in or standard-library temporal types that match their real meaning, and tell instants from civil times: a wall-clock time a person chose in a place is stored as a local date-time plus a canonical IANA zone, with the instant derived from it.
+- [UTC Zoned Temporal Types](utc-zoned-temporal-types.md) — Applies wherever an instant is defined, parsed, serialized, stored or converted, also when it only crosses a boundary as text. Instants — what happened, or must happen at an absolute moment — use timezone-aware built-in types set to UTC; civil times a person chose in a place are out of scope.
+- [ISO 8601 Millisecond Precision](iso8601-millisecond-precision.md) — Applies wherever a date or time is written as text or read from text: JSON, messages, query strings, logs a program parses, documentation of a contract. When a temporal value must be represented textually, use ISO 8601.
 - [Neverthrow Return Types](neverthrow-return-types.md) — Applies to every TypeScript or JavaScript function or method a change writes or changes, a one-line edit included: model every compatible one with `neverthrow` return types.
 - [Neverthrow Exception Wrapping](neverthrow-wrap-exceptions.md) — Capture recoverable exceptions with `neverthrow` helpers instead of ad hoc `try/catch`.
 - [Prefer Named Functions Over Anonymous Functions](prefer-named-functions.md) — Applies to any change that defines a function, inline callbacks, handlers, mappers, lambdas and test callbacks included: prefer a named function over an anonymous one, in any stack, within the idioms the standard allows.
