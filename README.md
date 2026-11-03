@@ -37,6 +37,8 @@ A check script:
 
 ## Index (55 standards)
 
+Read in full every standard whose entry applies to any part of your work: what you write, change, move, review, run or ship. That includes the ones that apply to almost every change. Reading one too many costs only tokens; missing one lets its rule be broken unseen.
+
 ### Domain model
 
 - [Domain Entity](domain-entity.md) — Define a domain entity as a domain object with a unique identity that persists over time, even as its attributes change.
@@ -50,10 +52,12 @@ A check script:
 
 ### Business logic
 
+When a change writes, changes, moves or reviews a business-logic entry point — a command or query handler, a use case, an application service, a server action, a job or a route that holds business rules — every entry-point standard below applies whose own condition holds: Typical Domain-Entity Entry Points, the «… for Business Logic Entry Points» standards and the three «Ensure …» standards.
+
 - [Bounded Context Layout](bounded-context-layout.md) — Source is organized by business context first and by layer second: domain, application, primary-adapter and secondary-adapter inside each context, with `domain` present when there is one, nothing outside a context reaching into its adapters, and `shared` treated as where coupling hides.
 - [Dependency Direction](dependency-direction.md) — Business logic declares the interfaces it needs and infrastructure implements them from outside: the interface belongs to the caller rather than mirroring a vendor's API, the clock and the id generator are dependencies too, and adapters at the edge translate and delegate rather than decide.
 - [Business Logic](business-logic.md) — Define business logic as the rules, algorithms, and workflows in software that govern how data is created, stored, and transformed so real business policies become automated actions.
-- [Typical Domain-Entity Entry Points for Business Logic](business-logic-typical-domain-entity-entry-points.md) — When deciding which business-logic entry points to implement around a domain-entity type, prefer a standard set of entry points instead of inventing ad hoc operations.
+- [Typical Domain-Entity Entry Points for Business Logic](business-logic-typical-domain-entity-entry-points.md) — Applies whenever a business-logic entry point around a domain entity is written, changed, moved or reviewed: it is one of a standard set — create, edit, find by id, search, delete, change a finite state, associate, check whether an action is allowed — instead of an ad hoc operation.
 - [One Entry Point per Module for Business Logic](business-logic-entry-point-one-per-module.md) — Every business-logic entry point must be a separate module.
 - [Prefer Top-Level Functions for Business Logic Entry Points](business-logic-entry-point-prefer-top-level-functions.md) — When implementing a business-logic entry point, prefer a top-level function over a class or object, as long as the project stack allows it without introducing friction.
 - [Command-Query Separation for Business Logic Entry Points](business-logic-entry-point-command-query-separation.md) — Apply Command-Query Separation at entry points to business logic.
@@ -84,7 +88,7 @@ A check script:
 - [ISO 8601 Millisecond Precision](iso8601-millisecond-precision.md) — When a temporal value must be represented textually, use ISO 8601.
 - [Neverthrow Return Types](neverthrow-return-types.md) — Model every compatible function and method with `neverthrow` return types.
 - [Neverthrow Exception Wrapping](neverthrow-wrap-exceptions.md) — Capture recoverable exceptions with `neverthrow` helpers instead of ad hoc `try/catch`.
-- [Prefer Named Functions Over Anonymous Functions](prefer-named-functions.md) — When defining a function, prefer a named function over an anonymous one, regardless of the technology stack.
+- [Prefer Named Functions Over Anonymous Functions](prefer-named-functions.md) — Applies to any change that defines a function, inline callbacks, handlers, mappers, lambdas and test callbacks included: prefer a named function over an anonymous one, in any stack, within the idioms the standard allows.
 - [Failure Reporting](failure-reporting.md) — A component fails whenever it cannot do its job, always; reporting that failure to observability is a separate decision, and it belongs to whoever knows the context, because the same error is an incident for one caller and an expected outcome for another.
 - [Serialization Boundaries](serialization-boundaries.md) — What crosses a boundary loses the jurisdiction of the tools that enforced its guarantees, so design what crosses to keep naming the domain, rebuild the type on arrival through one door, and handle both ways a remote call fails.
 
@@ -108,7 +112,7 @@ A check script:
 
 - [Shipping Increments](shipping-increments.md) — A split task is shipped one increment at a time, each built, reviewed, merged, deployed and verified in production before anything that depends on it starts: the session's agent coordinates and talks to the person, a new builder per increment, a different reviewer before the change request, a verifier after the deploy, every one reading the standards index and choosing what it reads in full; questions and merges go to the person, and the run takes a maximum, a number in parallel and an option to stack.
 - [Pre-Merge Gates](pre-merge-gates.md) — Before a change enters the main branch, six gates must hold: the change is ready to merge, its pre-merge plan was run by whoever integrates it, it was exercised by hand, any data migration was run against a representative dataset, any data it leaves behind ships the mechanism that removes it, and any entry point it adds or changes was called as someone who must be refused.
-- [Post-Deploy Verification](post-deploy-verification.md) — A change is done only once it has been used in production the way its real consumers use it — a person through the interface, another application through its contract, an agent through its path — on a deploy confirmed to carry it, with dedicated test accounts, and when it fails the person is told with the evidence and decides whether to revert.
+- [Post-Deploy Verification](post-deploy-verification.md) — Applies to every change that reaches production, by any route, and to whoever builds it, reviews its plan or verifies it; only documentation, tooling configuration, test-only changes and changes fully covered by a check that runs against production are exempt. A change is done only once it has been used in production the way its real consumers use it — a person through the interface, another application through its contract, an agent through its path — on a deploy confirmed to carry it, with dedicated test accounts, and when it fails the person is told with the evidence and decides whether to revert.
 - [Stacked Changes](stacked-changes.md) — Stack a change only on a change it depends on, whatever the platform calls it — a pull request, a merge request: no global stack, one stack per line of work, every layer validated against the stack's base, merge the lowest ready layer one at a time, and a group lands only when all of it is verified and it is one change in production.
 - [Expand-Contract Schema Changes](expand-contract-schema-changes.md) — During a deploy two versions run against the same storage, so a change that removes, renames or narrows anything stored is split across deploys — expand, migrate, contract — the contract step names the deploy that removed the last reader, and the repository enforces it with an automated check.
 
@@ -123,4 +127,4 @@ A check script:
 
 ### Integration
 
-- [Integration Logic](integration-logic.md) — Define integration logic as the code required for two independent applications to communicate.
+- [Integration Logic](integration-logic.md) — Applies to any code that talks to another application, and a database is one: repositories, ORM queries and mappings, schemas and migrations, HTTP clients, webhooks, queue producers and consumers. Define integration logic as the code required for two independent applications to communicate.
