@@ -738,6 +738,11 @@
         "source": "unanimous"
       },
       {
+        "standard": "pre-merge-gates",
+        "reason": "The reviewer checks how gates 4 to 6 were met: the change adds tables and entry points.",
+        "source": "decision 14"
+      },
+      {
         "standard": "prefer-named-functions",
         "reason": "Non-trivial anonymous arrow callbacks in andThen and mapErr.",
         "source": "unanimous"
@@ -1160,6 +1165,11 @@
         "source": "unanimous"
       },
       {
+        "standard": "pre-merge-gates",
+        "reason": "The reviewer checks how gates 4 to 6 were met: the change adds a query entry point.",
+        "source": "decision 14"
+      },
+      {
         "standard": "prefer-named-functions",
         "reason": "The code defines functions and callbacks; whether each is named or legitimately anonymous is in scope.",
         "source": "unanimous"
@@ -1473,6 +1483,11 @@
         "standard": "neverthrow-wrap-exceptions",
         "reason": "The code calls APIs that throw or reject; capturing them belongs to this standard.",
         "source": "unanimous"
+      },
+      {
+        "standard": "pre-merge-gates",
+        "reason": "The reviewer checks how gates 4 to 6 were met: the server action is a new entry point.",
+        "source": "decision 14"
       },
       {
         "standard": "prefer-named-functions",
@@ -1943,6 +1958,11 @@
         "standard": "neverthrow-return-types",
         "reason": "TypeScript functions are written or reviewed; return types must be Result/ResultAsync, with framework boundaries adapting from them.",
         "source": "unanimous"
+      },
+      {
+        "standard": "pre-merge-gates",
+        "reason": "The reviewer checks how gates 4 to 6 were met: the change moves entry points.",
+        "source": "decision 14"
       },
       {
         "standard": "prefer-named-functions",
