@@ -35,7 +35,7 @@ Anything else — zero, a negative or a fraction — is refused, saying what is 
 - **The reviewer** reviews one increment before its change request is opened. Never the builder of that increment, and it never edits what it reviews.
 - **The verifier** uses one shipped increment in production, after its deploy is confirmed. A new one each time, and it changes nothing.
 
-Every one of them reads the standards index first, chooses the standards its work touches and reads those in full, and says in its report which ones it used and why.
+Every one of them reads the standards index first, reads in full every standard whose entry applies to any part of its work — the ones that apply to almost every change included — and says in its report which ones it used and why.
 
 A runtime without sub-agents runs the roles one after another in the same order, each starting from the task.
 
@@ -75,6 +75,8 @@ Then it stops. It does not wait for the merge queue or the deploy: waiting with 
 
 The reviewer reads the task, the increment and the change, and checks the change against the standards that apply to it, the increment's acceptance and the prototype, if there is one. It returns a short list of findings, each with where it is and why it matters, or says there are none.
 
+If a standard applied that the builder did not read, the finding says so: that increment becomes a case of the standards index test (`evals/index` in the standards repository), so the index is fixed where it failed.
+
 ### 8. Merge
 
 The coordinator asks the person for permission to merge, gathering the increments that are ready into one question. Only with that permission does it put them in the merge queue — unless the person said, when starting the run, that it may merge without asking.
@@ -101,6 +103,7 @@ The run ends when it has shipped **maximum** increments, when nothing is unblock
 
 - Was every increment started only once every blocker was verified in production, or stacked because the run asked for it?
 - Did every builder, reviewer and verifier read the index and say which standards it used?
+- Did a review find a standard that applied and the builder did not read, and did that increment become a case of the standards index test?
 - Did any question that was the person's get answered without them?
 - Was the reviewer a different agent from the builder, and did it leave the change untouched?
 - Does every shipped increment have its product documentation updated in its own change, and its decisions recorded?
