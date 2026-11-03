@@ -75,6 +75,8 @@ Then it stops. It does not wait for the merge queue or the deploy: waiting with 
 
 The reviewer reads the task, the increment and the change, and checks the change against the standards that apply to it, the increment's acceptance and the prototype, if there is one. It returns a short list of findings, each with where it is and why it matters, or says there are none.
 
+When the change carries a migration, leaves data behind, or adds or changes an entry point, the reviewer also checks that the builder's report shows how gates 4 to 6 of [Pre-Merge Gates](pre-merge-gates.md) were met: a reviewer reads the code that is there, and those gates are about what is not.
+
 If a standard applied that the builder did not read, the finding says so: that increment becomes a case of the standards index test (`evals/index` in the standards repository), so the index is fixed where it failed.
 
 ### 8. Merge
@@ -106,6 +108,7 @@ The run ends when it has shipped **maximum** increments, when nothing is unblock
 - Did a review find a standard that applied and the builder did not read, and did that increment become a case of the standards index test?
 - Did any question that was the person's get answered without them?
 - Was the reviewer a different agent from the builder, and did it leave the change untouched?
+- For a change with a migration, data left behind or a new or changed entry point, did the review check how gates 4 to 6 were met?
 - Does every shipped increment have its product documentation updated in its own change, and its decisions recorded?
 - Did anything merge without the person's permission, when they had not waived it?
 - Is every increment marked shipped verified in production?
