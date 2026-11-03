@@ -21,7 +21,7 @@ Out of scope:
 
 ### 1. Read the task, and the code through sub-agents
 
-Read the task and, if it has one, the validated prototype. Unlike refining, splitting reads the code: what already exists decides what has to be replaced, where a flag can go, and what has to change first. Every question about the code is delegated to a sub-agent that returns the conclusion and where it comes from, never the files.
+Read the task and, if it has one, the validated prototype. Splitting reads the code as a whole, not only the facts refining checked: what already exists decides what has to be replaced, where a flag can go, and what has to change first. Every question about the code is delegated to a sub-agent that returns the conclusion and where it comes from, never the files.
 
 **Correct the task when the code proves it wrong.** If something the task assumes is false — a capability that does not exist, a rule the code does not hold — correct the task before splitting on top of it, and mark the correction for the person to review. If the correction changes what the work does or for whom, ask first.
 
