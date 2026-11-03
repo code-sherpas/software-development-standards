@@ -15,6 +15,15 @@ on:
   # The standards index test with the model, by hand: to measure the index
   # before changing it, or after a change to the hook or a role's brief.
   workflow_dispatch:
+    inputs:
+      cases:
+        description: "Cases to run, comma-separated (empty: all)"
+        required: false
+        default: ""
+      runs:
+        description: "Runs per case"
+        required: false
+        default: "3"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -56,12 +65,25 @@ jobs:
   # index must choose every standard each case expects, in each of 3 runs.
   # About 900,000 tokens a run, so in the queue it runs only when a standard
   # is added or removed or an index entry changes; otherwise the job passes
-  # without calling the model. Without ANTHROPIC_API_KEY it fails: a change to
-  # the index that nobody tested must not land.
+  # without calling the model. It authenticates with Workload Identity
+  # Federation: GitHub's OIDC token is exchanged for a short-lived Anthropic
+  # token of the service account `standards-index-test`, through the rule in
+  # the repository variables; there is no API key to leak. If the exchange
+  # fails, every run fails: a change to the index that nobody tested must not
+  # land.
   index_model_test:
     if: ${{ github.event_name == 'merge_group' || github.event_name == 'workflow_dispatch' }}
     runs-on: ubuntu-latest
     timeout-minutes: 60
+    permissions:
+      id-token: write
+      contents: read
+    env:
+      ANTHROPIC_FEDERATION_RULE_ID: ${{ vars.ANTHROPIC_FEDERATION_RULE_ID }}
+      ANTHROPIC_ORGANIZATION_ID: ${{ vars.ANTHROPIC_ORGANIZATION_ID }}
+      ANTHROPIC_SERVICE_ACCOUNT_ID: ${{ vars.ANTHROPIC_SERVICE_ACCOUNT_ID }}
+      ANTHROPIC_WORKSPACE_ID: ${{ vars.ANTHROPIC_WORKSPACE_ID }}
+      ANTHROPIC_IDENTITY_TOKEN_FILE: /tmp/github-oidc-token
     steps:
       - uses: actions/checkout@v4
         with:
@@ -75,9 +97,24 @@ jobs:
       - if: ${{ github.event_name == 'workflow_dispatch' || steps.needed.outputs.needed == 'true' }}
         run: npm ci
       - if: ${{ github.event_name == 'workflow_dispatch' || steps.needed.outputs.needed == 'true' }}
-        run: node evals/index/run.ts --out evals/index/results/ci
+        # GitHub's token lasts about 5 minutes and each one is exchanged only
+        # once, while the run takes longer: a fresh one is written every 2
+        # minutes, and the SDK reads the file again on every refresh.
+        run: |
+          fetch_token() {
+            curl -fsS -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" \
+              "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=https://api.anthropic.com" \
+              | jq -r .value > "$ANTHROPIC_IDENTITY_TOKEN_FILE.new" \
+              && mv "$ANTHROPIC_IDENTITY_TOKEN_FILE.new" "$ANTHROPIC_IDENTITY_TOKEN_FILE"
+          }
+          fetch_token
+          (while sleep 120; do fetch_token; done) &
+          refresher=$!
+          trap 'kill "$refresher"' EXIT
+          node evals/index/run.ts --out evals/index/results/ci --runs "${RUNS:-3}" ${CASES:+--cases "$CASES"}
         env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          CASES: ${{ inputs.cases }}
+          RUNS: ${{ inputs.runs }}
       - if: ${{ always() && (github.event_name == 'workflow_dispatch' || steps.needed.outputs.needed == 'true') }}
         uses: actions/upload-artifact@v4
         with:

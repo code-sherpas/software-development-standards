@@ -79,4 +79,4 @@ node evals/index/run.ts                         # every case, 3 runs: some 900,0
 node evals/index/run.ts --cases C13,C14 --runs 1
 ```
 
-In the merge queue, the job `index_model_test` runs it only when [model-test-needed.ts](model-test-needed.ts) finds a standard added or removed or an index entry changed; otherwise it passes without calling the model. It needs the repository secret `ANTHROPIC_API_KEY`, and fails without it. It can also be started by hand (`workflow_dispatch`). No fallback model is used: a refusal is a failed run, not an answer from another model.
+In the merge queue, the job `index_model_test` runs it only when [model-test-needed.ts](model-test-needed.ts) finds a standard added or removed or an index entry changed; otherwise it passes without calling the model. It authenticates with Workload Identity Federation, as the service account `standards-index-test`: the rule, service account, organization and workspace ids are repository variables, and there is no API key. If the exchange fails, the job fails. It can also be started by hand (`workflow_dispatch`). No fallback model is used: a refusal is a failed run, not an answer from another model.
