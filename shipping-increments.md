@@ -93,6 +93,8 @@ An increment is **shipped** only once it has been verified in production.
 
 The coordinator keeps each increment's status and its line in the task's state up to date: pending, in progress, in review, waiting for merge, shipped. Sub-agents report in a few lines and leave the details in the tracker — every line they return stays in the coordinator's context for the rest of the run.
 
+No sub-agent waits for anything that takes more than a few minutes: CI, the merge queue, a deploy, another session's work, a `sleep`. A sub-agent's prompt cache lasts five minutes, so after a longer idle wait its next call writes its whole context again. It reports what it is waiting for and stops; the coordinator, whose cache lasts longer, starts or resumes it once the result is there. Running its own tests is work, not waiting.
+
 ### 11. Hand off
 
 The run ends when it has shipped **maximum** increments, when nothing is unblocked, or when something needs the person before it can go on. End with the exact instruction to carry on, ready to copy: clear the context — in Claude Code, `/clear` — then run the phase again with the task's link and the same arguments, by the name the agent runtime lists the skill under — in Claude Code with the `base` plugin, `/base:ship-increments <task link>`. An agent cannot clear its own context: the person does. When every increment is shipped, say that the task is done.
@@ -101,10 +103,13 @@ The run ends when it has shipped **maximum** increments, when nothing is unblock
 
 **Measured in this organization, 2026-11-01:** in the repository where most work happens, half of all usage came from sub-agents, and 69 of 80 sub-agents had read every standard in full, some 233,000 tokens each, before starting. In another repository, builders started fresh for one increment each reached a median of 88,000 tokens of context in about nine calls; the session that coordinated them, never cleared, reached 573,000.
 
+**Measured in the same repository, 2026-10-19 to 2026-11-01:** whole-context rewrites after a pause of 5 to 60 minutes were 8 % of all usage, and 152 of those 165 rewrites were sub-agents waiting — on a `sleep`, on `gh`, on a long build — with the five-minute cache sub-agents get. Giving sub-agents a one-hour cache would cost about as much as it saves: it makes every cache write of theirs dearer.
+
 ## Review Questions
 
 - Was every increment started only once every blocker was verified in production, or stacked because the run asked for it?
 - Did every builder, reviewer and verifier read the index and say which standards it used?
+- Did any sub-agent wait for CI, the queue, a deploy or a `sleep` instead of reporting and stopping?
 - Did a review find a standard that applied and the builder did not read, and did that increment become a case of the standards index test?
 - Did any question that was the person's get answered without them?
 - Was the reviewer a different agent from the builder, and did it leave the change untouched?
