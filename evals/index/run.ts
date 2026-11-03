@@ -244,4 +244,12 @@ async function main(): Promise<void> {
   })) process.exit(1);
 }
 
-if (process.argv[1] === fileURLToPath(import.meta.url)) await main();
+// Anything but an answer or an API error — no credential, a failed token
+// exchange, a brief that cannot be downloaded — means the test could not
+// run: it fails, saying why, never passes.
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  await main().catch(function couldNotRun(error: unknown) {
+    console.error(`The standards index test could not run: ${error instanceof Error ? error.message : String(error)}`);
+    process.exit(1);
+  });
+}
