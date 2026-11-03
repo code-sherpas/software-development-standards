@@ -5,7 +5,9 @@
 //   node evals/index/run.ts [--runs 3] [--concurrency 6] [--effort medium] [--cases C01,C14] [--out <dir>]
 //   node evals/index/run.ts --dry-run --cases C14   # prints what the agent receives; calls nothing
 //
-// Needs ANTHROPIC_API_KEY (or any credential the Anthropic SDK resolves). Each
+// Needs a credential the Anthropic SDK resolves: in CI, Workload Identity
+// Federation through the ANTHROPIC_FEDERATION_* variables; by hand,
+// ANTHROPIC_API_KEY or an `ant auth login` profile. Each
 // full run is about 30 cases × 3 runs, some 900,000 tokens: CI runs it only
 // when the index changes or a standard is added (see model-test-needed.ts).
 //
