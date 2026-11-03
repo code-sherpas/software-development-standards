@@ -1,10 +1,10 @@
 # Standards index test — cases
 
-The cases the standards index test runs: an agent that reads only the [index](../../README.md) has to choose every standard that applies to the case, the same ones it would apply after reading all of them in full. [case-list.md](case-list.md) says what each case was designed to cover and why; the cases themselves are in [cases/](cases/).
+The cases the standards index test runs: an agent that reads only the [index](../../README.md) has to choose every standard that applies to the case, the same ones it would apply after reading all of them in full. The cases are in [cases/](cases/) and the standards each one expects in [expected.json](expected.json).
 
 ## What a case is
 
-One file per case, `cases/<id>.md`: a short front matter and, below it, the message the agent receives for that work, as it would really receive it. A case never names a standard, never hints at one, and never says what it was designed to cover: that lives in `case-list.md` and, once labelled, in the expected set.
+One file per case, `cases/<id>.md`: a short front matter and, below it, the message the agent receives for that work, as it would really receive it. A case never names a standard, never hints at one, and never says what it was designed to cover: what it covers is its label in `expected.json`.
 
 ```yaml
 ---
@@ -21,6 +21,15 @@ The body is what reaches the agent after the hook's instruction and its role's b
 - for `none`, the person's message to a session with no skill and no role.
 
 Code is synthetic, written to force the edges of each standard's scope, and inspired by real changes without copying private code.
+
+## Writing a new case
+
+When a standard is added or its scope changes, the corpus needs cases that cover what is new:
+
+- every standard is expected in at least 2 cases, of different shapes (description only and with code, different stacks and roles); corpus.test.ts checks the minimum;
+- a standard easily confused with another also gets a near-miss case: one that looks like it applies and does not, by its own scope's exclusions;
+- cases are synthetic, inspired by real changes, and written to force the edges of the scope rather than its centre;
+- what a case was designed to cover is never written down where a labeller can see it. Its expected standards come from three independent labellers that read every standard in full, as [labelling/](labelling/decisions.md) describes, with the person settling their disagreements.
 
 ## How the prompt is composed
 
