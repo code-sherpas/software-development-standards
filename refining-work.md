@@ -71,7 +71,7 @@ If the project has no task tracker, ask how to proceed. Do not leave the result 
 
 Refining ends here. Say which phase comes next — the prototype, if the task says it needs one, or splitting it — and that it starts in a new session from the task.
 
-End with the exact instruction to carry on, ready to copy: clear the context — in Claude Code, `/clear` — then run the next phase's skill with the task's link, by the name the agent runtime lists it under — in Claude Code with the `base` plugin, `/base:build-prototype <task link>` or `/base:to-increments <task link>`. An agent cannot clear its own context: the person does, and the instruction leaves them nothing to work out.
+End with the exact instruction to carry on, ready to copy: clear the context — in Claude Code, `/clear` — then run the next phase's skill with the task's link, by the name the agent runtime lists it under — in Claude Code with the `base` plugin, `/base:build-prototype <task link>` or `/base:to-increments <task link>`. An agent cannot clear its own context: the person does, and the instruction leaves them nothing to work out. If the person asks to carry on in this same session instead, say once what it costs — every call of what follows carries this session's context again — and carry on only if they confirm.
 
 ## Why This Rule Exists
 

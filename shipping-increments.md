@@ -97,7 +97,7 @@ No sub-agent waits for anything that takes more than a few minutes: CI, the merg
 
 ### 11. Hand off
 
-The run ends when it has shipped **maximum** increments, when nothing is unblocked, or when something needs the person before it can go on. End with the exact instruction to carry on, ready to copy: clear the context — in Claude Code, `/clear` — then run the phase again with the task's link and the same arguments, by the name the agent runtime lists the skill under — in Claude Code with the `base` plugin, `/base:ship-increments <task link>`. An agent cannot clear its own context: the person does. When every increment is shipped, say that the task is done.
+The run ends when it has shipped **maximum** increments, when nothing is unblocked, or when something needs the person before it can go on. End with the exact instruction to carry on, ready to copy: clear the context — in Claude Code, `/clear` — then run the phase again with the task's link and the same arguments, by the name the agent runtime lists the skill under — in Claude Code with the `base` plugin, `/base:ship-increments <task link>`. An agent cannot clear its own context: the person does. If the person asks to carry on in this same session instead, say once what it costs — every call of what follows carries this session's context again — and carry on only if they confirm. When every increment is shipped, say that the task is done.
 
 ## Why This Rule Exists
 
