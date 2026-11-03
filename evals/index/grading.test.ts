@@ -16,18 +16,28 @@ describe("an answer of the model", () => {
     near_miss: ["payments"],
   };
 
-  it("misses a standard when any one of its runs leaves it out", () => {
+  it("misses a standard that most runs leave out, and blocks", () => {
+    const result = grade(expected, [{ chosen: ["refunds"] }, { chosen: ["refunds"] }, { chosen: ["refunds", "invoices"] }]);
+    assert.deepEqual(result, { missed: ["invoices"], unstable: [], errored: false, extra: [] });
+  });
+
+  it("reports a standard left out by one run as unstable, without blocking", () => {
     const result = grade(expected, [
       { chosen: ["refunds", "invoices"] },
       { chosen: ["refunds"] },
       { chosen: ["refunds", "invoices", "payments"] },
     ]);
-    assert.deepEqual(result, { missed: ["invoices"], extra: ["payments"] });
+    assert.deepEqual(result, { missed: [], unstable: ["invoices"], errored: false, extra: ["payments"] });
   });
 
-  it("misses every standard in a run that failed, so a failure never passes", () => {
-    const result = grade(expected, [{ chosen: ["refunds", "invoices"] }, { chosen: [], error: "refusal" }]);
-    assert.deepEqual(result.missed, ["refunds", "invoices"]);
+  it("blocks a case with a run that gave no answer, so a failure never passes", () => {
+    const result = grade(expected, [{ chosen: ["refunds", "invoices"] }, { chosen: ["refunds", "invoices"] }, { chosen: [], error: "refusal" }]);
+    assert.equal(result.errored, true);
+    assert.deepEqual(result.missed, []);
+  });
+
+  it("misses with a single run whatever that run leaves out", () => {
+    assert.deepEqual(grade(expected, [{ chosen: ["refunds"] }]).missed, ["invoices"]);
   });
 });
 
