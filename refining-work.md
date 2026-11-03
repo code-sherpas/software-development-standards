@@ -25,9 +25,9 @@ Read the request — the task, if it already exists in the tracker — and the d
 
 **A task that already exists is the request, and the refined task overwrites it.** Its text, and its sub-items' if it has any, are what was asked: the sub-items are not refined one by one. The refined task covers everything they asked, or names it as out of scope. When it is published, it replaces the task's text. The sub-items that existed before are left as they are until splitting, which decides what replaces them.
 
-**Facts come from the documentation.** Finding one is delegated to a sub-agent that reads the documentation, never the code, and returns the fact with the place it came from, or says it is not documented. The conversation keeps the conclusion, not the documents. A fact the documentation does not hold is a gap: say so, and read the code to settle it only with the person's agreement.
+**Facts come from the documentation, checked against the code.** Finding one is delegated to a sub-agent that returns the fact with the place it came from, never the files; the conversation keeps the conclusion. The documentation gives the vocabulary and the intent. A fact about how the product behaves today that the task will rest on — one that, if false, would change a decision — the sub-agent also checks in the code, without asking the person: the documentation may be out of date, and the code is what the product does. When the two disagree, the code says what happens today, and the task notes the discrepancy so the documentation is corrected when that part is shipped. A fact neither holds is said to be unknown.
 
-Not reading the code here is deliberate. A wrong assumption that gets through is found by the later phases, which do read it, and whoever finds it corrects the task, not only the code.
+The code informs the facts, never the decisions: what the work will do is settled with the person, not inferred from what already exists, and no file path or code goes in the task. Checking only the facts the task rests on keeps each sub-agent from reading half the repository.
 
 ### 2. Interview until nothing is open
 
@@ -87,7 +87,7 @@ A task that leaves questions open moves them into the code, where each one is an
 - Does every user story name who it is for, and is whoever must be refused covered?
 - Does the access control cover listings and searches, not only the actions?
 - Is each decision attributed, and is each of the agent's marked for review?
-- Was a fact taken from the code without the person's agreement, or left only in the conversation?
+- Was a fact the task rests on taken from the documentation without being checked in the code, or left only in the conversation?
 - Is every term this work introduces or changes defined in the task?
 - Is the task free of file paths and code?
 

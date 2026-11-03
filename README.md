@@ -105,7 +105,7 @@ When a change writes, changes, moves or reviews a business-logic entry point —
 
 ### Planning work
 
-- [Refining Work](refining-work.md) — Before work is split or built, the request becomes one task in the project's task tracker that settles what will be done and why: facts come from the documentation through sub-agents, the interview asks one question at a time until none is open, terms and decisions go in the task while the product documentation waits for what reaches production, the draft is confirmed once, and the next phase starts in a new session from the task alone.
+- [Refining Work](refining-work.md) — Before work is split or built, the request becomes one task in the project's task tracker that settles what will be done and why: facts come through sub-agents from the documentation, checked against the code when the task rests on them, the interview asks one question at a time until none is open, terms and decisions go in the task while the product documentation waits for what reaches production, the draft is confirmed once, and the next phase starts in a new session from the task alone.
 - [Splitting Work into Increments](splitting-work-into-increments.md) — A refined task is split into the smallest increments of functionality usable in production, each delivering named user stories, tied by the tracker's blocking relation into a graph, with an order and a feature-flag strategy; the code is read through sub-agents and corrects the task where it proves it wrong, each increment carries only what shipping it needs, the parent task keeps only the plan and the state, and the plan is confirmed once before anything is created.
 
 ### Shipping changes
