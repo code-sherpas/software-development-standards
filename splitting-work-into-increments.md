@@ -60,6 +60,8 @@ Each increment is a subtask of the task, in the project's task tracker, with:
 
 Nothing the task already says is repeated: every session that ships the increment reads both. No file paths and no code.
 
+**Sub-items the task had before it was split** — written before it was refined, such as the findings of an audit — do not decide how many increments there are or what each one holds. Together, the increments cover at least everything those sub-items covered. Once the plan is confirmed, those sub-items are deleted and the increments created in their place.
+
 ### 5. The task keeps the plan and the state, nothing else
 
 Add to the task:
@@ -72,7 +74,7 @@ Decisions and details live in each increment, not here: the task is read by ever
 
 ### 6. Confirm once, then create
 
-Show the whole plan in one message: the increments with their stories, the graph, the order and the flag strategy. Ask once whether to create it. Apply exactly the edits the person asks for and show them; do not reopen the task. Then create the increments and their blocking relations, update the task, and check that they read back as written.
+Show the whole plan in one message: the increments with their stories, the graph, the order and the flag strategy, and, if the task had sub-items before, which increments cover each one and that they will be deleted. Ask once whether to create it. Apply exactly the edits the person asks for and show them; do not reopen the task. Then delete the task's earlier sub-items, if it had any, create the increments and their blocking relations, update the task, and check that they read back as written.
 
 ### 7. Hand off
 
@@ -85,6 +87,7 @@ Splitting ends here. End with the exact instruction to carry on, ready to copy: 
 ## Review Questions
 
 - Can each increment be used in production by someone, on its own, once it ships?
+- If the task had sub-items before it was split, do the increments cover everything they covered, and were they deleted?
 - Could any increment be smaller and still be usable?
 - Does every enabling increment name what it unblocks, and is there no usable way around it?
 - Do the increments, added up, deliver every user story of the task?

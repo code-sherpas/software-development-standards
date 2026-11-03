@@ -23,6 +23,8 @@ Out of scope:
 
 Read the request — the task, if it already exists in the tracker — and the documentation the project keeps of its product and of its code before asking anything. A question the documentation already answers is not asked.
 
+**A task that already exists is the request, and the refined task overwrites it.** Its text, and its sub-items' if it has any, are what was asked: the sub-items are not refined one by one. The refined task covers everything they asked, or names it as out of scope. When it is published, it replaces the task's text. The sub-items that existed before are left as they are until splitting, which decides what replaces them.
+
 **Facts come from the documentation.** Finding one is delegated to a sub-agent that reads the documentation, never the code, and returns the fact with the place it came from, or says it is not documented. The conversation keeps the conclusion, not the documents. A fact the documentation does not hold is a gap: say so, and read the code to settle it only with the person's agreement.
 
 Not reading the code here is deliberate. A wrong assumption that gets through is found by the later phases, which do read it, and whoever finds it corrects the task, not only the code.
@@ -61,7 +63,7 @@ No file paths and no code: they go stale before the work ends. A brief shape —
 
 ### 5. Confirm once, then publish
 
-Show the whole draft in one message and ask once whether to publish it. Apply exactly the edits the person asks for and show them; do not reopen the interview or add improvements nobody asked for. Then create or update the task in the tracker and check that it reads back as written.
+Show the whole draft in one message and ask once whether to publish it. Apply exactly the edits the person asks for and show them; do not reopen the interview or add improvements nobody asked for. Then create the task in the tracker, or overwrite the existing one, and check that it reads back as written.
 
 If the project has no task tracker, ask how to proceed. Do not leave the result only in the conversation.
 
@@ -80,6 +82,7 @@ A task that leaves questions open moves them into the code, where each one is an
 ## Review Questions
 
 - Could someone who never saw the conversation carry the work on from the task alone?
+- When the request was a task that already existed, did the refined task overwrite it, and does it cover everything it and its sub-items asked, or name it as out of scope?
 - Is any question still open without being written as open, with what it blocks?
 - Does every user story name who it is for, and is whoever must be refused covered?
 - Does the access control cover listings and searches, not only the actions?
