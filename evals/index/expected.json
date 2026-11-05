@@ -27,23 +27,23 @@
   "C03": {
     "expected": [
       {
+        "standard": "leave-nothing-running",
+        "reason": "The coordinator starts background sub-agents (builders, reviewers, verifiers) and, across a multi-hour run, watchers on the merge queue/deploy; when it hands control back at the end of turns or of the run, everything it started that is still running must be stopped or kept on purpose and said so, and it must not stop what other sessions started.",
+        "source": "unanimous"
+      },
+      {
         "standard": "post-deploy-verification",
-        "reason": "After each deploy is confirmed the coordinator starts a verifier; an increment is shipped only once verified in production, with no real money for the payment increments.",
+        "reason": "Every increment reaches production, and an increment is shipped only once verified there. The coordinator confirms the deploy carrying each increment is live before starting a verifier, does not mark it shipped until verified, and on failure tells the person with the evidence for them to decide on revert. PROJ-414 is card payment through the provider: the standard's 'no real money' rule means the verification plan must say how far to go and a person must agree before it runs; 416 sends emails (no real people).",
         "source": "unanimous"
       },
       {
         "standard": "pre-merge-gates",
-        "reason": "The coordinator puts approved changes in the merge queue, which is asking for the merge; Gate 1 and the gates for every layer a stacked merge integrates apply.",
+        "reason": "The coordinator 'puts approved changes in the merge queue', and adding a change to a merge queue is asking for the merge, which is in scope on every route into main. Gates are executed by whoever integrates, not the author: before queueing it must verify Gate 1 (queue waits for every required check, diff size/deletions match, review threads resolved) and that conditions 3-8 and Gates 2-6 hold, checking the builder's report for gates 4-6 since 414 adds payment entry points and 417 refunds.",
         "source": "unanimous"
       },
       {
         "standard": "shipping-increments",
-        "reason": "The ship-increments run itself: the agent is the coordinator picking from the frontier with maximum 4, 2 in parallel and stacking on, asking for merges and keeping state.",
-        "source": "unanimous"
-      },
-      {
-        "standard": "stacked-changes",
-        "reason": "The run allows stacking: increments whose blockers have open change requests (e.g. 416 on 414) are stacked on them, and merging a stacked layer integrates the layers below.",
+        "reason": "The work is exactly its scope: shipping the increments of a task already split (PROJ-412, six subtasks with blocking relations). The agent is the coordinator: arguments 'at most 4, 2 in parallel' are validated whole numbers; it reads the plan/state, picks from the frontier (414 and 415 are unblocked since 413 is verified; 416 only after 414 is shipped and verified), starts a new builder per increment, a different reviewer, a verifier after the deploy, carries questions/merge requests to the person (around until 18:00), keeps state, never builds, and hands off with the /clear + /base:ship-increments instruction.",
         "source": "unanimous"
       }
     ],
@@ -2157,6 +2157,36 @@
       {
         "standard": "serialization-boundaries",
         "reason": "Rebuild the payload at the edge; zod parse throws on a bad body.",
+        "source": "unanimous"
+      }
+    ],
+    "near_miss": []
+  },
+  "C31": {
+    "expected": [
+      {
+        "standard": "expand-contract-schema-changes",
+        "reason": "The work moves the invoices/invoice_lines migration into its own PR that lands and deploys alone: a change to what is stored, additive ones included, to be classified as destructive or not and reported (new tables are not destructive, so it can ship ahead of the API). It also matters for what must not ride along: #806's rename of customers.phone to contact_phone is destructive ('a rename is an add, a copy, a switch and a drop') and must not ship inside billing's PRs; and the report must say whether the repository's check ran.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "leave-nothing-running",
+        "reason": "Checking that each split layer compiles and passes its tests against the trunk (and against its stack base) means running the test suite and its test database (the case is about a test-database setup for parallel runs) or the app to exercise it; whatever the agent starts that keeps running must be stopped or kept and said so before handing back.",
+        "source": "decision 16"
+      },
+      {
+        "standard": "post-deploy-verification",
+        "reason": "Each of the three PRs reaches production separately (tables, API, page), and whoever builds/proposes a change writes its post-deploy plan in the description next to the pre-merge plan: the API's consumer is the page/other applications through its contract, the page's is a customer in the customer area; the migration alone has no consumer path beyond the schema. Splitting into separately deployed changes is exactly where each deploy needs its own verification.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "pre-merge-gates",
+        "reason": "The goal is for each part to land on main on its own. Proposing each split PR includes writing its pre-merge plan (Gate 2/3: 'writing one is part of proposing a change'), and condition 6 is directly at stake: the current diff carries #806's commits (the customers.phone rename, part of the 118 deletions), so each new PR's file count and deletions must match only its own part. The API PR adds entry points (Gate 6 refused calls belong in its plan); whoever merges the layers verifies the gates for every unmerged layer below.",
+        "source": "decision 16"
+      },
+      {
+        "standard": "stacked-changes",
+        "reason": "The core of the request: split #812 into change requests reviewed and merged one at a time where the API needs the tables and the page needs the API. Opening the API PR on top of the unmerged tables PR (and the page on the API) is stacking on a real dependency (one stack per line of work, foundations below); the migration targets the trunk on its own. It also forbids keeping billing stacked on Marta's unreviewed #806: no stacking on somebody else's work without agreeing it, a small piece (the test-DB fix) is not a reason to stack the whole change, and a dependency that does not exist (billing never uses the phone) means taking it out and targeting the trunk. Each layer must run checks against the stack's base, and merging lands the lowest ready layer one at a time.",
         "source": "unanimous"
       }
     ],
