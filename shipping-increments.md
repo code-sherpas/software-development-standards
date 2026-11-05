@@ -20,9 +20,8 @@ The phase takes the task and, optionally:
 
 | Argument | Meaning | Default | Allowed |
 | :- | :- | :- | :- |
-| maximum | How many increments this run ships at most. Each one gets its own builder; increments that become unblocked during the run count too. | 1 | any whole number from 1 up |
+| at most | How many increments this run ships at most. Each one gets its own builder; increments that become unblocked during the run count too. | 1 | any whole number from 1 up |
 | in parallel | How many increments are being built at the same time, at most. | 1 | any whole number from 1 up |
-| stack | An increment is unblocked as soon as its blockers have an open change request, and it is stacked on them. | off | on or off |
 
 Anything else — zero, a negative or a fraction — is refused, saying what is allowed. There is no "unlimited": the person names a number. How many in parallel the machine and the person can sustain is theirs to decide.
 
@@ -45,9 +44,9 @@ Read the task's plan and state. An increment in progress that this run did not s
 
 ### 3. Pick from the frontier
 
-An increment is unblocked when every increment blocking it is shipped: in production and verified. With **stack**, a blocker whose change request is open also counts, and the increment's change request is stacked on its blocker's, as [Stacked Changes](stacked-changes.md) says.
+An increment is unblocked when every increment blocking it is shipped: in production and verified.
 
-The coordinator picks unblocked increments in the plan's order, up to **in parallel** at a time and **maximum** in total, marks each one in progress and starts a builder for it. Only the coordinator assigns increments, so two builders in one run never take the same one.
+The coordinator picks unblocked increments in the plan's order, up to **in parallel** at a time and **at most** in total, marks each one in progress and starts a builder for it. Only the coordinator assigns increments, so two builders in one run never take the same one.
 
 ### 4. Questions go through the coordinator
 
@@ -97,7 +96,7 @@ No sub-agent waits for anything that takes more than a few minutes: CI, the merg
 
 ### 11. Hand off
 
-The run ends when it has shipped **maximum** increments, when nothing is unblocked, or when something needs the person before it can go on. End with the exact instruction to carry on, ready to copy: clear the context — in Claude Code, `/clear` — then run the phase again with the task's link and the same arguments, by the name the agent runtime lists the skill under — in Claude Code with the `base` plugin, `/base:ship-increments <task link>`. An agent cannot clear its own context: the person does. If the person asks to carry on in this same session instead, say once what it costs — every call of what follows carries this session's context again — and carry on only if they confirm. When every increment is shipped, say that the task is done.
+The run ends when it has shipped **at most** increments, when nothing is unblocked, or when something needs the person before it can go on. End with the exact instruction to carry on, ready to copy: clear the context — in Claude Code, `/clear` — then run the phase again with the task's link and the same arguments, by the name the agent runtime lists the skill under — in Claude Code with the `base` plugin, `/base:ship-increments <task link>`. An agent cannot clear its own context: the person does. If the person asks to carry on in this same session instead, say once what it costs — every call of what follows carries this session's context again — and carry on only if they confirm. When every increment is shipped, say that the task is done.
 
 ## Why This Rule Exists
 
@@ -107,7 +106,7 @@ The run ends when it has shipped **maximum** increments, when nothing is unblock
 
 ## Review Questions
 
-- Was every increment started only once every blocker was verified in production, or stacked because the run asked for it?
+- Was every increment started only once every blocker was verified in production?
 - Did every builder, reviewer and verifier read the index and say which standards it used?
 - Did any sub-agent wait for CI, the queue, a deploy or a `sleep` instead of reporting and stopping?
 - Did a review find a standard that applied and the builder did not read, and did that increment become a case of the standards index test?

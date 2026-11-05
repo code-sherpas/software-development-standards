@@ -52,7 +52,7 @@ The test, like the real agent, receives three parts in this order:
 
 3. **The case body.**
 
-## Roles of the 30 cases
+## Roles of the cases
 
 | Role | Cases |
 |---|---|
@@ -63,7 +63,7 @@ The test, like the real agent, receives three parts in this order:
 | `increment-builder` | C05, C11, C12, C13, C14, C17, C19, C20, C23, C24, C27, C29 |
 | `build-prototype` | C06, C22 |
 | `increment-verifier` | C09 |
-| `none` | C10 |
+| `none` | C10, C31 |
 | `increment-reviewer` | C15, C16, C18, C21, C25, C26, C28 |
 
 ## Expected standards

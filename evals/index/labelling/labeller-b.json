@@ -74,34 +74,226 @@
   "C03": {
     "applies": [
       {
-        "standard": "shipping-increments",
-        "reason": "The run ships a split task's increments with maximum 4, 2 in parallel and stacking; the coordinator's whole procedure."
-      },
-      {
-        "standard": "stacked-changes",
-        "reason": "Stacking is allowed, so increments with open blockers are stacked on their change requests, and merging layers integrates lower ones."
-      },
-      {
-        "standard": "pre-merge-gates",
-        "reason": "The coordinator puts approved change requests in the merge queue, which is asking for the merge; the gates and queue conditions must hold."
+        "standard": "leave-nothing-running",
+        "reason": "The coordinator starts builders, reviewers and verifiers (often in the background) and waits on merge queue and deploys; when it hands control back at the end of the run, and when each sub-agent ends, whatever it started that is still running (sub-agents, watchers, verifier browsers) must be stopped or kept on purpose and said so."
       },
       {
         "standard": "post-deploy-verification",
-        "reason": "Each increment is shipped only once its deploy is confirmed and verified in production by a verifier the coordinator starts, and failures go to the person."
+        "reason": "Every increment reaches production and is 'shipped' only once verified there; the coordinator confirms the deploy, starts the verifier, and on failure tells the person with evidence. Payments and receipt emails hit its 'no real money and no real people' rule: the verification plan for 414/416/417 must say where to stop and the person must agree before it runs."
+      },
+      {
+        "standard": "pre-merge-gates",
+        "reason": "The coordinator puts approved changes in the merge queue, and its scope says adding a change to a merge queue is asking for the merge; the gates (and gate 1's queue conditions, the person's merge permission) must hold before it does so for each increment, and the review must check gates 4-6 for increments with migrations or new entry points (e.g. 414's payment state, 417 refunds)."
+      },
+      {
+        "standard": "shipping-increments",
+        "reason": "The work is exactly its scope: shipping the increments of a task already split (PROJ-412), as the coordinator, with the arguments 'at most 4' and 'in parallel 2'; it governs picking from the frontier (414 and 415 unblocked once 413 is verified; 416 only after 414 is verified), starting a builder per increment, reviewer and verifier, routing questions and merges to the person, keeping the state and handing off."
       }
     ],
     "considered_not_applies": [
       {
-        "standard": "collaborating-across-agent-sessions",
-        "reason": "Builders, reviewers and verifiers are this run's own sub-agents, not independent sessions owning other work."
+        "standard": "accessibility",
+        "reason": "The coordinator produces no interface; the checkout and front-desk screens are the builders' work."
       },
       {
-        "standard": "leave-nothing-running",
-        "reason": "The coordinator does not itself start servers or browsers; its sub-agents are bound by it in their own runs."
+        "standard": "aggregate-boundaries",
+        "reason": "The agent writes, changes or reviews no code in this work — it coordinates and never builds; this standard is for the builders and reviewers of increments whose code it touches."
+      },
+      {
+        "standard": "automated-testing",
+        "reason": "The coordinator writes, reviews or repairs no tests; builders do."
+      },
+      {
+        "standard": "bounded-context-layout",
+        "reason": "The agent writes, changes or reviews no code in this work — it coordinates and never builds; this standard is for the builders and reviewers of increments whose code it touches."
+      },
+      {
+        "standard": "built-in-temporal-types",
+        "reason": "The agent writes, changes or reviews no code in this work — it coordinates and never builds; this standard is for the builders and reviewers of increments whose code it touches."
+      },
+      {
+        "standard": "business-logic-ensure-authenticated-requester",
+        "reason": "The agent writes, changes or reviews no code in this work — it coordinates and never builds; this standard is for the builders and reviewers of increments whose code it touches."
+      },
+      {
+        "standard": "business-logic-ensure-authorized-requester",
+        "reason": "The agent writes, changes or reviews no code in this work — it coordinates and never builds; this standard is for the builders and reviewers of increments whose code it touches."
+      },
+      {
+        "standard": "business-logic-ensure-business-constraints",
+        "reason": "The agent writes, changes or reviews no code in this work — it coordinates and never builds; this standard is for the builders and reviewers of increments whose code it touches."
+      },
+      {
+        "standard": "business-logic-entry-point-colocate-types",
+        "reason": "The agent writes, changes or reviews no code in this work — it coordinates and never builds; this standard is for the builders and reviewers of increments whose code it touches."
+      },
+      {
+        "standard": "business-logic-entry-point-command-query-separation",
+        "reason": "The agent writes, changes or reviews no code in this work — it coordinates and never builds; this standard is for the builders and reviewers of increments whose code it touches."
+      },
+      {
+        "standard": "business-logic-entry-point-cqs-handler-signatures",
+        "reason": "The agent writes, changes or reviews no code in this work — it coordinates and never builds; this standard is for the builders and reviewers of increments whose code it touches."
+      },
+      {
+        "standard": "business-logic-entry-point-database-transaction",
+        "reason": "The agent writes, changes or reviews no code in this work — it coordinates and never builds; this standard is for the builders and reviewers of increments whose code it touches."
+      },
+      {
+        "standard": "business-logic-entry-point-domain-entity-payload-types",
+        "reason": "The agent writes, changes or reviews no code in this work — it coordinates and never builds; this standard is for the builders and reviewers of increments whose code it touches."
+      },
+      {
+        "standard": "business-logic-entry-point-execution-context",
+        "reason": "The agent writes, changes or reviews no code in this work — it coordinates and never builds; this standard is for the builders and reviewers of increments whose code it touches."
+      },
+      {
+        "standard": "business-logic-entry-point-one-per-module",
+        "reason": "The agent writes, changes or reviews no code in this work — it coordinates and never builds; this standard is for the builders and reviewers of increments whose code it touches."
+      },
+      {
+        "standard": "business-logic-entry-point-prefer-top-level-functions",
+        "reason": "The agent writes, changes or reviews no code in this work — it coordinates and never builds; this standard is for the builders and reviewers of increments whose code it touches."
+      },
+      {
+        "standard": "business-logic-entry-point-primitive-input-types",
+        "reason": "The agent writes, changes or reviews no code in this work — it coordinates and never builds; this standard is for the builders and reviewers of increments whose code it touches."
+      },
+      {
+        "standard": "business-logic-entry-point-repository-domain-types",
+        "reason": "The agent writes, changes or reviews no code in this work — it coordinates and never builds; this standard is for the builders and reviewers of increments whose code it touches."
+      },
+      {
+        "standard": "business-logic-entry-point-repository-interface",
+        "reason": "The agent writes, changes or reviews no code in this work — it coordinates and never builds; this standard is for the builders and reviewers of increments whose code it touches."
+      },
+      {
+        "standard": "business-logic-entry-point-repository-operations",
+        "reason": "The agent writes, changes or reviews no code in this work — it coordinates and never builds; this standard is for the builders and reviewers of increments whose code it touches."
+      },
+      {
+        "standard": "business-logic-entry-point-transaction-isolation-levels",
+        "reason": "The agent writes, changes or reviews no code in this work — it coordinates and never builds; this standard is for the builders and reviewers of increments whose code it touches."
+      },
+      {
+        "standard": "business-logic-entry-point-use-repositories",
+        "reason": "The agent writes, changes or reviews no code in this work — it coordinates and never builds; this standard is for the builders and reviewers of increments whose code it touches."
+      },
+      {
+        "standard": "business-logic",
+        "reason": "The agent writes, changes or reviews no code in this work — it coordinates and never builds; this standard is for the builders and reviewers of increments whose code it touches."
+      },
+      {
+        "standard": "business-logic-typical-domain-entity-entry-points",
+        "reason": "The agent writes, changes or reviews no code in this work — it coordinates and never builds; this standard is for the builders and reviewers of increments whose code it touches."
+      },
+      {
+        "standard": "collaborating-across-agent-sessions",
+        "reason": "The builders, reviewers and verifiers are sub-agents of this run coordinated by the coordinator, not other sessions owning other work; nothing in the case says another session owns blocking work. Would apply only if such a blocker appeared."
+      },
+      {
+        "standard": "dependency-direction",
+        "reason": "The agent writes, changes or reviews no code in this work — it coordinates and never builds; this standard is for the builders and reviewers of increments whose code it touches."
+      },
+      {
+        "standard": "domain-entity",
+        "reason": "The agent writes, changes or reviews no code in this work — it coordinates and never builds; this standard is for the builders and reviewers of increments whose code it touches."
+      },
+      {
+        "standard": "domain-entity-reference-direction",
+        "reason": "The agent writes, changes or reviews no code in this work — it coordinates and never builds; this standard is for the builders and reviewers of increments whose code it touches."
+      },
+      {
+        "standard": "domain-entity-reference-optionality",
+        "reason": "The agent writes, changes or reviews no code in this work — it coordinates and never builds; this standard is for the builders and reviewers of increments whose code it touches."
+      },
+      {
+        "standard": "domain-entity-typed-ids",
+        "reason": "The agent writes, changes or reviews no code in this work — it coordinates and never builds; this standard is for the builders and reviewers of increments whose code it touches."
+      },
+      {
+        "standard": "domain-entity-uuidv4-ids",
+        "reason": "The agent writes, changes or reviews no code in this work — it coordinates and never builds; this standard is for the builders and reviewers of increments whose code it touches."
+      },
+      {
+        "standard": "domain-service",
+        "reason": "The agent writes, changes or reviews no code in this work — it coordinates and never builds; this standard is for the builders and reviewers of increments whose code it touches."
+      },
+      {
+        "standard": "expand-contract-schema-changes",
+        "reason": "The coordinator never builds; any stored-data change in an increment (payment status, refunds) is the builder's and reviewer's to apply. Not the coordinator's work."
+      },
+      {
+        "standard": "failure-reporting",
+        "reason": "The coordinator writes no code that reports failures."
+      },
+      {
+        "standard": "fixing-reported-errors",
+        "reason": "No error is reported; a failed verification goes to the person per Post-Deploy Verification."
+      },
+      {
+        "standard": "immutable-domain-entities",
+        "reason": "The agent writes, changes or reviews no code in this work — it coordinates and never builds; this standard is for the builders and reviewers of increments whose code it touches."
+      },
+      {
+        "standard": "integration-logic",
+        "reason": "The payment-provider and email integrations are written by the builders, not the coordinator."
+      },
+      {
+        "standard": "internationalization",
+        "reason": "The coordinator produces no text a customer reads; the builders do."
+      },
+      {
+        "standard": "iso8601-millisecond-precision",
+        "reason": "The agent writes, changes or reviews no code in this work — it coordinates and never builds; this standard is for the builders and reviewers of increments whose code it touches."
+      },
+      {
+        "standard": "model-interpreted-features",
+        "reason": "No model interprets user requests in this feature."
+      },
+      {
+        "standard": "neverthrow-return-types",
+        "reason": "The agent writes, changes or reviews no code in this work — it coordinates and never builds; this standard is for the builders and reviewers of increments whose code it touches."
+      },
+      {
+        "standard": "neverthrow-wrap-exceptions",
+        "reason": "The agent writes, changes or reviews no code in this work — it coordinates and never builds; this standard is for the builders and reviewers of increments whose code it touches."
+      },
+      {
+        "standard": "prefer-named-functions",
+        "reason": "The agent writes, changes or reviews no code in this work — it coordinates and never builds; this standard is for the builders and reviewers of increments whose code it touches."
+      },
+      {
+        "standard": "refining-work",
+        "reason": "The task is already refined and split; nothing is being refined."
+      },
+      {
+        "standard": "repository-no-business-logic",
+        "reason": "The agent writes, changes or reviews no code in this work — it coordinates and never builds; this standard is for the builders and reviewers of increments whose code it touches."
+      },
+      {
+        "standard": "serialization-boundaries",
+        "reason": "The agent writes, changes or reviews no code in this work — it coordinates and never builds; this standard is for the builders and reviewers of increments whose code it touches."
       },
       {
         "standard": "splitting-work-into-increments",
-        "reason": "The task is already split; only shipping is in scope."
+        "reason": "Out of scope by its own text: the task is already split and its increments are being shipped, which is Shipping Increments."
+      },
+      {
+        "standard": "stacked-changes",
+        "reason": "Near miss: nothing is to be stacked. Shipping Increments starts an increment only once every blocker is verified in production, so 416 waits for 414 to be shipped rather than being opened on top of 414's open change request; the person asked for no stacking."
+      },
+      {
+        "standard": "state-coherent-prototypes",
+        "reason": "No prototype is built or extended."
+      },
+      {
+        "standard": "utc-zoned-temporal-types",
+        "reason": "The agent writes, changes or reviews no code in this work — it coordinates and never builds; this standard is for the builders and reviewers of increments whose code it touches."
+      },
+      {
+        "standard": "write-persistence-representations",
+        "reason": "The agent writes, changes or reviews no code in this work — it coordinates and never builds; this standard is for the builders and reviewers of increments whose code it touches."
       }
     ]
   },
@@ -2108,6 +2300,232 @@
       {
         "standard": "accessibility",
         "reason": "No interface changes; the user-error improvement is not part of this diff."
+      }
+    ]
+  },
+  "C31": {
+    "applies": [
+      {
+        "standard": "expand-contract-schema-changes",
+        "reason": "One of the resulting PRs carries the invoices/invoice_lines migration — a change to what is stored, and its scope includes additive ones: it must be classified (new tables: not destructive) and reported, with the repository's check. It also bears on dropping #806's commits: the customers.phone -> contact_phone rename is a destructive change that must not ride along in a billing PR."
+      },
+      {
+        "standard": "leave-nothing-running",
+        "reason": "Validating that each layer compiles and passes its tests against main means running the test suite (with a test database, given the test-database setup at stake); anything the agent starts for that must be stopped or kept on purpose before it hands back."
+      },
+      {
+        "standard": "post-deploy-verification",
+        "reason": "The agent produces the change requests that will each reach production on their own (that is the point of the split); its scope covers whoever builds the change, and each change request carries a post-deploy plan in its description, now per layer (tables alone, then the API, then the page)."
+      },
+      {
+        "standard": "stacked-changes",
+        "reason": "Splitting #812 into PRs that land one at a time is opening change requests on top of unmerged ones: the API needs the tables, the page needs the API — a real dependency chain, ordered foundations first, the migration at the bottom targeting main. It also decides what must NOT be stacked: billing does not need #806 (nothing uses the phone), #806 is Marta's still-unreviewed work, so the split must not sit on it ('do not stack on somebody else's stack without agreeing it', 'a small piece of a lower layer is not a reason to stack', 'if a dependency turns out not to exist, take it out'); every layer validated against the stack's base; lowest ready layer lands first."
+      }
+    ],
+    "considered_not_applies": [
+      {
+        "standard": "accessibility",
+        "reason": "The agent writes, changes or reviews no code in this work: the invoices page is moved into its own PR unchanged."
+      },
+      {
+        "standard": "aggregate-boundaries",
+        "reason": "The agent writes, changes or reviews no code in this work: the split moves existing commits into separate pull requests without writing or changing the code they contain."
+      },
+      {
+        "standard": "automated-testing",
+        "reason": "Its own scope is tests written, reviewed or repaired; the agent only runs the existing suites to validate each layer. Would apply if dropping #806's test-database fix forced repairing a test."
+      },
+      {
+        "standard": "bounded-context-layout",
+        "reason": "The agent writes, changes or reviews no code in this work: the split moves existing commits into separate pull requests without writing or changing the code they contain."
+      },
+      {
+        "standard": "built-in-temporal-types",
+        "reason": "The agent writes, changes or reviews no code in this work: the split moves existing commits into separate pull requests without writing or changing the code they contain."
+      },
+      {
+        "standard": "business-logic-ensure-authenticated-requester",
+        "reason": "The agent writes, changes or reviews no code in this work: the split moves existing commits into separate pull requests without writing or changing the code they contain."
+      },
+      {
+        "standard": "business-logic-ensure-authorized-requester",
+        "reason": "The agent writes, changes or reviews no code in this work: the split moves existing commits into separate pull requests without writing or changing the code they contain."
+      },
+      {
+        "standard": "business-logic-ensure-business-constraints",
+        "reason": "The agent writes, changes or reviews no code in this work: the split moves existing commits into separate pull requests without writing or changing the code they contain."
+      },
+      {
+        "standard": "business-logic-entry-point-colocate-types",
+        "reason": "The agent writes, changes or reviews no code in this work: the split moves existing commits into separate pull requests without writing or changing the code they contain."
+      },
+      {
+        "standard": "business-logic-entry-point-command-query-separation",
+        "reason": "The agent writes, changes or reviews no code in this work: the split moves existing commits into separate pull requests without writing or changing the code they contain."
+      },
+      {
+        "standard": "business-logic-entry-point-cqs-handler-signatures",
+        "reason": "The agent writes, changes or reviews no code in this work: the split moves existing commits into separate pull requests without writing or changing the code they contain."
+      },
+      {
+        "standard": "business-logic-entry-point-database-transaction",
+        "reason": "The agent writes, changes or reviews no code in this work: the split moves existing commits into separate pull requests without writing or changing the code they contain."
+      },
+      {
+        "standard": "business-logic-entry-point-domain-entity-payload-types",
+        "reason": "The agent writes, changes or reviews no code in this work: the split moves existing commits into separate pull requests without writing or changing the code they contain."
+      },
+      {
+        "standard": "business-logic-entry-point-execution-context",
+        "reason": "The agent writes, changes or reviews no code in this work: the split moves existing commits into separate pull requests without writing or changing the code they contain."
+      },
+      {
+        "standard": "business-logic-entry-point-one-per-module",
+        "reason": "The agent writes, changes or reviews no code in this work: the split moves existing commits into separate pull requests without writing or changing the code they contain."
+      },
+      {
+        "standard": "business-logic-entry-point-prefer-top-level-functions",
+        "reason": "The agent writes, changes or reviews no code in this work: the split moves existing commits into separate pull requests without writing or changing the code they contain."
+      },
+      {
+        "standard": "business-logic-entry-point-primitive-input-types",
+        "reason": "The agent writes, changes or reviews no code in this work: the split moves existing commits into separate pull requests without writing or changing the code they contain."
+      },
+      {
+        "standard": "business-logic-entry-point-repository-domain-types",
+        "reason": "The agent writes, changes or reviews no code in this work: the split moves existing commits into separate pull requests without writing or changing the code they contain."
+      },
+      {
+        "standard": "business-logic-entry-point-repository-interface",
+        "reason": "The agent writes, changes or reviews no code in this work: the split moves existing commits into separate pull requests without writing or changing the code they contain."
+      },
+      {
+        "standard": "business-logic-entry-point-repository-operations",
+        "reason": "The agent writes, changes or reviews no code in this work: the split moves existing commits into separate pull requests without writing or changing the code they contain."
+      },
+      {
+        "standard": "business-logic-entry-point-transaction-isolation-levels",
+        "reason": "The agent writes, changes or reviews no code in this work: the split moves existing commits into separate pull requests without writing or changing the code they contain."
+      },
+      {
+        "standard": "business-logic-entry-point-use-repositories",
+        "reason": "The agent writes, changes or reviews no code in this work: the split moves existing commits into separate pull requests without writing or changing the code they contain."
+      },
+      {
+        "standard": "business-logic",
+        "reason": "The agent writes, changes or reviews no code in this work: the split moves existing commits into separate pull requests without writing or changing the code they contain."
+      },
+      {
+        "standard": "business-logic-typical-domain-entity-entry-points",
+        "reason": "The agent writes, changes or reviews no code in this work: the split moves existing commits into separate pull requests without writing or changing the code they contain."
+      },
+      {
+        "standard": "collaborating-across-agent-sessions",
+        "reason": "Marta is a person and #806 her pull request, not another agent session's work; no session-to-session blocker is described."
+      },
+      {
+        "standard": "dependency-direction",
+        "reason": "The agent writes, changes or reviews no code in this work: the split moves existing commits into separate pull requests without writing or changing the code they contain."
+      },
+      {
+        "standard": "domain-entity",
+        "reason": "The agent writes, changes or reviews no code in this work: the split moves existing commits into separate pull requests without writing or changing the code they contain."
+      },
+      {
+        "standard": "domain-entity-reference-direction",
+        "reason": "The agent writes, changes or reviews no code in this work: the split moves existing commits into separate pull requests without writing or changing the code they contain."
+      },
+      {
+        "standard": "domain-entity-reference-optionality",
+        "reason": "The agent writes, changes or reviews no code in this work: the split moves existing commits into separate pull requests without writing or changing the code they contain."
+      },
+      {
+        "standard": "domain-entity-typed-ids",
+        "reason": "The agent writes, changes or reviews no code in this work: the split moves existing commits into separate pull requests without writing or changing the code they contain."
+      },
+      {
+        "standard": "domain-entity-uuidv4-ids",
+        "reason": "The agent writes, changes or reviews no code in this work: the split moves existing commits into separate pull requests without writing or changing the code they contain."
+      },
+      {
+        "standard": "domain-service",
+        "reason": "The agent writes, changes or reviews no code in this work: the split moves existing commits into separate pull requests without writing or changing the code they contain."
+      },
+      {
+        "standard": "failure-reporting",
+        "reason": "The agent writes, changes or reviews no code in this work."
+      },
+      {
+        "standard": "fixing-reported-errors",
+        "reason": "No error is reported."
+      },
+      {
+        "standard": "immutable-domain-entities",
+        "reason": "The agent writes, changes or reviews no code in this work: the split moves existing commits into separate pull requests without writing or changing the code they contain."
+      },
+      {
+        "standard": "integration-logic",
+        "reason": "The agent writes, changes or reviews no code in this work: the API, repository and migration are moved into separate PRs unchanged, not written or changed."
+      },
+      {
+        "standard": "internationalization",
+        "reason": "The agent writes, changes or reviews no code in this work: the page's text is moved unchanged."
+      },
+      {
+        "standard": "iso8601-millisecond-precision",
+        "reason": "The agent writes, changes or reviews no code in this work: the split moves existing commits into separate pull requests without writing or changing the code they contain."
+      },
+      {
+        "standard": "model-interpreted-features",
+        "reason": "No model interprets user requests."
+      },
+      {
+        "standard": "neverthrow-return-types",
+        "reason": "The agent writes, changes or reviews no code in this work: the split moves existing commits into separate pull requests without writing or changing the code they contain."
+      },
+      {
+        "standard": "neverthrow-wrap-exceptions",
+        "reason": "The agent writes, changes or reviews no code in this work: the split moves existing commits into separate pull requests without writing or changing the code they contain."
+      },
+      {
+        "standard": "prefer-named-functions",
+        "reason": "The agent writes, changes or reviews no code in this work: the split moves existing commits into separate pull requests without writing or changing the code they contain."
+      },
+      {
+        "standard": "pre-merge-gates",
+        "reason": "Borderline. The agent opens the PRs but does not merge or enqueue them; the gates bind whoever integrates. Its condition 6 (the diff is the change it claims — no #806 commits riding along) is worth honouring when building the branches, but the standard's scope is routes into main, which the agent does not take."
+      },
+      {
+        "standard": "refining-work",
+        "reason": "Nothing is being refined."
+      },
+      {
+        "standard": "repository-no-business-logic",
+        "reason": "The agent writes, changes or reviews no code in this work: the split moves existing commits into separate pull requests without writing or changing the code they contain."
+      },
+      {
+        "standard": "serialization-boundaries",
+        "reason": "The agent writes, changes or reviews no code in this work: the split moves existing commits into separate pull requests without writing or changing the code they contain."
+      },
+      {
+        "standard": "shipping-increments",
+        "reason": "No split task in a tracker is being shipped; this is restructuring one pull request."
+      },
+      {
+        "standard": "splitting-work-into-increments",
+        "reason": "Near miss: it splits a refined task in the tracker into increments of functionality; here a pull request is split into reviewable change requests, and the tables-only layer is not an increment usable in production."
+      },
+      {
+        "standard": "state-coherent-prototypes",
+        "reason": "No prototype."
+      },
+      {
+        "standard": "utc-zoned-temporal-types",
+        "reason": "The agent writes, changes or reviews no code in this work: the split moves existing commits into separate pull requests without writing or changing the code they contain."
+      },
+      {
+        "standard": "write-persistence-representations",
+        "reason": "The agent writes, changes or reviews no code in this work: the tables' representation is moved into its own PR unchanged."
       }
     ]
   }

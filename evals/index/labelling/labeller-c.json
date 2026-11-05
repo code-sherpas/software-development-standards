@@ -63,33 +63,225 @@
     "applies": [
       {
         "standard": "shipping-increments",
-        "reason": "The run ships increments of a split task as coordinator with max 4, 2 in parallel, stack on; frontier picking, merge permission and state keeping are this standard."
-      },
-      {
-        "standard": "stacked-changes",
-        "reason": "Stacking is allowed: 416 can be stacked on 414's open change request; the coordinator must stack only on real blockers and land stacks from the bottom."
+        "reason": "The phase being run: a split task's increments shipped by the session's agent as coordinator, with 'at most 4' and '2 in parallel' arguments, picking from the frontier (414 and 415 unblocked once 413 is verified; 416 only after 414 is shipped and verified), starting a builder per increment, carrying questions and merges to the person, keeping state, handing off."
       },
       {
         "standard": "pre-merge-gates",
-        "reason": "The coordinator puts approved changes in the merge queue, and adding to a merge queue is asking for the merge, so the gates and the queue's configuration must hold before it does."
+        "reason": "The coordinator is who puts approved changes in the merge queue, and adding to a merge queue is asking for the merge: Gate 1 conditions 1, 2, 6 and 7 must be verified by whoever integrates (queue configuration, diff shape, review threads resolved) before queueing, and for increments with a migration, leftover data or an entry point (414 payments, 417 refunds) it must check that gates 4 to 6 were met."
       },
       {
         "standard": "post-deploy-verification",
-        "reason": "Each increment counts as shipped only once a verifier has used it in production after its deploy is confirmed; payments (414) carry the no-real-money rule."
+        "reason": "Every increment reaches production and is shipped only once verified there; the coordinator confirms the deploy that carries each one before starting the verifier, and when it fails tells the person with the evidence. Payment and refund increments touch real money: the standard requires the person to agree how far the verification goes before it runs, which is the coordinator's to ask."
+      },
+      {
+        "standard": "leave-nothing-running",
+        "reason": "The coordinator starts builders (and verifiers) that keep running in the background, up to two in parallel, and hands control back to the person repeatedly (merge permission, questions, end of run); what it started and is still running must be decided on and said."
       }
     ],
     "considered_not_applies": [
       {
-        "standard": "collaborating-across-agent-sessions",
-        "reason": "No other session's work is involved in the message; it would apply only if a blocker from another session appeared."
+        "standard": "accessibility",
+        "reason": "Checkout UI is built by builders; the coordinator produces no interface."
       },
       {
-        "standard": "leave-nothing-running",
-        "reason": "The coordinator never builds or runs processes itself; its sub-agents carry that standard."
+        "standard": "aggregate-boundaries",
+        "reason": "The coordinator never builds, reviews code or writes any; this code-level rule is for the builders and reviewers of each increment, who read the index themselves."
+      },
+      {
+        "standard": "automated-testing",
+        "reason": "The coordinator writes, reviews and runs no tests."
+      },
+      {
+        "standard": "bounded-context-layout",
+        "reason": "The coordinator never builds, reviews code or writes any; this code-level rule is for the builders and reviewers of each increment, who read the index themselves."
+      },
+      {
+        "standard": "built-in-temporal-types",
+        "reason": "The coordinator never builds, reviews code or writes any; this code-level rule is for the builders and reviewers of each increment, who read the index themselves."
+      },
+      {
+        "standard": "business-logic-ensure-authenticated-requester",
+        "reason": "The coordinator never builds, reviews code or writes any; this code-level rule is for the builders and reviewers of each increment, who read the index themselves."
+      },
+      {
+        "standard": "business-logic-ensure-authorized-requester",
+        "reason": "The coordinator never builds, reviews code or writes any; this code-level rule is for the builders and reviewers of each increment, who read the index themselves."
+      },
+      {
+        "standard": "business-logic-ensure-business-constraints",
+        "reason": "The coordinator never builds, reviews code or writes any; this code-level rule is for the builders and reviewers of each increment, who read the index themselves."
+      },
+      {
+        "standard": "business-logic-entry-point-colocate-types",
+        "reason": "The coordinator never builds, reviews code or writes any; this code-level rule is for the builders and reviewers of each increment, who read the index themselves."
+      },
+      {
+        "standard": "business-logic-entry-point-command-query-separation",
+        "reason": "The coordinator never builds, reviews code or writes any; this code-level rule is for the builders and reviewers of each increment, who read the index themselves."
+      },
+      {
+        "standard": "business-logic-entry-point-cqs-handler-signatures",
+        "reason": "The coordinator never builds, reviews code or writes any; this code-level rule is for the builders and reviewers of each increment, who read the index themselves."
+      },
+      {
+        "standard": "business-logic-entry-point-database-transaction",
+        "reason": "The coordinator never builds, reviews code or writes any; this code-level rule is for the builders and reviewers of each increment, who read the index themselves."
+      },
+      {
+        "standard": "business-logic-entry-point-domain-entity-payload-types",
+        "reason": "The coordinator never builds, reviews code or writes any; this code-level rule is for the builders and reviewers of each increment, who read the index themselves."
+      },
+      {
+        "standard": "business-logic-entry-point-execution-context",
+        "reason": "The coordinator never builds, reviews code or writes any; this code-level rule is for the builders and reviewers of each increment, who read the index themselves."
+      },
+      {
+        "standard": "business-logic-entry-point-one-per-module",
+        "reason": "The coordinator never builds, reviews code or writes any; this code-level rule is for the builders and reviewers of each increment, who read the index themselves."
+      },
+      {
+        "standard": "business-logic-entry-point-prefer-top-level-functions",
+        "reason": "The coordinator never builds, reviews code or writes any; this code-level rule is for the builders and reviewers of each increment, who read the index themselves."
+      },
+      {
+        "standard": "business-logic-entry-point-primitive-input-types",
+        "reason": "The coordinator never builds, reviews code or writes any; this code-level rule is for the builders and reviewers of each increment, who read the index themselves."
+      },
+      {
+        "standard": "business-logic-entry-point-repository-domain-types",
+        "reason": "The coordinator never builds, reviews code or writes any; this code-level rule is for the builders and reviewers of each increment, who read the index themselves."
+      },
+      {
+        "standard": "business-logic-entry-point-repository-interface",
+        "reason": "The coordinator never builds, reviews code or writes any; this code-level rule is for the builders and reviewers of each increment, who read the index themselves."
+      },
+      {
+        "standard": "business-logic-entry-point-repository-operations",
+        "reason": "The coordinator never builds, reviews code or writes any; this code-level rule is for the builders and reviewers of each increment, who read the index themselves."
+      },
+      {
+        "standard": "business-logic-entry-point-transaction-isolation-levels",
+        "reason": "The coordinator never builds, reviews code or writes any; this code-level rule is for the builders and reviewers of each increment, who read the index themselves."
+      },
+      {
+        "standard": "business-logic-entry-point-use-repositories",
+        "reason": "The coordinator never builds, reviews code or writes any; this code-level rule is for the builders and reviewers of each increment, who read the index themselves."
+      },
+      {
+        "standard": "business-logic",
+        "reason": "The coordinator never builds, reviews code or writes any; this code-level rule is for the builders and reviewers of each increment, who read the index themselves."
+      },
+      {
+        "standard": "business-logic-typical-domain-entity-entry-points",
+        "reason": "The coordinator never builds, reviews code or writes any; this code-level rule is for the builders and reviewers of each increment, who read the index themselves."
+      },
+      {
+        "standard": "collaborating-across-agent-sessions",
+        "reason": "Builders of this run are sub-agents the coordinator owns and talks to directly; nothing in the case involves a blocker or question about work another agent session owns."
+      },
+      {
+        "standard": "dependency-direction",
+        "reason": "The coordinator never builds, reviews code or writes any; this code-level rule is for the builders and reviewers of each increment, who read the index themselves."
+      },
+      {
+        "standard": "domain-entity",
+        "reason": "The coordinator never builds, reviews code or writes any; this code-level rule is for the builders and reviewers of each increment, who read the index themselves."
+      },
+      {
+        "standard": "domain-entity-reference-direction",
+        "reason": "The coordinator never builds, reviews code or writes any; this code-level rule is for the builders and reviewers of each increment, who read the index themselves."
+      },
+      {
+        "standard": "domain-entity-reference-optionality",
+        "reason": "The coordinator never builds, reviews code or writes any; this code-level rule is for the builders and reviewers of each increment, who read the index themselves."
+      },
+      {
+        "standard": "domain-entity-typed-ids",
+        "reason": "The coordinator never builds, reviews code or writes any; this code-level rule is for the builders and reviewers of each increment, who read the index themselves."
+      },
+      {
+        "standard": "domain-entity-uuidv4-ids",
+        "reason": "The coordinator never builds, reviews code or writes any; this code-level rule is for the builders and reviewers of each increment, who read the index themselves."
+      },
+      {
+        "standard": "domain-service",
+        "reason": "The coordinator never builds, reviews code or writes any; this code-level rule is for the builders and reviewers of each increment, who read the index themselves."
+      },
+      {
+        "standard": "expand-contract-schema-changes",
+        "reason": "Builder's concern for an increment that changes what is stored (e.g. 414 marking a booking paid); the coordinator writes no migration. It reaches the coordinator only through the gate check of pre-merge-gates."
+      },
+      {
+        "standard": "failure-reporting",
+        "reason": "The coordinator never builds, reviews code or writes any; this code-level rule is for the builders and reviewers of each increment, who read the index themselves."
+      },
+      {
+        "standard": "fixing-reported-errors",
+        "reason": "No error has been reported."
+      },
+      {
+        "standard": "immutable-domain-entities",
+        "reason": "The coordinator never builds, reviews code or writes any; this code-level rule is for the builders and reviewers of each increment, who read the index themselves."
+      },
+      {
+        "standard": "integration-logic",
+        "reason": "The payment-provider integration is the builder's code. The coordinator never builds, reviews code or writes any; this code-level rule is for the builders and reviewers of each increment, who read the index themselves."
+      },
+      {
+        "standard": "internationalization",
+        "reason": "Text a person reads is produced by builders; the coordinator produces none in the product."
+      },
+      {
+        "standard": "iso8601-millisecond-precision",
+        "reason": "The coordinator never builds, reviews code or writes any; this code-level rule is for the builders and reviewers of each increment, who read the index themselves."
+      },
+      {
+        "standard": "model-interpreted-features",
+        "reason": "Nothing interprets what a user expressed."
+      },
+      {
+        "standard": "neverthrow-return-types",
+        "reason": "The coordinator never builds, reviews code or writes any; this code-level rule is for the builders and reviewers of each increment, who read the index themselves."
+      },
+      {
+        "standard": "neverthrow-wrap-exceptions",
+        "reason": "The coordinator never builds, reviews code or writes any; this code-level rule is for the builders and reviewers of each increment, who read the index themselves."
+      },
+      {
+        "standard": "prefer-named-functions",
+        "reason": "The coordinator never builds, reviews code or writes any; this code-level rule is for the builders and reviewers of each increment, who read the index themselves."
+      },
+      {
+        "standard": "refining-work",
+        "reason": "The task is already refined and split; nothing is being refined."
+      },
+      {
+        "standard": "repository-no-business-logic",
+        "reason": "The coordinator never builds, reviews code or writes any; this code-level rule is for the builders and reviewers of each increment, who read the index themselves."
+      },
+      {
+        "standard": "serialization-boundaries",
+        "reason": "The coordinator never builds, reviews code or writes any; this code-level rule is for the builders and reviewers of each increment, who read the index themselves."
       },
       {
         "standard": "splitting-work-into-increments",
-        "reason": "Already split; shipping starts from the existing plan."
+        "reason": "Out of scope by its own text: the task is already split and its increments are being shipped, which is Shipping Increments."
+      },
+      {
+        "standard": "stacked-changes",
+        "reason": "Near miss. The run was started without a stack option, and an increment is unblocked only once its blockers are verified in production, so 416 is not started on top of an open 414; no change request is opened on top of another unmerged one."
+      },
+      {
+        "standard": "state-coherent-prototypes",
+        "reason": "No prototype is built or changed."
+      },
+      {
+        "standard": "utc-zoned-temporal-types",
+        "reason": "The coordinator never builds, reviews code or writes any; this code-level rule is for the builders and reviewers of each increment, who read the index themselves."
+      },
+      {
+        "standard": "write-persistence-representations",
+        "reason": "The coordinator never builds, reviews code or writes any; this code-level rule is for the builders and reviewers of each increment, who read the index themselves."
       }
     ]
   },
@@ -2084,6 +2276,232 @@
       {
         "standard": "bounded-context-layout",
         "reason": "app/api routes follow the framework's routing."
+      }
+    ]
+  },
+  "C31": {
+    "applies": [
+      {
+        "standard": "stacked-changes",
+        "reason": "Splitting #812 into the tables, API and page pull requests, where the API needs the tables and the page needs the API, is opening change requests on top of ones not yet merged: one stack for this line of work, ordered by dependency, every layer validated against the stack's base, landed lowest layer first. It also governs the #806 problem: billing-v2 currently stacks on Marta's unmerged, unrelated pull request (another person's line of work, not agreed with her) for a small piece (the test DB fix), so the stack must be taken off #806 and based on the trunk. Its group-merge clause (layers split for readable review, not separately meaningful in production) is directly relevant to merging one at a time."
+      },
+      {
+        "standard": "expand-contract-schema-changes",
+        "reason": "The bottom layer carries a migration adding invoices and invoice_lines: its scope includes additive changes, which must be classified as destructive or not and reported, and whether the repository has the check. The branch also currently carries #806's rename of customers.phone to contact_phone, a destructive change that must not ship as part of billing; removing it from the split is exactly what this standard's classification exposes."
+      },
+      {
+        "standard": "pre-merge-gates",
+        "reason": "The person wants each new pull request mergeable on its own: Gate 1 condition 6 (the diff is the change it claims; file count and deletions match) is what catches that each layer still carries #806's commits (118 deletions) and only its own files; the pre-merge plan is part of proposing each new change request, and the API layer adds entry points whose refused calls (Gate 6) belong in its plan, while the additive migration must be stated as out of Gate 4."
+      },
+      {
+        "standard": "post-deploy-verification",
+        "reason": "Each of the new pull requests reaches production on its own once merged one at a time; proposing each change carries its post-deploy plan in its description (consumers: the customer through the invoices page; the page as the API's consumer), which the split must allocate to the right layer."
+      }
+    ],
+    "considered_not_applies": [
+      {
+        "standard": "accessibility",
+        "reason": "The invoices page is moved between pull requests unchanged, not written or reviewed."
+      },
+      {
+        "standard": "aggregate-boundaries",
+        "reason": "The work is restructuring branches and pull requests (rebasing, splitting commits, retargeting); no code is written, changed or reviewed, so this code-level rule is not exercised."
+      },
+      {
+        "standard": "automated-testing",
+        "reason": "No test is written, reviewed or repaired; running the existing suite on each layer to validate it against the base is part of Stacked Changes and Pre-Merge Gates."
+      },
+      {
+        "standard": "bounded-context-layout",
+        "reason": "The work is restructuring branches and pull requests (rebasing, splitting commits, retargeting); no code is written, changed or reviewed, so this code-level rule is not exercised."
+      },
+      {
+        "standard": "built-in-temporal-types",
+        "reason": "The work is restructuring branches and pull requests (rebasing, splitting commits, retargeting); no code is written, changed or reviewed, so this code-level rule is not exercised."
+      },
+      {
+        "standard": "business-logic-ensure-authenticated-requester",
+        "reason": "The work is restructuring branches and pull requests (rebasing, splitting commits, retargeting); no code is written, changed or reviewed, so this code-level rule is not exercised."
+      },
+      {
+        "standard": "business-logic-ensure-authorized-requester",
+        "reason": "The work is restructuring branches and pull requests (rebasing, splitting commits, retargeting); no code is written, changed or reviewed, so this code-level rule is not exercised."
+      },
+      {
+        "standard": "business-logic-ensure-business-constraints",
+        "reason": "The work is restructuring branches and pull requests (rebasing, splitting commits, retargeting); no code is written, changed or reviewed, so this code-level rule is not exercised."
+      },
+      {
+        "standard": "business-logic-entry-point-colocate-types",
+        "reason": "The work is restructuring branches and pull requests (rebasing, splitting commits, retargeting); no code is written, changed or reviewed, so this code-level rule is not exercised."
+      },
+      {
+        "standard": "business-logic-entry-point-command-query-separation",
+        "reason": "The work is restructuring branches and pull requests (rebasing, splitting commits, retargeting); no code is written, changed or reviewed, so this code-level rule is not exercised."
+      },
+      {
+        "standard": "business-logic-entry-point-cqs-handler-signatures",
+        "reason": "The work is restructuring branches and pull requests (rebasing, splitting commits, retargeting); no code is written, changed or reviewed, so this code-level rule is not exercised."
+      },
+      {
+        "standard": "business-logic-entry-point-database-transaction",
+        "reason": "The work is restructuring branches and pull requests (rebasing, splitting commits, retargeting); no code is written, changed or reviewed, so this code-level rule is not exercised."
+      },
+      {
+        "standard": "business-logic-entry-point-domain-entity-payload-types",
+        "reason": "The work is restructuring branches and pull requests (rebasing, splitting commits, retargeting); no code is written, changed or reviewed, so this code-level rule is not exercised."
+      },
+      {
+        "standard": "business-logic-entry-point-execution-context",
+        "reason": "The work is restructuring branches and pull requests (rebasing, splitting commits, retargeting); no code is written, changed or reviewed, so this code-level rule is not exercised."
+      },
+      {
+        "standard": "business-logic-entry-point-one-per-module",
+        "reason": "The work is restructuring branches and pull requests (rebasing, splitting commits, retargeting); no code is written, changed or reviewed, so this code-level rule is not exercised."
+      },
+      {
+        "standard": "business-logic-entry-point-prefer-top-level-functions",
+        "reason": "The work is restructuring branches and pull requests (rebasing, splitting commits, retargeting); no code is written, changed or reviewed, so this code-level rule is not exercised."
+      },
+      {
+        "standard": "business-logic-entry-point-primitive-input-types",
+        "reason": "The work is restructuring branches and pull requests (rebasing, splitting commits, retargeting); no code is written, changed or reviewed, so this code-level rule is not exercised."
+      },
+      {
+        "standard": "business-logic-entry-point-repository-domain-types",
+        "reason": "The work is restructuring branches and pull requests (rebasing, splitting commits, retargeting); no code is written, changed or reviewed, so this code-level rule is not exercised."
+      },
+      {
+        "standard": "business-logic-entry-point-repository-interface",
+        "reason": "The work is restructuring branches and pull requests (rebasing, splitting commits, retargeting); no code is written, changed or reviewed, so this code-level rule is not exercised."
+      },
+      {
+        "standard": "business-logic-entry-point-repository-operations",
+        "reason": "The work is restructuring branches and pull requests (rebasing, splitting commits, retargeting); no code is written, changed or reviewed, so this code-level rule is not exercised."
+      },
+      {
+        "standard": "business-logic-entry-point-transaction-isolation-levels",
+        "reason": "The work is restructuring branches and pull requests (rebasing, splitting commits, retargeting); no code is written, changed or reviewed, so this code-level rule is not exercised."
+      },
+      {
+        "standard": "business-logic-entry-point-use-repositories",
+        "reason": "The work is restructuring branches and pull requests (rebasing, splitting commits, retargeting); no code is written, changed or reviewed, so this code-level rule is not exercised."
+      },
+      {
+        "standard": "business-logic",
+        "reason": "The work is restructuring branches and pull requests (rebasing, splitting commits, retargeting); no code is written, changed or reviewed, so this code-level rule is not exercised."
+      },
+      {
+        "standard": "business-logic-typical-domain-entity-entry-points",
+        "reason": "The work is restructuring branches and pull requests (rebasing, splitting commits, retargeting); no code is written, changed or reviewed, so this code-level rule is not exercised."
+      },
+      {
+        "standard": "collaborating-across-agent-sessions",
+        "reason": "Near miss. #806 belongs to Marta, a person, not another agent session; and the fix is to take billing off her branch without touching it. The 'agree before stacking on someone else's stack' rule comes from Stacked Changes."
+      },
+      {
+        "standard": "dependency-direction",
+        "reason": "The work is restructuring branches and pull requests (rebasing, splitting commits, retargeting); no code is written, changed or reviewed, so this code-level rule is not exercised."
+      },
+      {
+        "standard": "domain-entity",
+        "reason": "The work is restructuring branches and pull requests (rebasing, splitting commits, retargeting); no code is written, changed or reviewed, so this code-level rule is not exercised."
+      },
+      {
+        "standard": "domain-entity-reference-direction",
+        "reason": "The work is restructuring branches and pull requests (rebasing, splitting commits, retargeting); no code is written, changed or reviewed, so this code-level rule is not exercised."
+      },
+      {
+        "standard": "domain-entity-reference-optionality",
+        "reason": "The work is restructuring branches and pull requests (rebasing, splitting commits, retargeting); no code is written, changed or reviewed, so this code-level rule is not exercised."
+      },
+      {
+        "standard": "domain-entity-typed-ids",
+        "reason": "The work is restructuring branches and pull requests (rebasing, splitting commits, retargeting); no code is written, changed or reviewed, so this code-level rule is not exercised."
+      },
+      {
+        "standard": "domain-entity-uuidv4-ids",
+        "reason": "The work is restructuring branches and pull requests (rebasing, splitting commits, retargeting); no code is written, changed or reviewed, so this code-level rule is not exercised."
+      },
+      {
+        "standard": "domain-service",
+        "reason": "The work is restructuring branches and pull requests (rebasing, splitting commits, retargeting); no code is written, changed or reviewed, so this code-level rule is not exercised."
+      },
+      {
+        "standard": "failure-reporting",
+        "reason": "The work is restructuring branches and pull requests (rebasing, splitting commits, retargeting); no code is written, changed or reviewed, so this code-level rule is not exercised."
+      },
+      {
+        "standard": "fixing-reported-errors",
+        "reason": "No error has been reported."
+      },
+      {
+        "standard": "immutable-domain-entities",
+        "reason": "The work is restructuring branches and pull requests (rebasing, splitting commits, retargeting); no code is written, changed or reviewed, so this code-level rule is not exercised."
+      },
+      {
+        "standard": "integration-logic",
+        "reason": "The API, repository and migration are moved between pull requests unchanged. The work is restructuring branches and pull requests (rebasing, splitting commits, retargeting); no code is written, changed or reviewed, so this code-level rule is not exercised."
+      },
+      {
+        "standard": "internationalization",
+        "reason": "The invoices page's text is moved unchanged, not written or reviewed."
+      },
+      {
+        "standard": "iso8601-millisecond-precision",
+        "reason": "The work is restructuring branches and pull requests (rebasing, splitting commits, retargeting); no code is written, changed or reviewed, so this code-level rule is not exercised."
+      },
+      {
+        "standard": "leave-nothing-running",
+        "reason": "The work is git and pull-request operations; nothing long-running is started by the request itself. It would apply only if the agent leaves a server or database container running while validating layers, which the case does not ask for."
+      },
+      {
+        "standard": "model-interpreted-features",
+        "reason": "Nothing interprets user intent."
+      },
+      {
+        "standard": "neverthrow-return-types",
+        "reason": "The work is restructuring branches and pull requests (rebasing, splitting commits, retargeting); no code is written, changed or reviewed, so this code-level rule is not exercised."
+      },
+      {
+        "standard": "neverthrow-wrap-exceptions",
+        "reason": "The work is restructuring branches and pull requests (rebasing, splitting commits, retargeting); no code is written, changed or reviewed, so this code-level rule is not exercised."
+      },
+      {
+        "standard": "prefer-named-functions",
+        "reason": "The work is restructuring branches and pull requests (rebasing, splitting commits, retargeting); no code is written, changed or reviewed, so this code-level rule is not exercised."
+      },
+      {
+        "standard": "refining-work",
+        "reason": "Nothing is refined."
+      },
+      {
+        "standard": "repository-no-business-logic",
+        "reason": "The work is restructuring branches and pull requests (rebasing, splitting commits, retargeting); no code is written, changed or reviewed, so this code-level rule is not exercised."
+      },
+      {
+        "standard": "serialization-boundaries",
+        "reason": "The work is restructuring branches and pull requests (rebasing, splitting commits, retargeting); no code is written, changed or reviewed, so this code-level rule is not exercised."
+      },
+      {
+        "standard": "shipping-increments",
+        "reason": "No split task is being shipped."
+      },
+      {
+        "standard": "splitting-work-into-increments",
+        "reason": "Near miss. It splits a refined task into increments in the task tracker before building; here an already-written pull request is split into reviewable change requests. No task, tracker or user stories are involved."
+      },
+      {
+        "standard": "state-coherent-prototypes",
+        "reason": "No prototype."
+      },
+      {
+        "standard": "utc-zoned-temporal-types",
+        "reason": "The work is restructuring branches and pull requests (rebasing, splitting commits, retargeting); no code is written, changed or reviewed, so this code-level rule is not exercised."
+      },
+      {
+        "standard": "write-persistence-representations",
+        "reason": "The tables' mappings are moved to their own pull request unchanged, not written or updated."
       }
     ]
   }
