@@ -30,7 +30,7 @@ An audit is not a mandatory step before refining. It is for an area that exists 
 
 ### 2. Choose the standards
 
-Read the standards index, then every standard that applies to anything in the area — its code, its interface, its data, its entry points, its integrations — in full. The scope is every applicable standard, not a subset chosen in advance: the area is touched once to bring it in line, rather than once per kind of concern. Every sub-agent the audit uses reads the index and the standards for its own part itself.
+Read the standards index, then every standard that applies to anything in the area — its code, its interface, its data, its entry points, its integrations — in full. The scope is every applicable standard — the ones about the code, such as the domain model, the entry points, persistence, the error model and the layout, as much as the ones about the interface — not a subset chosen in advance: the area is touched once to bring it in line, rather than once per kind of concern. Every sub-agent the audit uses reads the index and the standards for its own part itself.
 
 ### 3. Make the inventory
 

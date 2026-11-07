@@ -2870,29 +2870,14 @@
         "source": "unanimous"
       },
       {
-        "standard": "business-logic",
-        "reason": "Showing Archive only when allowed must come from the logic (owner, no running exports), not a rule rebuilt in the interface.",
-        "source": "decision 18"
-      },
-      {
         "standard": "business-logic-interface-coherence",
         "reason": "The Archive button is offered to every member though only the owner may archive, modelled errors (running exports, already archived) become 'Something went wrong', and the search is recomputed in the client.",
         "source": "unanimous"
       },
       {
-        "standard": "business-logic-typical-domain-entity-entry-points",
-        "reason": "The interface needs a check-whether-project-can-be-archived and a search of archived projects, which the builder has to add to the logic.",
-        "source": "decision 18"
-      },
-      {
         "standard": "design-system-adoption",
         "reason": "The project names @acme/ui; the diff uses a raw button, inline colours and a raw input.",
         "source": "unanimous"
-      },
-      {
-        "standard": "integration-logic",
-        "reason": "The new query reads the database (decision 1).",
-        "source": "decision 18"
       },
       {
         "standard": "internationalization",
@@ -2978,11 +2963,6 @@
         "standard": "design-system-adoption",
         "reason": "@hearth/components has ProgressBar, Banner and Button; the diff builds its own spinner and link with raw colours.",
         "source": "unanimous"
-      },
-      {
-        "standard": "integration-logic",
-        "reason": "The component polls the exports API: browser talking to the server.",
-        "source": "decision 19"
       },
       {
         "standard": "internationalization",
