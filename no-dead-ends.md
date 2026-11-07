@@ -9,7 +9,7 @@ A dead end is a situation where the person needs to do something and the product
 ## What Counts as In Scope
 
 - Any change that produces or changes an interface a person operates, or a flow through it.
-- Any change to business logic that decides what a person can do next: a lifecycle, a permission, a precondition, a limit, a deletion rule.
+- Any change to business logic that decides what a person can do next — a lifecycle, a permission, a precondition, a limit, a deletion rule — even when the change has no screen in it: the person meets the rule later, through whatever interface exposes it.
 - Settling, while refining or splitting work, what an interface will do — the decisions that later phases build — as [Refining Work](refining-work.md) and [Splitting Work into Increments](splitting-work-into-increments.md) do.
 - Judging whether an existing product area meets this standard, as [Auditing a Product Area](auditing-a-product-area.md) does.
 
