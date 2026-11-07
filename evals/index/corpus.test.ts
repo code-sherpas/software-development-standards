@@ -28,6 +28,7 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..", "..");
 const KINDS = ["description", "description+code"];
 const ROLES = [
   "refine",
+  "audit",
   "to-increments",
   "ship-increments",
   "fix-error",

@@ -1,0 +1,1026 @@
+{
+  "C32": {
+    "applies": [
+      {
+        "standard": "auditing-a-product-area",
+        "reason": "An explicit /audit of an existing area to establish whether it is ready for a new use (paying studios not set up by the team)."
+      },
+      {
+        "standard": "business-logic-interface-coherence",
+        "reason": "Judging an existing area is in its scope; booking, waitlist, cancellation window and attendance expose rules, permissions and refusals to members, instructors and owners."
+      },
+      {
+        "standard": "unambiguous-states",
+        "reason": "Judging an existing area; class lifecycle, waitlist on/off per studio, before/after the cancellation window, three roles, web and phone are states to enumerate."
+      },
+      {
+        "standard": "no-dead-ends",
+        "reason": "Judging an existing area; goals of owners, instructors and members, refusals (window passed, class full), waitlist states must have ways out."
+      },
+      {
+        "standard": "design-system-adoption",
+        "reason": "The project names a design system adopted six months ago that only new screens use; judging the area against it is in scope."
+      },
+      {
+        "standard": "accessibility",
+        "reason": "The area is an interface people operate on web and phones; the audit judges it."
+      },
+      {
+        "standard": "internationalization",
+        "reason": "The area shows text, dates and statuses to members and instructors; the audit checks it is localized."
+      },
+      {
+        "standard": "leave-nothing-running",
+        "reason": "Provoking states locally and observing production means starting a dev server and browsers (decision 2)."
+      },
+      {
+        "standard": "business-logic",
+        "reason": "The class booking area applies business rules (who may act, thresholds, windows, transitions); the audit judges that code."
+      },
+      {
+        "standard": "domain-entity",
+        "reason": "The class booking area has entities with identity and lifecycle that the inventory lists and the audit checks."
+      },
+      {
+        "standard": "aggregate-boundaries",
+        "reason": "The class booking area's entities reference each other; the audit checks reference style against their boundaries."
+      },
+      {
+        "standard": "domain-entity-reference-direction",
+        "reason": "Existing references between the area's entities are judged as justified by behaviour or only by query convenience."
+      },
+      {
+        "standard": "domain-entity-reference-optionality",
+        "reason": "Single-value references on the area's entities are judged for required vs optional."
+      },
+      {
+        "standard": "domain-entity-typed-ids",
+        "reason": "The area's entity identifier types are part of the code the audit judges."
+      },
+      {
+        "standard": "domain-entity-uuidv4-ids",
+        "reason": "The area's entity ids are defined, stored and sent to clients; the audit checks their format."
+      },
+      {
+        "standard": "immutable-domain-entities",
+        "reason": "The area's entities are judged for in-place mutation."
+      },
+      {
+        "standard": "domain-service",
+        "reason": "Logic spanning several aggregates (e.g. capacity/approval across entities) may live in entry points or the wrong aggregate; the audit checks placement."
+      },
+      {
+        "standard": "bounded-context-layout",
+        "reason": "The audit judges where the area's server-side code lives, built over time by several people."
+      },
+      {
+        "standard": "dependency-direction",
+        "reason": "The area's logic depends on collaborators and the clock (class times (civil times chosen in a studio's place) and the cancellation window); the audit checks direction and thin adapters."
+      },
+      {
+        "standard": "business-logic-typical-domain-entity-entry-points",
+        "reason": "The inventory lists the area's entry points; each is judged against the standard set."
+      },
+      {
+        "standard": "business-logic-entry-point-one-per-module",
+        "reason": "Entry-point family (decision 5): judging the area's entry points."
+      },
+      {
+        "standard": "business-logic-entry-point-prefer-top-level-functions",
+        "reason": "Entry-point family (decision 5): judging the area's entry points."
+      },
+      {
+        "standard": "business-logic-entry-point-command-query-separation",
+        "reason": "Entry-point family (decision 5): judging the area's entry points."
+      },
+      {
+        "standard": "business-logic-entry-point-cqs-handler-signatures",
+        "reason": "Entry-point family (decision 5): judging the area's entry points."
+      },
+      {
+        "standard": "business-logic-entry-point-colocate-types",
+        "reason": "Entry-point family (decision 5): judging the area's entry points."
+      },
+      {
+        "standard": "business-logic-entry-point-primitive-input-types",
+        "reason": "Entry-point family (decision 5): judging the area's entry points."
+      },
+      {
+        "standard": "business-logic-entry-point-domain-entity-payload-types",
+        "reason": "The area's queries return entity data (lists, sheets, histories)."
+      },
+      {
+        "standard": "business-logic-ensure-business-constraints",
+        "reason": "The area's preconditions (windows, thresholds, states) guard operations (decision 10)."
+      },
+      {
+        "standard": "business-logic-ensure-authenticated-requester",
+        "reason": "The area's entry points serve signed-in people."
+      },
+      {
+        "standard": "business-logic-ensure-authorized-requester",
+        "reason": "The area's entry points are restricted by role and tenant; the audit checks every rule is enforced by the logic, not the screen."
+      },
+      {
+        "standard": "business-logic-entry-point-execution-context",
+        "reason": "Entry-point family (decision 5): judging the area's entry points."
+      },
+      {
+        "standard": "business-logic-entry-point-database-transaction",
+        "reason": "The area's entry points read and write a database."
+      },
+      {
+        "standard": "business-logic-entry-point-transaction-isolation-levels",
+        "reason": "The area's commands race on the same rows (last place, concurrent approvals); isolation and write conflicts are judged."
+      },
+      {
+        "standard": "business-logic-entry-point-use-repositories",
+        "reason": "The area's entry points store and read entities."
+      },
+      {
+        "standard": "business-logic-entry-point-repository-interface",
+        "reason": "The area's entry points depend on repositories."
+      },
+      {
+        "standard": "business-logic-entry-point-repository-domain-types",
+        "reason": "The area's repository signatures are judged."
+      },
+      {
+        "standard": "business-logic-entry-point-repository-operations",
+        "reason": "The area's repository operations are judged."
+      },
+      {
+        "standard": "repository-no-business-logic",
+        "reason": "The area's repositories are judged for hidden business filters or rules."
+      },
+      {
+        "standard": "write-persistence-representations",
+        "reason": "The area's schema is judged, including defaults for business fields (e.g. switches)."
+      },
+      {
+        "standard": "integration-logic",
+        "reason": "The area talks to the database (decision 1)."
+      },
+      {
+        "standard": "built-in-temporal-types",
+        "reason": "The area holds class times (civil times chosen in a studio's place) and the cancellation window; the audit checks instants vs civil times and zones."
+      },
+      {
+        "standard": "utc-zoned-temporal-types",
+        "reason": "The area stores instants (when something was submitted, booked, cancelled, approved)."
+      },
+      {
+        "standard": "iso8601-millisecond-precision",
+        "reason": "Temporal values cross to web and phone clients as text."
+      },
+      {
+        "standard": "serialization-boundaries",
+        "reason": "The area serves web and phone clients; the audit checks what crosses and how failures arrive."
+      },
+      {
+        "standard": "failure-reporting",
+        "reason": "Refusals that are routine in the area (full, late, rejected) may be reported as incidents; the audit checks what reaches observability."
+      },
+      {
+        "standard": "neverthrow-return-types",
+        "reason": "The stack is not stated; if the area is TypeScript/JavaScript its functions are judged against it, so the auditor must read it to check."
+      },
+      {
+        "standard": "neverthrow-wrap-exceptions",
+        "reason": "Same as neverthrow-return-types: exception capture in the area's code is judged if it is TypeScript/JavaScript."
+      },
+      {
+        "standard": "prefer-named-functions",
+        "reason": "Applies in any stack to the functions the area's code defines, which the audit judges."
+      },
+      {
+        "standard": "automated-testing",
+        "reason": "Judging the area's code includes its tests (any test reviewed); the audit also provokes states with scripts."
+      }
+    ],
+    "considered_not_applies": [
+      {
+        "standard": "pre-merge-gates",
+        "reason": "Its scope is routes into the main branch; the audit integrates nothing. It only borrows Gate 6's way of calling an operation as a refused identity."
+      },
+      {
+        "standard": "post-deploy-verification",
+        "reason": "Its scope is a change reaching production; the audit changes nothing, it only observes production."
+      },
+      {
+        "standard": "expand-contract-schema-changes",
+        "reason": "No change to what is stored; the audit only observes."
+      },
+      {
+        "standard": "refining-work",
+        "reason": "Refining comes next, in a new session, from the audit's task; the audit only hands off to it."
+      },
+      {
+        "standard": "fixing-reported-errors",
+        "reason": "Out of the audit's scope; a reported error found on the way is recorded and marked for it, not triaged here."
+      },
+      {
+        "standard": "state-coherent-prototypes",
+        "reason": "No prototype is involved."
+      },
+      {
+        "standard": "model-interpreted-features",
+        "reason": "Nothing in the area interprets free-form requests with a model."
+      },
+      {
+        "standard": "shipping-increments",
+        "reason": "Nothing is being shipped; reviewing a change before merge is explicitly out of auditing's scope."
+      },
+      {
+        "standard": "splitting-work-into-increments",
+        "reason": "No refined task is being split."
+      },
+      {
+        "standard": "stacked-changes",
+        "reason": "No change requests are opened."
+      },
+      {
+        "standard": "collaborating-across-agent-sessions",
+        "reason": "Nothing says another session owns work in the area."
+      }
+    ]
+  },
+  "C33": {
+    "applies": [
+      {
+        "standard": "auditing-a-product-area",
+        "reason": "A request to go through an existing area and record everything off, without fixing, before a new use (biggest customer, more levels, more people) — an audit, even without the skill."
+      },
+      {
+        "standard": "business-logic-interface-coherence",
+        "reason": "Asked explicitly: screens that say one thing while the system does another; judging an existing area with an approval chain, threshold and rejections."
+      },
+      {
+        "standard": "unambiguous-states",
+        "reason": "Judging an existing area: submitted/approved/rejected/resubmitted, each approval level, the export's runs."
+      },
+      {
+        "standard": "no-dead-ends",
+        "reason": "Asked explicitly: things people will get stuck on; rejections and resubmissions, approvers missing at new levels, work at 1,200 employees' scale."
+      },
+      {
+        "standard": "accessibility",
+        "reason": "The area is an interface people operate; the audit judges it."
+      },
+      {
+        "standard": "internationalization",
+        "reason": "The area shows amounts, currencies, dates and statuses to people; the audit checks localization."
+      },
+      {
+        "standard": "leave-nothing-running",
+        "reason": "Provoking states locally and observing production requires starting a dev server and browsers (decision 2)."
+      },
+      {
+        "standard": "business-logic",
+        "reason": "The expense approvals area applies business rules (who may act, thresholds, windows, transitions); the audit judges that code."
+      },
+      {
+        "standard": "domain-entity",
+        "reason": "The expense approvals area has entities with identity and lifecycle that the inventory lists and the audit checks."
+      },
+      {
+        "standard": "aggregate-boundaries",
+        "reason": "The expense approvals area's entities reference each other; the audit checks reference style against their boundaries."
+      },
+      {
+        "standard": "domain-entity-reference-direction",
+        "reason": "Existing references between the area's entities are judged as justified by behaviour or only by query convenience."
+      },
+      {
+        "standard": "domain-entity-reference-optionality",
+        "reason": "Single-value references on the area's entities are judged for required vs optional."
+      },
+      {
+        "standard": "domain-entity-typed-ids",
+        "reason": "The area's entity identifier types are part of the code the audit judges."
+      },
+      {
+        "standard": "domain-entity-uuidv4-ids",
+        "reason": "The area's entity ids are defined, stored and sent to clients; the audit checks their format."
+      },
+      {
+        "standard": "immutable-domain-entities",
+        "reason": "The area's entities are judged for in-place mutation."
+      },
+      {
+        "standard": "domain-service",
+        "reason": "Logic spanning several aggregates (e.g. capacity/approval across entities) may live in entry points or the wrong aggregate; the audit checks placement."
+      },
+      {
+        "standard": "bounded-context-layout",
+        "reason": "The audit judges where the area's server-side code lives, built over time by several people."
+      },
+      {
+        "standard": "dependency-direction",
+        "reason": "The area's logic depends on collaborators and the clock (submission dates, the monthly export period and receipts' dates); the audit checks direction and thin adapters."
+      },
+      {
+        "standard": "business-logic-typical-domain-entity-entry-points",
+        "reason": "The inventory lists the area's entry points; each is judged against the standard set."
+      },
+      {
+        "standard": "business-logic-entry-point-one-per-module",
+        "reason": "Entry-point family (decision 5): judging the area's entry points."
+      },
+      {
+        "standard": "business-logic-entry-point-prefer-top-level-functions",
+        "reason": "Entry-point family (decision 5): judging the area's entry points."
+      },
+      {
+        "standard": "business-logic-entry-point-command-query-separation",
+        "reason": "Entry-point family (decision 5): judging the area's entry points."
+      },
+      {
+        "standard": "business-logic-entry-point-cqs-handler-signatures",
+        "reason": "Entry-point family (decision 5): judging the area's entry points."
+      },
+      {
+        "standard": "business-logic-entry-point-colocate-types",
+        "reason": "Entry-point family (decision 5): judging the area's entry points."
+      },
+      {
+        "standard": "business-logic-entry-point-primitive-input-types",
+        "reason": "Entry-point family (decision 5): judging the area's entry points."
+      },
+      {
+        "standard": "business-logic-entry-point-domain-entity-payload-types",
+        "reason": "The area's queries return entity data (lists, sheets, histories)."
+      },
+      {
+        "standard": "business-logic-ensure-business-constraints",
+        "reason": "The area's preconditions (windows, thresholds, states) guard operations (decision 10)."
+      },
+      {
+        "standard": "business-logic-ensure-authenticated-requester",
+        "reason": "The area's entry points serve signed-in people."
+      },
+      {
+        "standard": "business-logic-ensure-authorized-requester",
+        "reason": "The area's entry points are restricted by role and tenant; the audit checks every rule is enforced by the logic, not the screen."
+      },
+      {
+        "standard": "business-logic-entry-point-execution-context",
+        "reason": "Entry-point family (decision 5): judging the area's entry points."
+      },
+      {
+        "standard": "business-logic-entry-point-database-transaction",
+        "reason": "The area's entry points read and write a database."
+      },
+      {
+        "standard": "business-logic-entry-point-transaction-isolation-levels",
+        "reason": "The area's commands race on the same rows (last place, concurrent approvals); isolation and write conflicts are judged."
+      },
+      {
+        "standard": "business-logic-entry-point-use-repositories",
+        "reason": "The area's entry points store and read entities."
+      },
+      {
+        "standard": "business-logic-entry-point-repository-interface",
+        "reason": "The area's entry points depend on repositories."
+      },
+      {
+        "standard": "business-logic-entry-point-repository-domain-types",
+        "reason": "The area's repository signatures are judged."
+      },
+      {
+        "standard": "business-logic-entry-point-repository-operations",
+        "reason": "The area's repository operations are judged."
+      },
+      {
+        "standard": "repository-no-business-logic",
+        "reason": "The area's repositories are judged for hidden business filters or rules."
+      },
+      {
+        "standard": "write-persistence-representations",
+        "reason": "The area's schema is judged, including defaults for business fields (e.g. switches)."
+      },
+      {
+        "standard": "integration-logic",
+        "reason": "The area talks to the database, to object storage for receipts and to accounting through the monthly export (decision 1)."
+      },
+      {
+        "standard": "built-in-temporal-types",
+        "reason": "The area holds submission dates, the monthly export period and receipts' dates; the audit checks instants vs civil times and zones."
+      },
+      {
+        "standard": "utc-zoned-temporal-types",
+        "reason": "The area stores instants (when something was submitted, booked, cancelled, approved)."
+      },
+      {
+        "standard": "iso8601-millisecond-precision",
+        "reason": "Temporal values cross to web and phone clients as text."
+      },
+      {
+        "standard": "serialization-boundaries",
+        "reason": "The area serves web and phone clients; the audit checks what crosses and how failures arrive."
+      },
+      {
+        "standard": "failure-reporting",
+        "reason": "Refusals that are routine in the area (full, late, rejected) may be reported as incidents; the audit checks what reaches observability."
+      },
+      {
+        "standard": "neverthrow-return-types",
+        "reason": "The stack is not stated; if the area is TypeScript/JavaScript its functions are judged against it, so the auditor must read it to check."
+      },
+      {
+        "standard": "neverthrow-wrap-exceptions",
+        "reason": "Same as neverthrow-return-types: exception capture in the area's code is judged if it is TypeScript/JavaScript."
+      },
+      {
+        "standard": "prefer-named-functions",
+        "reason": "Applies in any stack to the functions the area's code defines, which the audit judges."
+      },
+      {
+        "standard": "automated-testing",
+        "reason": "Judging the area's code includes its tests (any test reviewed); the audit also provokes states with scripts."
+      }
+    ],
+    "considered_not_applies": [
+      {
+        "standard": "design-system-adoption",
+        "reason": "Applies only in a product whose project names a design system; nothing in the request or context says this one does."
+      },
+      {
+        "standard": "pre-merge-gates",
+        "reason": "Its scope is routes into the main branch; the audit integrates nothing. It only borrows Gate 6's way of calling an operation as a refused identity."
+      },
+      {
+        "standard": "post-deploy-verification",
+        "reason": "Its scope is a change reaching production; the audit changes nothing, it only observes production."
+      },
+      {
+        "standard": "expand-contract-schema-changes",
+        "reason": "No change to what is stored; the audit only observes."
+      },
+      {
+        "standard": "refining-work",
+        "reason": "Refining comes next, in a new session, from the audit's task; the audit only hands off to it."
+      },
+      {
+        "standard": "fixing-reported-errors",
+        "reason": "Out of the audit's scope; a reported error found on the way is recorded and marked for it, not triaged here."
+      },
+      {
+        "standard": "state-coherent-prototypes",
+        "reason": "No prototype is involved."
+      },
+      {
+        "standard": "model-interpreted-features",
+        "reason": "Nothing in the area interprets free-form requests with a model."
+      },
+      {
+        "standard": "shipping-increments",
+        "reason": "Nothing is being shipped; reviewing a change before merge is explicitly out of auditing's scope."
+      },
+      {
+        "standard": "splitting-work-into-increments",
+        "reason": "No refined task is being split."
+      },
+      {
+        "standard": "stacked-changes",
+        "reason": "No change requests are opened."
+      },
+      {
+        "standard": "collaborating-across-agent-sessions",
+        "reason": "Nothing says another session owns work in the area."
+      }
+    ]
+  },
+  "C34": {
+    "applies": [
+      {
+        "standard": "shipping-increments",
+        "reason": "The agent is the builder of increment 2 of 3 under the shipping-increments brief."
+      },
+      {
+        "standard": "pre-merge-gates",
+        "reason": "The builder passes every gate that applies before opening the change request; it adds a query entry point (Gate 6) and must be exercised by hand."
+      },
+      {
+        "standard": "post-deploy-verification",
+        "reason": "Applies to whoever builds a change that reaches production; the change carries its post-deploy plan."
+      },
+      {
+        "standard": "automated-testing",
+        "reason": "The builder builds the increment and its tests."
+      },
+      {
+        "standard": "leave-nothing-running",
+        "reason": "Exercising the interface by hand needs a dev server and a browser (decision 2)."
+      },
+      {
+        "standard": "design-system-adoption",
+        "reason": "The project names @acme/ui; the diff builds a raw <button> with inline colours, a raw <input> and <ul> instead of its components and tokens."
+      },
+      {
+        "standard": "business-logic-interface-coherence",
+        "reason": "The Archive button is shown to every member though only the owner may archive; modelled errors (running exports, already archived) become 'Something went wrong'; search is recomputed client-side instead of by the logic."
+      },
+      {
+        "standard": "unambiguous-states",
+        "reason": "'No projects' is shown both when nothing is archived and when nothing matches the search; no loading or failed state for the list; archived date shown in an unstated zone."
+      },
+      {
+        "standard": "no-dead-ends",
+        "reason": "Archiving cannot be undone (no unarchive) and is not confirmed; refusals do not say why or who can archive; the Archived tab must be reachable."
+      },
+      {
+        "standard": "accessibility",
+        "reason": "A new control and a search field with placeholder as its only label, an error not announced, focus after navigating away."
+      },
+      {
+        "standard": "internationalization",
+        "reason": "Hard-coded copy ('Archive', 'Search', 'No projects', 'archived …') and a date formatted without the locale list."
+      },
+      {
+        "standard": "neverthrow-return-types",
+        "reason": "Every TS function the change writes (onArchive, the list loader) is judged; the components are an incompatible boundary that keeps neverthrow inside."
+      },
+      {
+        "standard": "neverthrow-wrap-exceptions",
+        "reason": "await archiveProject and listArchivedProjects().then may reject; failures entering as rejections are captured ad hoc or not at all."
+      },
+      {
+        "standard": "prefer-named-functions",
+        "reason": "The change defines inline callbacks (useEffect, then, filter, onChange, map)."
+      },
+      {
+        "standard": "serialization-boundaries",
+        "reason": "Server-action results read by hand as result.ok/value; archivedAt crosses as a string; the second failure mode (no answer) is unhandled."
+      },
+      {
+        "standard": "built-in-temporal-types",
+        "reason": "Defines archivedAt as a string and converts it with new Date for display."
+      },
+      {
+        "standard": "utc-zoned-temporal-types",
+        "reason": "Parses an instant (archivedAt) from text and converts it to the viewer's local time."
+      },
+      {
+        "standard": "iso8601-millisecond-precision",
+        "reason": "Reads a temporal value from text (archivedAt)."
+      },
+      {
+        "standard": "business-logic",
+        "reason": "The increment needs listArchivedProjects (searching the workspace's archived projects), which increment 1 did not add: the builder writes that entry point."
+      },
+      {
+        "standard": "business-logic-typical-domain-entity-entry-points",
+        "reason": "The archived list with a search box is a search entry point around Project (decision 5)."
+      },
+      {
+        "standard": "business-logic-entry-point-one-per-module",
+        "reason": "Entry-point family (decision 5) for the new listArchivedProjects query."
+      },
+      {
+        "standard": "business-logic-entry-point-prefer-top-level-functions",
+        "reason": "Entry-point family (decision 5)."
+      },
+      {
+        "standard": "business-logic-entry-point-command-query-separation",
+        "reason": "Entry-point family (decision 5)."
+      },
+      {
+        "standard": "business-logic-entry-point-cqs-handler-signatures",
+        "reason": "Entry-point family (decision 5); a search query takes filters, pagination and sort."
+      },
+      {
+        "standard": "business-logic-entry-point-colocate-types",
+        "reason": "Entry-point family (decision 5)."
+      },
+      {
+        "standard": "business-logic-entry-point-primitive-input-types",
+        "reason": "Entry-point family (decision 5)."
+      },
+      {
+        "standard": "business-logic-entry-point-domain-entity-payload-types",
+        "reason": "The query returns project data; the ad hoc ArchivedProject shape is a payload type."
+      },
+      {
+        "standard": "business-logic-ensure-business-constraints",
+        "reason": "The query guards with authentication/authorization (decision 10)."
+      },
+      {
+        "standard": "business-logic-ensure-authenticated-requester",
+        "reason": "Only signed-in workspace members may list archived projects."
+      },
+      {
+        "standard": "business-logic-ensure-authorized-requester",
+        "reason": "The list is scoped to the requester's workspace."
+      },
+      {
+        "standard": "business-logic-entry-point-execution-context",
+        "reason": "Entry-point family (decision 5)."
+      },
+      {
+        "standard": "business-logic-entry-point-database-transaction",
+        "reason": "The query reads projects from the database."
+      },
+      {
+        "standard": "business-logic-entry-point-transaction-isolation-levels",
+        "reason": "A query handler in a transaction uses the least blocking level, or reads over the pool."
+      },
+      {
+        "standard": "business-logic-entry-point-use-repositories",
+        "reason": "The query reads Project entities."
+      },
+      {
+        "standard": "business-logic-entry-point-repository-interface",
+        "reason": "The query depends on the project repository."
+      },
+      {
+        "standard": "business-logic-entry-point-repository-domain-types",
+        "reason": "Any repository method added for it exchanges domain types."
+      },
+      {
+        "standard": "business-logic-entry-point-repository-operations",
+        "reason": "Listing archived projects with a search is search/findManyBy on the repository."
+      },
+      {
+        "standard": "repository-no-business-logic",
+        "reason": "A repository method for archived projects must not hide the 'archived' or workspace filter as an implicit business rule (decision 4)."
+      },
+      {
+        "standard": "integration-logic",
+        "reason": "The new query reads the database (decision 1)."
+      },
+      {
+        "standard": "bounded-context-layout",
+        "reason": "Writing the server-side query creates server-side files (decision 3)."
+      },
+      {
+        "standard": "dependency-direction",
+        "reason": "The server action stays thin and delegates; the query depends on interfaces."
+      },
+      {
+        "standard": "domain-entity-uuidv4-ids",
+        "reason": "projectId is carried to archiveProject and project ids are returned to the client (decision 12)."
+      }
+    ],
+    "considered_not_applies": [
+      {
+        "standard": "expand-contract-schema-changes",
+        "reason": "Nothing stored changes in this increment; archiving's storage arrived in increment 1."
+      },
+      {
+        "standard": "failure-reporting",
+        "reason": "No code here decides to emit to an error tracker; the swallowed list failure is a coherence/serialization finding."
+      },
+      {
+        "standard": "domain-entity",
+        "reason": "No domain entity is written or changed; Project is used, not modified."
+      },
+      {
+        "standard": "immutable-domain-entities",
+        "reason": "No domain entity is written or changed."
+      },
+      {
+        "standard": "domain-entity-typed-ids",
+        "reason": "ArchivedProject is a view type, not a domain entity's id definition."
+      },
+      {
+        "standard": "state-coherent-prototypes",
+        "reason": "Production code, not a prototype."
+      },
+      {
+        "standard": "auditing-a-product-area",
+        "reason": "Building an increment, not auditing an area."
+      },
+      {
+        "standard": "stacked-changes",
+        "reason": "Nothing is stacked."
+      },
+      {
+        "standard": "collaborating-across-agent-sessions",
+        "reason": "No other session's work is involved."
+      }
+    ]
+  },
+  "C35": {
+    "applies": [
+      {
+        "standard": "shipping-increments",
+        "reason": "The agent is the reviewer of the increment under the shipping-increments brief."
+      },
+      {
+        "standard": "design-system-adoption",
+        "reason": "The project names @hearth/components with ProgressBar, Banner and Button; the diff builds its own spinner, a raw link and raw colours."
+      },
+      {
+        "standard": "unambiguous-states",
+        "reason": "queued, running and failed all show 'Preparing your export…'; a failed export spins forever; no staleness or request-failure state."
+      },
+      {
+        "standard": "business-logic-interface-coherence",
+        "reason": "The job's four states are not mapped one to one (failed has no presentation); the outcome shown is not what the logic did."
+      },
+      {
+        "standard": "no-dead-ends",
+        "reason": "A failed export is final and requesting a new one is the only way out, but the interface offers no way out or reason."
+      },
+      {
+        "standard": "accessibility",
+        "reason": "A spinner with no accessible name or live region; status changes without a page load are not announced; colour-only styling."
+      },
+      {
+        "standard": "internationalization",
+        "reason": "Hard-coded 'Preparing your export…' and 'Download'."
+      },
+      {
+        "standard": "neverthrow-return-types",
+        "reason": "refresh is a new TS function returning a bare Promise."
+      },
+      {
+        "standard": "neverthrow-wrap-exceptions",
+        "reason": "fetchExport may reject inside an interval callback, uncaptured."
+      },
+      {
+        "standard": "prefer-named-functions",
+        "reason": "The change defines inline arrow callbacks for onMounted/onUnmounted."
+      },
+      {
+        "standard": "serialization-boundaries",
+        "reason": "The export's status arrives as a plain string (ref<string>) read by hand; a call that does not answer is unhandled."
+      },
+      {
+        "standard": "post-deploy-verification",
+        "reason": "Applies to whoever reviews a change that reaches production, including its post-deploy plan."
+      }
+    ],
+    "considered_not_applies": [
+      {
+        "standard": "pre-merge-gates",
+        "reason": "Per decision 14 the reviewer reads it only when the change carries a migration, leaves data behind or adds/changes an entry point; this is a client component calling an existing API."
+      },
+      {
+        "standard": "automated-testing",
+        "reason": "No test is written or reviewed in the diff, and which tests to write is outside its current scope."
+      },
+      {
+        "standard": "leave-nothing-running",
+        "reason": "Reviewing the diff does not require starting anything."
+      },
+      {
+        "standard": "integration-logic",
+        "reason": "The component calls an existing API client; it adds no code that talks to another application itself."
+      },
+      {
+        "standard": "business-logic",
+        "reason": "The export job is unchanged; the component holds no business rule."
+      },
+      {
+        "standard": "failure-reporting",
+        "reason": "Nothing decides to emit to an error tracker."
+      },
+      {
+        "standard": "built-in-temporal-types",
+        "reason": "No temporal value is handled."
+      },
+      {
+        "standard": "state-coherent-prototypes",
+        "reason": "Production code, not a prototype."
+      },
+      {
+        "standard": "auditing-a-product-area",
+        "reason": "Reviewing a change before merge is explicitly out of auditing's scope."
+      }
+    ]
+  },
+  "C36": {
+    "applies": [
+      {
+        "standard": "refining-work",
+        "reason": "/refine of a request whose outcome, limits and behaviour are not yet settled (sources, who sees what, retention)."
+      },
+      {
+        "standard": "business-logic-interface-coherence",
+        "reason": "The work adds a history screen and a permission (store managers per product, pricing team all products); what is offered must match what the logic allows."
+      },
+      {
+        "standard": "unambiguous-states",
+        "reason": "A product's history can be empty because nothing changed or because changes predate the recording; 'when' must be read in one zone; changes from three sources must be told apart."
+      },
+      {
+        "standard": "no-dead-ends",
+        "reason": "The work adds a permission rule; a store manager refused the all-products history must be told why and who can see it."
+      },
+      {
+        "standard": "internationalization",
+        "reason": "The history shows people old and new prices, dates, sources and reasons; amounts and dates must be localized."
+      },
+      {
+        "standard": "accessibility",
+        "reason": "The work produces a screen people perceive and operate (the price history)."
+      }
+    ],
+    "considered_not_applies": [
+      {
+        "standard": "auditing-a-product-area",
+        "reason": "'Audit' here means an audit log of price changes, a new capability; auditing a product area is judging an existing part of the product."
+      },
+      {
+        "standard": "fixing-reported-errors",
+        "reason": "Not knowing who changed a price is a missing capability, not a report that something failed."
+      },
+      {
+        "standard": "pre-merge-gates",
+        "reason": "Retaining evidence for five years is Gate 5's inverted case, but refining integrates nothing; it applies when the work is merged."
+      },
+      {
+        "standard": "expand-contract-schema-changes",
+        "reason": "The future history table is a change to what is stored, but refining writes no migration; it applies when building."
+      },
+      {
+        "standard": "business-logic-ensure-authorized-requester",
+        "reason": "Access control is settled in the task's Access control section; the constraint governs code written later."
+      },
+      {
+        "standard": "integration-logic",
+        "reason": "The supplier sync and bulk upload are sources to record, but no integration code is written while refining."
+      },
+      {
+        "standard": "utc-zoned-temporal-types",
+        "reason": "'When' is an instant, but its representation is settled when building, not refining."
+      },
+      {
+        "standard": "built-in-temporal-types",
+        "reason": "No civil time is involved, and representation is settled when building."
+      },
+      {
+        "standard": "aggregate-boundaries",
+        "reason": "A new price-change entity's boundary is a design decision for building; refining records product decisions."
+      },
+      {
+        "standard": "splitting-work-into-increments",
+        "reason": "Comes after refining, in a new session."
+      },
+      {
+        "standard": "model-interpreted-features",
+        "reason": "No model interprets anything."
+      }
+    ]
+  },
+  "existing": {
+    "C01": [
+      {
+        "standard": "business-logic-interface-coherence",
+        "reason": "Adds rescheduling to the booking page with a 24/48 h limit; the page must offer it only when allowed and state the limit before submitting."
+      },
+      {
+        "standard": "unambiguous-states",
+        "reason": "Free slots, before/after the reschedule window, and times read in the clinic's zone across the clock change (rule 7)."
+      },
+      {
+        "standard": "no-dead-ends",
+        "reason": "A patient past the window must be told why and what to do; logic decides what a person can do next (a limit)."
+      }
+    ],
+    "C02": [
+      {
+        "standard": "business-logic-interface-coherence",
+        "reason": "CSV export on the invoices page for accountant/admin roles with a 10,000 limit, and the renamed 'contact phone' term in form and template."
+      },
+      {
+        "standard": "unambiguous-states",
+        "reason": "Export in progress/failed/over the limit; one term per concept for contact phone."
+      },
+      {
+        "standard": "no-dead-ends",
+        "reason": "Above 10,000 invoices the page must lead to narrowing the range; a role-based permission decides what a person can do."
+      }
+    ],
+    "C06": [
+      {
+        "standard": "business-logic-interface-coherence",
+        "reason": "State-Coherent Prototypes says the product's qualities hold for the prototype: roles see only what they may (member without billing)."
+      },
+      {
+        "standard": "unambiguous-states",
+        "reason": "Held by the prototype: empty dashboard and checklist, invite errors (already invited / invalid), two roles, desktop and mobile."
+      },
+      {
+        "standard": "no-dead-ends",
+        "reason": "Held by the prototype: invitees removable before sending, payment not designed must say so, every step leads somewhere."
+      }
+    ],
+    "C07": [
+      {
+        "standard": "business-logic-interface-coherence",
+        "reason": "Typed commands in the calendar must turn every outcome (asks, declines) into a message and never report success for what did not happen."
+      },
+      {
+        "standard": "unambiguous-states",
+        "reason": "Compound commands ('all my 1:1s') can partly succeed; partial outcomes must be told apart."
+      },
+      {
+        "standard": "no-dead-ends",
+        "reason": "'Can't wreck people's calendars': mistakes must be correctable or undoable."
+      }
+    ],
+    "C08": [
+      {
+        "standard": "business-logic-interface-coherence",
+        "reason": "The panel must turn each outcome (provider failure, 20 s timeout, truncated to 200 messages) into its own message."
+      },
+      {
+        "standard": "unambiguous-states",
+        "reason": "Progress while generating, failure, and the partial summary of the last 200 messages must be visible."
+      },
+      {
+        "standard": "no-dead-ends",
+        "reason": "A failed summary offers to try again (every state has a way out)."
+      }
+    ],
+    "C14": [
+      {
+        "standard": "business-logic-interface-coherence",
+        "reason": "Business logic a form (increment 3) will expose: a permission, working-hours and overlap rules and the errors returned; the server action flattens them to a kind."
+      },
+      {
+        "standard": "no-dead-ends",
+        "reason": "Logic deciding what a person can do next (permission, precondition); refusals must say why."
+      }
+    ],
+    "C15": [
+      {
+        "standard": "business-logic-interface-coherence",
+        "reason": "Logic staff operate: create/edit/cancel orders with refusals (not-found, order-closed) that must reach them as domain outcomes."
+      },
+      {
+        "standard": "no-dead-ends",
+        "reason": "A lifecycle with a terminal 'cancelled' state that cannot be changed: it must say it is final."
+      }
+    ],
+    "C17": [
+      {
+        "standard": "business-logic-interface-coherence",
+        "reason": "The command a screen (increment 2) will expose: owner-only permission, free-seat and same-plan rules, and refusals as free-text reasons instead of modelled outcomes."
+      },
+      {
+        "standard": "no-dead-ends",
+        "reason": "Logic deciding what a person can do next (permission, limits); a refused transfer must say why and who can do it."
+      }
+    ],
+    "C18": [
+      {
+        "standard": "business-logic-interface-coherence",
+        "reason": "Whether each invoice can be voided is computed so the page can show or hide the button: offered iff allowed, one source for the fact."
+      },
+      {
+        "standard": "unambiguous-states",
+        "reason": "The customer's invoices list: empty vs no match for the status filter, paginated, statuses."
+      },
+      {
+        "standard": "no-dead-ends",
+        "reason": "A hidden void button is a refusal; logic deciding what a person can do next (a precondition)."
+      }
+    ],
+    "C21": [
+      {
+        "standard": "business-logic-interface-coherence",
+        "reason": "The form ignores the action's outcomes (always shows success) and checks only the date; constraints and outcomes must match the logic."
+      },
+      {
+        "standard": "unambiguous-states",
+        "reason": "The confirmation shows the time in the browser's zone, not the clinic's (times read one way)."
+      },
+      {
+        "standard": "no-dead-ends",
+        "reason": "A failed booking must keep the input and say what to fix; network failures keep the work."
+      }
+    ],
+    "C22": [
+      {
+        "standard": "business-logic-interface-coherence",
+        "reason": "Held by the prototype: archive on the board must show in Archived and restore back; one source for each fact."
+      },
+      {
+        "standard": "unambiguous-states",
+        "reason": "Held by the prototype: toasts, archived screen, columns, empty states, desktop and mobile."
+      },
+      {
+        "standard": "no-dead-ends",
+        "reason": "Held by the prototype: archive has undo, archived cards can be restored, inert toolbar buttons."
+      }
+    ],
+    "C24": [
+      {
+        "standard": "business-logic-interface-coherence",
+        "reason": "The search box must tell 'not understood' and provider failure apart and show what was understood as chips."
+      },
+      {
+        "standard": "unambiguous-states",
+        "reason": "Filters applied vs untouched, nothing matches, interpretation in progress or failed."
+      },
+      {
+        "standard": "no-dead-ends",
+        "reason": "A misread request is corrected by hand through the chips (mistakes can be corrected)."
+      }
+    ]
+  }
+}

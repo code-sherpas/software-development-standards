@@ -13,6 +13,8 @@ A prototype that only meets the first condition is clickable, not state-coherent
 
 The prototype is also held to the same generic UI/UX and accessibility baseline as the product. It is what people review and what the implementation copies, so a defect left in it ships twice.
 
+The qualities the product itself must have hold for the prototype too: [Business Logic and Interface Coherence](business-logic-interface-coherence.md), [Unambiguous States](unambiguous-states.md), [No Dead Ends](no-dead-ends.md) and, where the product has a design system, [Design System Adoption](design-system-adoption.md). This standard adds what is particular to a prototype: that it behaves at all, and that its simulated state stays coherent.
+
 ## What Counts as In Scope
 
 Any interactive prototype that a team reviews as the reference for how a product behaves, or that an implementation is built from:

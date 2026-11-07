@@ -5,6 +5,21 @@
         "standard": "refining-work",
         "reason": "A request (Marta's email) whose outcome, limits and behaviour are not settled, run under the refine skill: interview, write the task, confirm, hand off.",
         "source": "unanimous"
+      },
+      {
+        "standard": "business-logic-interface-coherence",
+        "reason": "The refined task settles a new interface over rescheduling rules: the 24/48 h window must be stated before submitting and its refusal must reach the patient.",
+        "source": "decision 20"
+      },
+      {
+        "standard": "unambiguous-states",
+        "reason": "Times must be read one way, in the clinic's local zone across the clock change, and states like 'too late to reschedule' must be told apart.",
+        "source": "decision 20"
+      },
+      {
+        "standard": "no-dead-ends",
+        "reason": "A patient refused for being too close to the appointment must be told why and what they can do.",
+        "source": "decision 20"
       }
     ],
     "near_miss": []
@@ -20,6 +35,21 @@
         "standard": "splitting-work-into-increments",
         "reason": "A refined task run under to-increments: split into the smallest usable increments, graph, order, flag strategy and pages in the tracker.",
         "source": "unanimous"
+      },
+      {
+        "standard": "business-logic-interface-coherence",
+        "reason": "The invoices page gains an export whose 10,000-invoice limit and role rule must be stated and handled in the interface; the plan's acceptance carries them.",
+        "source": "decision 20"
+      },
+      {
+        "standard": "unambiguous-states",
+        "reason": "Export in progress/failed/over the limit; one term per concept for contact phone.",
+        "source": "decision 20"
+      },
+      {
+        "standard": "no-dead-ends",
+        "reason": "Above the limit the page must lead the person to narrow the range rather than refuse.",
+        "source": "decision 20"
       }
     ],
     "near_miss": []
@@ -112,6 +142,21 @@
         "standard": "state-coherent-prototypes",
         "reason": "An interactive prototype the team reviews as the reference; it must have complete behaviour (roles, invite cases, a marked simulation for payment) and coherent state across screens, roles and viewports.",
         "source": "unanimous"
+      },
+      {
+        "standard": "business-logic-interface-coherence",
+        "reason": "The prototype stands in for the product, whose qualities hold for it: roles see only what they may (no plan/billing for members), invite errors are outcomes.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "unambiguous-states",
+        "reason": "Empty dashboard, checklist progress, invite list and error cases are states the prototype must tell apart.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "no-dead-ends",
+        "reason": "Every step can be left, invites removed before sending, and the out-of-design payment step must say so.",
+        "source": "unanimous"
       }
     ],
     "near_miss": []
@@ -127,6 +172,21 @@
         "standard": "refining-work",
         "reason": "An unsettled request from the CEO run under refine: interview, scenarios, write the task.",
         "source": "unanimous"
+      },
+      {
+        "standard": "business-logic-interface-coherence",
+        "reason": "Typed commands act on events, series and attendees; consequences (moving a whole series, notifying attendees) must be stated as the logic will apply them.",
+        "source": "decision 20"
+      },
+      {
+        "standard": "unambiguous-states",
+        "reason": "What the command did, did partly, or did not understand must be visible.",
+        "source": "decision 20"
+      },
+      {
+        "standard": "no-dead-ends",
+        "reason": "'Can't wreck calendars': mistakes made by an interpreted command must be correctable or undoable.",
+        "source": "decision 20"
       }
     ],
     "near_miss": []
@@ -137,6 +197,21 @@
         "standard": "splitting-work-into-increments",
         "reason": "A refined task run under to-increments: increments, graph, order, flag strategy and pages.",
         "source": "unanimous"
+      },
+      {
+        "standard": "business-logic-interface-coherence",
+        "reason": "The summary panel's outcomes (provider failure, timeout) must reach the agent as messages.",
+        "source": "decision 20"
+      },
+      {
+        "standard": "unambiguous-states",
+        "reason": "Progress, failure, and the partial outcome of summarizing only the last 200 messages are states the panel shows.",
+        "source": "decision 20"
+      },
+      {
+        "standard": "no-dead-ends",
+        "reason": "A failed summary offers to try again.",
+        "source": "decision 20"
       }
     ],
     "near_miss": [
@@ -396,6 +471,11 @@
         "standard": "shipping-increments",
         "reason": "The agent is the builder of one increment of a split task: it builds, records decisions, passes the gates, gets a review and opens the change request, then stops.",
         "source": "unanimous"
+      },
+      {
+        "standard": "no-dead-ends",
+        "reason": "The increment defines the invoice lifecycle (draft, issued, paid), business logic that decides what a person can do next; whether issued and paid invoices have a way out or say they are final is decided here.",
+        "source": "decision 21"
       }
     ],
     "near_miss": []
@@ -576,6 +656,16 @@
         "standard": "utc-zoned-temporal-types",
         "reason": "startsAt/endsAt handled as Temporal.Instant for comparison and storage of the derived instant.",
         "source": "decision 11"
+      },
+      {
+        "standard": "business-logic-interface-coherence",
+        "reason": "The command and its server action are what the booking form will expose; its outcomes (outside working hours vs overlap) are flattened to a kind the form cannot tell apart.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "no-dead-ends",
+        "reason": "The logic decides what staff can do next (permission, working hours, overlap), and its refusals must be able to say why.",
+        "source": "unanimous"
       }
     ],
     "near_miss": []
@@ -756,6 +846,11 @@
         "standard": "write-persistence-representations",
         "reason": "New Prisma models; autoincrement ids are generated defaults, status is free text.",
         "source": "unanimous"
+      },
+      {
+        "standard": "no-dead-ends",
+        "reason": "A lifecycle with a terminal 'cancelled' state that cannot be changed: it must say it is final.",
+        "source": "decision 21"
       }
     ],
     "near_miss": []
@@ -1018,6 +1113,16 @@
         "standard": "write-persistence-representations",
         "reason": "Seats need a persistence representation (Prisma mapping is next).",
         "source": "unanimous"
+      },
+      {
+        "standard": "business-logic-interface-coherence",
+        "reason": "The command is what the next increment's screen exposes; permission is returned as 'invalid-transfer' with a free-text reason, and a support-agent bypass the task does not allow.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "no-dead-ends",
+        "reason": "The permission and preconditions (free seats, at least one left, same plan) decide what the owner can do, and refusals must say why.",
+        "source": "unanimous"
       }
     ],
     "near_miss": []
@@ -1177,6 +1282,21 @@
       {
         "standard": "shipping-increments",
         "reason": "Reviewer of one increment: checks the change against the applicable standards and the acceptance, reports findings, never edits.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "business-logic-interface-coherence",
+        "reason": "The voidability check exists so the page offers the void button iff the logic allows it, and the list is scoped by clinic permission.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "unambiguous-states",
+        "reason": "The 30-day voidability window is a time rule whose state staff see, and the list has empty and filtered states.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "no-dead-ends",
+        "reason": "Voidability is a precondition deciding what staff can do next; a hidden button must not leave them without a reason.",
         "source": "unanimous"
       }
     ],
@@ -1503,6 +1623,21 @@
         "standard": "shipping-increments",
         "reason": "Reviewer of one increment: checks the change against the applicable standards and the acceptance, reports findings, never edits.",
         "source": "unanimous"
+      },
+      {
+        "standard": "business-logic-interface-coherence",
+        "reason": "The form checks only the missing date, ignores the server's outcomes, and shows the booked time computed in the browser rather than as stored.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "unambiguous-states",
+        "reason": "The confirmation's time is shown in the browser's zone, not the clinic's, without saying which.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "no-dead-ends",
+        "reason": "A failed booking must keep the input and say what to fix.",
+        "source": "unanimous"
       }
     ],
     "near_miss": [
@@ -1534,6 +1669,21 @@
       {
         "standard": "state-coherent-prototypes",
         "reason": "An interactive reference prototype with screens holding separate copies of the cards, inert toolbar alerts, a toast without undo; it must have one state model and complete behaviour.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "business-logic-interface-coherence",
+        "reason": "The prototype stands in for the product: archive, restore and undo must have the consequences the product will have.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "unambiguous-states",
+        "reason": "Archived screen's empty state, toast, and column headings are states the prototype must present.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "no-dead-ends",
+        "reason": "Inert toolbar buttons, archive with undo and restore are ways in and out of states.",
         "source": "unanimous"
       }
     ],
@@ -1772,6 +1922,21 @@
       {
         "standard": "shipping-increments",
         "reason": "Builder of one increment: builds it and its tests, records decisions, passes the gates, gets a review, opens the change request and stops.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "business-logic-interface-coherence",
+        "reason": "The chips must show the filter as the logic understood it, and 'not understood' and provider failure must reach the accountant.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "unambiguous-states",
+        "reason": "'Didn't understand' must look different from 'no invoices match'.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "no-dead-ends",
+        "reason": "A misread request can be corrected by hand through the chips.",
         "source": "unanimous"
       }
     ],
@@ -2191,5 +2356,707 @@
       }
     ],
     "near_miss": []
+  },
+  "C32": {
+    "expected": [
+      {
+        "standard": "accessibility",
+        "reason": "The area is an interface members and instructors operate on web and phones; the audit judges it.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "aggregate-boundaries",
+        "reason": "Entities of the class booking area reference each other; the audit checks reference style and boundaries.",
+        "source": "decision 17"
+      },
+      {
+        "standard": "auditing-a-product-area",
+        "reason": "The message asks to audit an existing area and whether it is ready for a use it has not had (studios not set up by the team).",
+        "source": "unanimous"
+      },
+      {
+        "standard": "automated-testing",
+        "reason": "The audit judges the area's existing tests and provokes states with scripts.",
+        "source": "decision 17"
+      },
+      {
+        "standard": "bounded-context-layout",
+        "reason": "The class booking area is server-side source whose placement the audit judges.",
+        "source": "decision 17"
+      },
+      {
+        "standard": "built-in-temporal-types",
+        "reason": "Class times are civil times an owner chose in a studio's place, and the cancellation window is a time rule.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "business-logic",
+        "reason": "The class booking area is full of business rules (the cancellation window, waitlist capacity, who may take attendance).",
+        "source": "unanimous"
+      },
+      {
+        "standard": "business-logic-ensure-authenticated-requester",
+        "reason": "The area's entry points serve signed-in people only.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "business-logic-ensure-authorized-requester",
+        "reason": "The area's entry points are restricted by role and by tenant (customer/organization), the core of opening it to outsiders.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "business-logic-ensure-business-constraints",
+        "reason": "The area guards operations with preconditions (the cancellation window, waitlist capacity, who may take attendance).",
+        "source": "unanimous"
+      },
+      {
+        "standard": "business-logic-entry-point-colocate-types",
+        "reason": "Judging the area's entry points against the entry-point family (decision 5).",
+        "source": "decision 17"
+      },
+      {
+        "standard": "business-logic-entry-point-command-query-separation",
+        "reason": "The area has commands and queries whose shape the audit judges.",
+        "source": "decision 17"
+      },
+      {
+        "standard": "business-logic-entry-point-cqs-handler-signatures",
+        "reason": "The area has commands and queries whose signatures the audit judges.",
+        "source": "decision 17"
+      },
+      {
+        "standard": "business-logic-entry-point-database-transaction",
+        "reason": "The area's entry points read and write a database.",
+        "source": "decision 17"
+      },
+      {
+        "standard": "business-logic-entry-point-domain-entity-payload-types",
+        "reason": "The area's queries return entity data (lists, sheets, histories).",
+        "source": "decision 17"
+      },
+      {
+        "standard": "business-logic-entry-point-execution-context",
+        "reason": "Judging the area's entry points against the entry-point family (decision 5).",
+        "source": "decision 17"
+      },
+      {
+        "standard": "business-logic-entry-point-one-per-module",
+        "reason": "Judging the area's entry points against the entry-point family (decision 5).",
+        "source": "decision 17"
+      },
+      {
+        "standard": "business-logic-entry-point-prefer-top-level-functions",
+        "reason": "Judging the area's entry points against the entry-point family (decision 5).",
+        "source": "decision 17"
+      },
+      {
+        "standard": "business-logic-entry-point-primitive-input-types",
+        "reason": "Judging the input types of the area's entry points.",
+        "source": "decision 17"
+      },
+      {
+        "standard": "business-logic-entry-point-repository-domain-types",
+        "reason": "The area's repositories exchange types with its entry points.",
+        "source": "decision 17"
+      },
+      {
+        "standard": "business-logic-entry-point-repository-interface",
+        "reason": "The area's entry points depend on repositories.",
+        "source": "decision 17"
+      },
+      {
+        "standard": "business-logic-entry-point-repository-operations",
+        "reason": "The area has repositories whose operations and error model the audit judges.",
+        "source": "decision 17"
+      },
+      {
+        "standard": "business-logic-entry-point-transaction-isolation-levels",
+        "reason": "The area's commands and queries run in database transactions.",
+        "source": "decision 17"
+      },
+      {
+        "standard": "business-logic-entry-point-use-repositories",
+        "reason": "The area's entry points store and read entities.",
+        "source": "decision 17"
+      },
+      {
+        "standard": "business-logic-interface-coherence",
+        "reason": "Its scope includes judging an existing area; booking, waitlist, cancellation window and attendance rules have to match what members, instructors and owners are offered.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "business-logic-typical-domain-entity-entry-points",
+        "reason": "The audit inventories the class booking area's entry points and judges whether each is a standard kind.",
+        "source": "decision 17"
+      },
+      {
+        "standard": "dependency-direction",
+        "reason": "The class booking area's business logic depends on persistence and other collaborators; the audit judges the direction and thin adapters.",
+        "source": "decision 17"
+      },
+      {
+        "standard": "design-system-adoption",
+        "reason": "The project names a design system that only the new screens use; judging the area against it is in scope.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "domain-entity",
+        "reason": "The class booking area has entities with identity and lifecycles that the audit inventories and judges.",
+        "source": "decision 17"
+      },
+      {
+        "standard": "domain-entity-reference-direction",
+        "reason": "The audit judges whether the references between the class booking area's entities are justified by their own invariants.",
+        "source": "decision 17"
+      },
+      {
+        "standard": "domain-entity-reference-optionality",
+        "reason": "The audit judges whether the class booking area's single-value references are correctly required or optional.",
+        "source": "decision 17"
+      },
+      {
+        "standard": "domain-entity-typed-ids",
+        "reason": "The audit judges how the class booking area's entity ids are typed.",
+        "source": "decision 17"
+      },
+      {
+        "standard": "domain-entity-uuidv4-ids",
+        "reason": "The class booking area's entity ids are defined, parsed and mapped to persistence and transport.",
+        "source": "decision 17"
+      },
+      {
+        "standard": "domain-service",
+        "reason": "Waitlist promotion when a booking is cancelled spans the class and the bookings; the audit judges where cross-aggregate logic lives.",
+        "source": "decision 17"
+      },
+      {
+        "standard": "failure-reporting",
+        "reason": "The area's code emits failures to observability; the audit judges who decides to report.",
+        "source": "decision 17"
+      },
+      {
+        "standard": "immutable-domain-entities",
+        "reason": "The audit judges whether the class booking area's entities are immutable.",
+        "source": "decision 17"
+      },
+      {
+        "standard": "integration-logic",
+        "reason": "The area talks to a database (decision 1) and to other applications.",
+        "source": "decision 17"
+      },
+      {
+        "standard": "internationalization",
+        "reason": "The area shows text, dates and statuses to people the team has never met; the audit judges localization.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "iso8601-millisecond-precision",
+        "reason": "Dates and times cross the area's API and its exports as text.",
+        "source": "decision 17"
+      },
+      {
+        "standard": "leave-nothing-running",
+        "reason": "Observing production through a browser with test accounts and provoking states locally starts browsers and dev servers (decision 2).",
+        "source": "unanimous"
+      },
+      {
+        "standard": "neverthrow-return-types",
+        "reason": "The stack is not stated; if the area is TypeScript/JavaScript its functions are judged against it, so the auditor must read it to check.",
+        "source": "decision 17"
+      },
+      {
+        "standard": "neverthrow-wrap-exceptions",
+        "reason": "Same as neverthrow-return-types: exception capture in the area's code is judged if it is TypeScript/JavaScript.",
+        "source": "decision 17"
+      },
+      {
+        "standard": "no-dead-ends",
+        "reason": "Its scope includes judging an existing area; studios configured by strangers must be able to complete every goal without the team's help.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "prefer-named-functions",
+        "reason": "The area's code defines functions in any stack; the audit judges it against this standard.",
+        "source": "decision 17"
+      },
+      {
+        "standard": "repository-no-business-logic",
+        "reason": "The area's repository methods are judged for hidden business filters and rules.",
+        "source": "decision 17"
+      },
+      {
+        "standard": "serialization-boundaries",
+        "reason": "The web and phone clients read the area's responses across a serialization boundary; the audit judges how the guarantees are rebuilt.",
+        "source": "decision 17"
+      },
+      {
+        "standard": "unambiguous-states",
+        "reason": "Its scope includes judging an existing area; waitlist on/off, booking lifecycle, cancellation window times and roles produce states the audit must enumerate.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "utc-zoned-temporal-types",
+        "reason": "The area stores instants (when something was submitted, booked, approved, cancelled).",
+        "source": "unanimous"
+      },
+      {
+        "standard": "write-persistence-representations",
+        "reason": "The area's persistence schema is judged, defaults included.",
+        "source": "decision 17"
+      }
+    ],
+    "near_miss": []
+  },
+  "C33": {
+    "expected": [
+      {
+        "standard": "accessibility",
+        "reason": "The area is an interface employees, managers and finance operate; the audit judges it.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "aggregate-boundaries",
+        "reason": "Entities of the expense approvals area reference each other; the audit checks reference style and boundaries.",
+        "source": "decision 17"
+      },
+      {
+        "standard": "auditing-a-product-area",
+        "reason": "The person asks to go through an existing area before a new, larger customer uses it and write every finding down without fixing: an audit request, even without the skill.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "automated-testing",
+        "reason": "The audit judges the area's existing tests and provokes states with scripts.",
+        "source": "decision 17"
+      },
+      {
+        "standard": "bounded-context-layout",
+        "reason": "The expense approvals area is server-side source whose placement the audit judges.",
+        "source": "decision 17"
+      },
+      {
+        "standard": "built-in-temporal-types",
+        "reason": "Expenses carry calendar dates and the monthly export is a calendar rule; the audit judges their temporal types.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "business-logic",
+        "reason": "The expense approvals area is full of business rules (the approval threshold, the order of approvers, resubmission after rejection).",
+        "source": "unanimous"
+      },
+      {
+        "standard": "business-logic-ensure-authenticated-requester",
+        "reason": "The area's entry points serve signed-in people only.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "business-logic-ensure-authorized-requester",
+        "reason": "The area's entry points are restricted by role and by tenant (customer/organization), the core of opening it to outsiders.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "business-logic-ensure-business-constraints",
+        "reason": "The area guards operations with preconditions (the approval threshold, the order of approvers, resubmission after rejection).",
+        "source": "unanimous"
+      },
+      {
+        "standard": "business-logic-entry-point-colocate-types",
+        "reason": "Judging the area's entry points against the entry-point family (decision 5).",
+        "source": "decision 17"
+      },
+      {
+        "standard": "business-logic-entry-point-command-query-separation",
+        "reason": "The area has commands and queries whose shape the audit judges.",
+        "source": "decision 17"
+      },
+      {
+        "standard": "business-logic-entry-point-cqs-handler-signatures",
+        "reason": "The area has commands and queries whose signatures the audit judges.",
+        "source": "decision 17"
+      },
+      {
+        "standard": "business-logic-entry-point-database-transaction",
+        "reason": "The area's entry points read and write a database.",
+        "source": "decision 17"
+      },
+      {
+        "standard": "business-logic-entry-point-domain-entity-payload-types",
+        "reason": "The area's queries return entity data (lists, sheets, histories).",
+        "source": "decision 17"
+      },
+      {
+        "standard": "business-logic-entry-point-execution-context",
+        "reason": "Judging the area's entry points against the entry-point family (decision 5).",
+        "source": "decision 17"
+      },
+      {
+        "standard": "business-logic-entry-point-one-per-module",
+        "reason": "Judging the area's entry points against the entry-point family (decision 5).",
+        "source": "decision 17"
+      },
+      {
+        "standard": "business-logic-entry-point-prefer-top-level-functions",
+        "reason": "Judging the area's entry points against the entry-point family (decision 5).",
+        "source": "decision 17"
+      },
+      {
+        "standard": "business-logic-entry-point-primitive-input-types",
+        "reason": "Judging the input types of the area's entry points.",
+        "source": "decision 17"
+      },
+      {
+        "standard": "business-logic-entry-point-repository-domain-types",
+        "reason": "The area's repositories exchange types with its entry points.",
+        "source": "decision 17"
+      },
+      {
+        "standard": "business-logic-entry-point-repository-interface",
+        "reason": "The area's entry points depend on repositories.",
+        "source": "decision 17"
+      },
+      {
+        "standard": "business-logic-entry-point-repository-operations",
+        "reason": "The area has repositories whose operations and error model the audit judges.",
+        "source": "decision 17"
+      },
+      {
+        "standard": "business-logic-entry-point-transaction-isolation-levels",
+        "reason": "The area's commands and queries run in database transactions.",
+        "source": "decision 17"
+      },
+      {
+        "standard": "business-logic-entry-point-use-repositories",
+        "reason": "The area's entry points store and read entities.",
+        "source": "decision 17"
+      },
+      {
+        "standard": "business-logic-interface-coherence",
+        "reason": "The person explicitly asks for screens that say one thing while the system does another; judging an existing area is in scope.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "business-logic-typical-domain-entity-entry-points",
+        "reason": "The audit inventories the expense approvals area's entry points and judges whether each is a standard kind.",
+        "source": "decision 17"
+      },
+      {
+        "standard": "dependency-direction",
+        "reason": "The expense approvals area's business logic depends on persistence and other collaborators; the audit judges the direction and thin adapters.",
+        "source": "decision 17"
+      },
+      {
+        "standard": "domain-entity",
+        "reason": "The expense approvals area has entities with identity and lifecycles that the audit inventories and judges.",
+        "source": "decision 17"
+      },
+      {
+        "standard": "domain-entity-reference-direction",
+        "reason": "The audit judges whether the references between the expense approvals area's entities are justified by their own invariants.",
+        "source": "decision 17"
+      },
+      {
+        "standard": "domain-entity-reference-optionality",
+        "reason": "The audit judges whether the expense approvals area's single-value references are correctly required or optional.",
+        "source": "decision 17"
+      },
+      {
+        "standard": "domain-entity-typed-ids",
+        "reason": "The audit judges how the expense approvals area's entity ids are typed.",
+        "source": "decision 17"
+      },
+      {
+        "standard": "domain-entity-uuidv4-ids",
+        "reason": "The expense approvals area's entity ids are defined, parsed and mapped to persistence and transport.",
+        "source": "decision 17"
+      },
+      {
+        "standard": "domain-service",
+        "reason": "The approval chain decides with the expense, the approvers and the threshold policy; the audit judges where cross-aggregate logic lives.",
+        "source": "decision 17"
+      },
+      {
+        "standard": "failure-reporting",
+        "reason": "The area's code emits failures to observability; the audit judges who decides to report.",
+        "source": "decision 17"
+      },
+      {
+        "standard": "immutable-domain-entities",
+        "reason": "The audit judges whether the expense approvals area's entities are immutable.",
+        "source": "decision 17"
+      },
+      {
+        "standard": "integration-logic",
+        "reason": "The area talks to a database (decision 1) and to other applications.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "internationalization",
+        "reason": "The area shows text, amounts, dates and statuses; the audit judges localization.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "iso8601-millisecond-precision",
+        "reason": "Dates and times cross the area's API and its exports as text.",
+        "source": "decision 17"
+      },
+      {
+        "standard": "leave-nothing-running",
+        "reason": "Observing the area in production through a browser and provoking states locally starts browsers and dev servers (decision 2).",
+        "source": "unanimous"
+      },
+      {
+        "standard": "neverthrow-return-types",
+        "reason": "The stack is not stated; if the area is TypeScript/JavaScript its functions are judged against it, so the auditor must read it to check.",
+        "source": "decision 17"
+      },
+      {
+        "standard": "neverthrow-wrap-exceptions",
+        "reason": "Same as neverthrow-return-types: exception capture in the area's code is judged if it is TypeScript/JavaScript.",
+        "source": "decision 17"
+      },
+      {
+        "standard": "no-dead-ends",
+        "reason": "The person asks for things people will get stuck on; rejections, resubmissions and twelve hundred employees (scale) are its subject.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "prefer-named-functions",
+        "reason": "The area's code defines functions in any stack; the audit judges it against this standard.",
+        "source": "decision 17"
+      },
+      {
+        "standard": "repository-no-business-logic",
+        "reason": "The area's repository methods are judged for hidden business filters and rules.",
+        "source": "decision 17"
+      },
+      {
+        "standard": "serialization-boundaries",
+        "reason": "The web and phone clients read the area's responses across a serialization boundary; the audit judges how the guarantees are rebuilt.",
+        "source": "decision 17"
+      },
+      {
+        "standard": "unambiguous-states",
+        "reason": "Approval chain, rejections and resubmissions are lifecycle states people see; judging an existing area is in scope.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "utc-zoned-temporal-types",
+        "reason": "The area stores instants (when something was submitted, booked, approved, cancelled).",
+        "source": "decision 17"
+      },
+      {
+        "standard": "write-persistence-representations",
+        "reason": "The area's persistence schema is judged, defaults included.",
+        "source": "decision 17"
+      }
+    ],
+    "near_miss": []
+  },
+  "C34": {
+    "expected": [
+      {
+        "standard": "accessibility",
+        "reason": "A new button, a search input labelled only by a placeholder, and an error message that is not announced.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "automated-testing",
+        "reason": "The builder writes the increment's tests.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "built-in-temporal-types",
+        "reason": "archivedAt is defined as a string, parsed with new Date and displayed.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "business-logic",
+        "reason": "Showing Archive only when allowed must come from the logic (owner, no running exports), not a rule rebuilt in the interface.",
+        "source": "decision 18"
+      },
+      {
+        "standard": "business-logic-interface-coherence",
+        "reason": "The Archive button is offered to every member though only the owner may archive, modelled errors (running exports, already archived) become 'Something went wrong', and the search is recomputed in the client.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "business-logic-typical-domain-entity-entry-points",
+        "reason": "The interface needs a check-whether-project-can-be-archived and a search of archived projects, which the builder has to add to the logic.",
+        "source": "decision 18"
+      },
+      {
+        "standard": "design-system-adoption",
+        "reason": "The project names @acme/ui; the diff uses a raw button, inline colours and a raw input.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "integration-logic",
+        "reason": "The new query reads the database (decision 1).",
+        "source": "decision 18"
+      },
+      {
+        "standard": "internationalization",
+        "reason": "Hard-coded English strings and a date formatted with toLocaleDateString.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "iso8601-millisecond-precision",
+        "reason": "A textual datetime from the server is parsed.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "leave-nothing-running",
+        "reason": "Exercising the interface by hand starts a dev server and a browser (decision 2).",
+        "source": "unanimous"
+      },
+      {
+        "standard": "neverthrow-return-types",
+        "reason": "TypeScript functions are written (onArchive, the components); render and event-handler boundaries must keep neverthrow inside.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "neverthrow-wrap-exceptions",
+        "reason": "Calls to server actions that can reject are awaited or chained with .then without capture.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "no-dead-ends",
+        "reason": "Archiving cannot be undone (no unarchive) and is not confirmed, and refusals do not say why or who can do it.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "post-deploy-verification",
+        "reason": "The interface reaches production; the builder writes its post-deploy plan.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "pre-merge-gates",
+        "reason": "The builder passes every gate that applies before opening the change request.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "prefer-named-functions",
+        "reason": "The diff defines inline callbacks (useEffect body, .then, filter, onChange).",
+        "source": "unanimous"
+      },
+      {
+        "standard": "serialization-boundaries",
+        "reason": "Server action results are read by hand as result.ok, and archivedAt crosses as a string.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "shipping-increments",
+        "reason": "The agent is the builder of increment 2 of a split task.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "unambiguous-states",
+        "reason": "'No projects' does not tell nothing archived from nothing matching, there is no loading or failed state, and the archived date is read in an unstated zone.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "utc-zoned-temporal-types",
+        "reason": "archivedAt is an instant parsed and converted for display.",
+        "source": "unanimous"
+      }
+    ],
+    "near_miss": []
+  },
+  "C35": {
+    "expected": [
+      {
+        "standard": "accessibility",
+        "reason": "The spinner has no accessible name or live region, the status change is not announced, and the animation ignores reduced motion.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "business-logic-interface-coherence",
+        "reason": "The job's four states are not mapped one to one: failed shows 'Preparing your export…' forever.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "design-system-adoption",
+        "reason": "@hearth/components has ProgressBar, Banner and Button; the diff builds its own spinner and link with raw colours.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "integration-logic",
+        "reason": "The component polls the exports API: browser talking to the server.",
+        "source": "decision 19"
+      },
+      {
+        "standard": "internationalization",
+        "reason": "Hard-coded English strings.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "neverthrow-return-types",
+        "reason": "TypeScript functions are written in the component (refresh).",
+        "source": "unanimous"
+      },
+      {
+        "standard": "neverthrow-wrap-exceptions",
+        "reason": "fetchExport can reject inside an interval with no capture.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "no-dead-ends",
+        "reason": "A failed export stays failed and the only way out, requesting a new export, is not offered.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "post-deploy-verification",
+        "reason": "The change will reach production; the reviewer reviews its post-deploy plan.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "prefer-named-functions",
+        "reason": "Inline callbacks passed to onMounted and onUnmounted (decision 8).",
+        "source": "unanimous"
+      },
+      {
+        "standard": "serialization-boundaries",
+        "reason": "The export arrives with status as a plain string and the 'no answer' failure mode is not handled.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "shipping-increments",
+        "reason": "The agent is the reviewer of an increment.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "unambiguous-states",
+        "reason": "queued, running and failed look the same; progress and failure are not visible.",
+        "source": "unanimous"
+      }
+    ],
+    "near_miss": []
+  },
+  "C36": {
+    "expected": [
+      {
+        "standard": "business-logic-interface-coherence",
+        "reason": "The request defines who may see a product's price history and all products' history, and what each screen shows; the refined task settles it.",
+        "source": "decision 20"
+      },
+      {
+        "standard": "no-dead-ends",
+        "reason": "A store manager refused the all-products view needs to be told why and who can see it.",
+        "source": "decision 20"
+      },
+      {
+        "standard": "refining-work",
+        "reason": "A /refine request whose outcome, limits and behaviour are not settled.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "unambiguous-states",
+        "reason": "Price histories (empty, very long, a change without reason) and when each change happened must read one way.",
+        "source": "decision 20"
+      }
+    ],
+    "near_miss": [
+      "auditing-a-product-area"
+    ]
   }
 }
