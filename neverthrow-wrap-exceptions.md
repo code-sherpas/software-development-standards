@@ -2,13 +2,13 @@
 
 ## Goal
 
-Capture recoverable exceptions with `neverthrow` helpers instead of ad hoc `try/catch`.
+Capture recoverable exceptions with `neverthrow` helpers instead of ad hoc `try/catch` — in TypeScript and JavaScript — or, in any other stack, with its established equivalent (see «Other Stacks»).
 
 This standard governs exception capture only. If the task also changes public return signatures, apply [Neverthrow Return Types](neverthrow-return-types.md) alongside this standard.
 
 ## What Counts as In Scope
 
-Every place in TypeScript or JavaScript code where a recoverable failure enters as a thrown exception or a rejected promise:
+Every place in TypeScript or JavaScript code — and in code of any other stack, through its equivalent (see «Other Stacks») — where a recoverable failure enters as a thrown exception or a rejected promise:
 
 - hand-written `try/catch`, and `.catch(...)` used only to convert a failure;
 - calls to APIs that may throw: third-party libraries, parsers, database, network and file-system clients, schema validators, serialization code;
@@ -18,6 +18,10 @@ Out of scope:
 
 - APIs that already return `Result` or `ResultAsync`: they are composed, not wrapped;
 - public return signatures: that is [Neverthrow Return Types](neverthrow-return-types.md).
+
+## Other Stacks
+
+`neverthrow`'s wrappers are the TypeScript and JavaScript way of one rule: **a recoverable failure that arrives as an exception is turned into a typed result at its source, once, instead of being caught ad hoc.** In any other stack the rule is the same, with that stack's equivalent of the result type chosen as [Neverthrow Return Types](neverthrow-return-types.md) describes, and its own way to capture a throwing call into it — `runCatching` or Arrow's `Either.catch` in Kotlin, `Try.of` in Vavr, the `?` operator over a fallible call in Rust, a `safe` decorator of a result library in Python. A language whose functions already return failures as values, such as Go, has nothing to wrap except a `panic` it chooses to recover.
 
 ## Detect Exception Sources
 

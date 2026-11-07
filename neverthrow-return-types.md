@@ -2,13 +2,13 @@
 
 ## Goal
 
-Model every compatible function and method with `neverthrow` return types.
+Model every compatible function and method with `neverthrow` return types — in TypeScript and JavaScript — or, in any other stack, with its established equivalent (see «Other Stacks»).
 
 This standard governs return signatures only. If the task also changes how thrown exceptions or rejected promises are captured, apply [Neverthrow Exception Wrapping](neverthrow-wrap-exceptions.md) alongside this standard.
 
 ## What Counts as In Scope
 
-The return type of every function and method in TypeScript or JavaScript code:
+The return type of every function and method in TypeScript or JavaScript code, and in code of any other stack through its equivalent (see «Other Stacks»):
 
 - standalone functions
 - exported module functions
@@ -23,6 +23,16 @@ Out of scope:
 
 - an incompatible boundary enforced by the surrounding technology, library, or framework — the only allowed exception. `neverthrow` is still kept inside it: see «Detect Compatibility First»;
 - how thrown exceptions or rejected promises are captured: that is [Neverthrow Exception Wrapping](neverthrow-wrap-exceptions.md).
+
+## Other Stacks
+
+`neverthrow` is the TypeScript and JavaScript implementation of one rule: **a failure the caller must handle is part of the return type, not an exception.** In any other stack, the rule is the same and the type is that stack's established equivalent:
+
+- a language that has one built in uses it — `Result` in Rust and Swift, `Either` in Scala, the `(value, error)` pair in Go;
+- otherwise, the typed result library the project already uses — Arrow's `Either` in Kotlin, Vavr's `Either` or `Try` in Java, a `Result` library in C# or Python;
+- if the project has none, choosing one is a dependency decision: ask, as «Detect Compatibility First» says for adding `neverthrow`.
+
+Everything else in this standard applies with the names translated: an explicit, stable error type; the result kept inside a boundary that cannot return it; no ad hoc failure shapes such as `null` or sentinel values.
 
 ## Detect Compatibility First
 

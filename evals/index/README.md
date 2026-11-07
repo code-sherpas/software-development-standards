@@ -17,7 +17,7 @@ role: increment-builder  # whose brief the agent runs under, see below
 The body is what reaches the agent after the hook's instruction and its role's brief:
 
 - for `increment-builder`, `increment-reviewer` and `increment-verifier`, the coordinator's message to that sub-agent: the increment, its acceptance, and, in code cases, the code as it stands — the diff so far for a builder, the diff under review for a reviewer;
-- for a skill (`refine`, `to-increments`, `ship-increments`, `fix-error`, `build-prototype`), the person's message that invokes it, with whatever they pasted;
+- for a skill (`refine`, `audit`, `to-increments`, `ship-increments`, `fix-error`, `build-prototype`), the person's message that invokes it, with whatever they pasted;
 - for `none`, the person's message to a session with no skill and no role.
 
 Code is synthetic, written to force the edges of each standard's scope, and inspired by real changes without copying private code.
@@ -45,6 +45,7 @@ The test, like the real agent, receives three parts in this order:
    | `increment-verifier` | claude-code-plugins `plugins/base/agents/increment-verifier.md` | Verify this increment in production following the project's standards for shipping increments, as its verifier. You report what you see; you change nothing. |
    | `ship-increments` | agent-skills `skills/ship-increments/SKILL.md` | Ship this task's increments following the project's standards for shipping increments. |
    | `refine` | agent-skills `skills/refine/SKILL.md` | Refine this request following the project's standards for refining work. |
+| `audit` | agent-skills `skills/audit/SKILL.md` | Audit this product area following the project's standards for auditing a product area. |
    | `to-increments` | agent-skills `skills/to-increments/SKILL.md` | Split this task into increments following the project's standards for splitting work into increments. |
    | `fix-error` | agent-skills `skills/fix-error/SKILL.md` | Fix this error following the project's standards for resolving errors. |
    | `build-prototype` | agent-skills `skills/build-prototype/SKILL.md` | Build this prototype following the project's standards for state-coherent prototypes. |
@@ -56,15 +57,16 @@ The test, like the real agent, receives three parts in this order:
 
 | Role | Cases |
 |---|---|
-| `refine` | C01, C07 |
+| `refine` | C01, C07, C36 |
+| `audit` | C32 |
 | `to-increments` | C02, C08 |
 | `ship-increments` | C03 |
 | `fix-error` | C04, C30 |
-| `increment-builder` | C05, C11, C12, C13, C14, C17, C19, C20, C23, C24, C27, C29 |
+| `increment-builder` | C05, C11, C12, C13, C14, C17, C19, C20, C23, C24, C27, C29, C34 |
 | `build-prototype` | C06, C22 |
 | `increment-verifier` | C09 |
-| `none` | C10, C31 |
-| `increment-reviewer` | C15, C16, C18, C21, C25, C26, C28 |
+| `none` | C10, C31, C33 |
+| `increment-reviewer` | C15, C16, C18, C21, C25, C26, C28, C35 |
 
 ## Expected standards
 

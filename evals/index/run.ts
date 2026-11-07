@@ -46,6 +46,7 @@ const BRIEF_SOURCES: Record<string, string> = {
   "increment-verifier": `${PLUGINS_RAW}/plugins/base/agents/increment-verifier.md`,
   "ship-increments": `${SKILLS_RAW}/skills/ship-increments/SKILL.md`,
   refine: `${SKILLS_RAW}/skills/refine/SKILL.md`,
+  audit: `${SKILLS_RAW}/skills/audit/SKILL.md`,
   "to-increments": `${SKILLS_RAW}/skills/to-increments/SKILL.md`,
   "fix-error": `${SKILLS_RAW}/skills/fix-error/SKILL.md`,
   "build-prototype": `${SKILLS_RAW}/skills/build-prototype/SKILL.md`,

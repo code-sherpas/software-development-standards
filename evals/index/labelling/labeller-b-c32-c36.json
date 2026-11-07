@@ -1,0 +1,165 @@
+{
+  "C32": {
+    "applies": [
+      {"standard": "auditing-a-product-area", "reason": "The person asks to audit an existing area (class booking) and whether it is ready for a use it has not had — paying studios the team did not set up — which is this standard's scope, and the role brief names it."},
+      {"standard": "business-logic-interface-coherence", "reason": "Its scope includes judging an existing product area as an audit does; owner/instructor/member rules, the cancellation window and the waitlist switch are logic the booking interface exposes."},
+      {"standard": "unambiguous-states", "reason": "Judging an existing area is in scope; the audit inventory enumerates states (booked, waitlisted, cancelled, past the window, waitlist on/off, web and phone) as this standard defines them."},
+      {"standard": "no-dead-ends", "reason": "Judging an existing area is in scope; the audit inventory lists each kind of person's goals (book, join the waitlist, cancel, take attendance, configure) as this standard asks, built by four people with no design pass."},
+      {"standard": "design-system-adoption", "reason": "The project adopted a design system that only the new screens use; judging an existing area of a product that names a design system is in its scope."},
+      {"standard": "accessibility", "reason": "The area is an interface members operate on the web and on phones; accessibility failures are an 'experience' consequence the audit records and judges against WCAG 2.2 AA."},
+      {"standard": "internationalization", "reason": "The area produces text members and instructors read, including statuses derived from data; language failures are an 'experience' finding the audit checks against this standard."},
+      {"standard": "pre-merge-gates", "reason": "The audit provokes refused paths by calling the operation as the refused identity 'as Pre-Merge Gates Gate 6 describes', so the agent needs Gate 6's method in full."},
+      {"standard": "business-logic-ensure-authorized-requester", "reason": "Owners, instructors and members have different permissions in each studio; whether each booking/attendance/configuration operation enforces them (an 'access' finding) is judged against this standard."},
+      {"standard": "business-logic-ensure-authenticated-requester", "reason": "Every booking operation is for signed-in owners, instructors or members, and the audit checks the area's entry points against the standards that govern them."},
+      {"standard": "business-logic", "reason": "The cancellation window, the waitlist promotion and the per-studio waitlist switch are business rules whose code the audit checks."},
+      {"standard": "business-logic-ensure-business-constraints", "reason": "Booking a full class, cancelling past the window and joining a disabled waitlist are preconditions guarding business operations, which the audit checks in the code."},
+      {"standard": "built-in-temporal-types", "reason": "Class times and the cancellation window are civil times chosen by a studio in its place; studios the team never met may be in other zones, so the audit checks how they are represented."},
+      {"standard": "utc-zoned-temporal-types", "reason": "Booking and cancellation moments are instants compared against the window; the audit checks their representation."},
+      {"standard": "leave-nothing-running", "reason": "The audit must provoke states locally (empty, refused, at the limits, racing), which means starting the application and a browser; by decision 2 that brings this standard in."}
+    ],
+    "considered_not_applies": [
+      {"standard": "refining-work", "reason": "Refining comes after the audit, in a new session; the audit only writes the task and the hand-off instruction, both specified by the auditing standard itself."},
+      {"standard": "fixing-reported-errors", "reason": "No error is reported; an error the audit stumbles on is only recorded and marked as a finding, which the auditing standard specifies."},
+      {"standard": "post-deploy-verification", "reason": "Its scope is changes that reach production; the audit changes nothing, and observing production with test accounts is governed by the auditing standard's own rule 4."},
+      {"standard": "state-coherent-prototypes", "reason": "No prototype is involved."},
+      {"standard": "shipping-increments", "reason": "Reviewing a change before merge is explicitly out of the audit's scope; nothing is being shipped."},
+      {"standard": "business-logic-entry-point-one-per-module (and the rest of the entry-point structure, repository and domain-model families)", "reason": "Borderline: the audit's rule 2 asks for every standard whose subject is the code, but the request gives no code and the audit's code reading is delegated to sub-agents who read the standards for their own part; nothing in the request concerns module layout, signatures or persistence shape. If the person reads rule 2 literally, these join the list."}
+    ]
+  },
+  "C33": {
+    "applies": [
+      {"standard": "auditing-a-product-area", "reason": "An audit of an existing area (expense approvals) to establish whether it is ready for a new use — a much larger customer with two more approval levels — with every finding written down and nothing fixed: this standard's scope, even with no skill invoked."},
+      {"standard": "business-logic-interface-coherence", "reason": "'Screens that say one thing while the system does another' is exactly what it judges, and judging an existing area is in its scope."},
+      {"standard": "unambiguous-states", "reason": "'Things that are confusing' across submission, approval chain, rejection and resubmission states; judging an existing area is in scope."},
+      {"standard": "no-dead-ends", "reason": "'Things people will get stuck on', rejected-and-resubmit paths, and work that must scale to 1,200 employees (rule 7); judging an existing area is in scope."},
+      {"standard": "accessibility", "reason": "The area is an interface employees, managers and finance operate; accessibility failures are findings of an audit."},
+      {"standard": "internationalization", "reason": "The area produces text people read (statuses, rejection reasons, amounts); language failures are findings of an audit."},
+      {"standard": "pre-merge-gates", "reason": "Refused paths of the approval chain (a manager approving above the threshold, someone approving their own expense) are exercised as Gate 6 describes, which the audit cites."},
+      {"standard": "business-logic-ensure-authorized-requester", "reason": "Who may approve what (manager, finance above a threshold) is authorization the audit checks in each operation."},
+      {"standard": "business-logic-ensure-authenticated-requester", "reason": "Every operation of the area is for signed-in employees; 'code that doesn't follow how we build things' is judged against the entry-point standards."},
+      {"standard": "business-logic", "reason": "The approval chain, the threshold and resubmission are business rules whose code the audit checks."},
+      {"standard": "business-logic-ensure-business-constraints", "reason": "The threshold and the 'only rejected expenses can be resubmitted' kind of rules are preconditions guarding operations, checked in the code."},
+      {"standard": "integration-logic", "reason": "The monthly export to accounting is code talking to another application, and the area persists to a database (decision 1)."},
+      {"standard": "built-in-temporal-types", "reason": "The monthly export period and expense dates are temporal values whose representation the audit checks."},
+      {"standard": "leave-nothing-running", "reason": "The audit provokes refused, failed and limit states locally, starting the application and a browser (decision 2)."}
+    ],
+    "considered_not_applies": [
+      {"standard": "design-system-adoption", "reason": "Applies only in a product whose project names a design system; nothing in the request says this one does."},
+      {"standard": "fixing-reported-errors", "reason": "No error is reported; bugs the audit finds are recorded as findings and marked so they can go to fixing later, as the auditing standard says."},
+      {"standard": "refining-work", "reason": "The work stops at the written findings; refining is the next phase, not this one."},
+      {"standard": "post-deploy-verification", "reason": "Nothing is changed or deployed."},
+      {"standard": "pre-merge-gates Gate 5 as a separate concern", "reason": "Receipts left behind by rejected expenses would be a finding under the same standard already listed."},
+      {"standard": "utc-zoned-temporal-types / iso8601-millisecond-precision", "reason": "Borderline: nothing in the request turns on instants or the export's textual date format; they apply only if the export carries timestamps as text."}
+    ]
+  },
+  "C34": {
+    "applies": [
+      {"standard": "shipping-increments", "reason": "The agent is the builder of increment 2 of TRK-212 under the shipping-increments brief."},
+      {"standard": "pre-merge-gates", "reason": "The builder passes every applicable gate before opening the change request; the change calls listArchivedProjects, an entry point the archived tab needs (Gate 6), and needs exercising by hand (Gate 3)."},
+      {"standard": "post-deploy-verification", "reason": "The change reaches production and the builder writes its post-deploy plan."},
+      {"standard": "business-logic-interface-coherence", "reason": "The Archive button is rendered for every member though only the owner may archive, ProjectHasRunningExportsError and ProjectAlreadyArchivedError become 'Something went wrong', and search is computed in the client."},
+      {"standard": "unambiguous-states", "reason": "'No projects' does not tell 'nothing archived' from 'nothing matches the search' nor a failed load, and the archived state and archive date are shown in an interface."},
+      {"standard": "no-dead-ends", "reason": "There is no way to unarchive, refusals do not say why or who can archive, and an archive with no confirmation has no way back."},
+      {"standard": "design-system-adoption", "reason": "The project names @acme/ui, and the diff hand-styles a button and an error with raw colours instead of the design system's components and tokens."},
+      {"standard": "accessibility", "reason": "New interactive UI: an input with only a placeholder as label, an error not announced, focus after archiving, contrast of the red button."},
+      {"standard": "internationalization", "reason": "Hard-coded copy ('Archive', 'Search', 'No projects', 'archived') and a date formatted with toLocaleDateString without the locale's catalogue."},
+      {"standard": "neverthrow-return-types", "reason": "The diff writes TypeScript functions (onArchive, the components, the effect); the agent must decide which are compatible and which are framework boundaries."},
+      {"standard": "neverthrow-wrap-exceptions", "reason": "await archiveProject(...) and listArchivedProjects().then(...) are promises that may reject, with no capture."},
+      {"standard": "serialization-boundaries", "reason": "Server-action results cross to the client and are read by hand (result.ok), and archivedAt crosses as a string rebuilt with new Date at each use; a failed call is silently ignored."},
+      {"standard": "integration-logic", "reason": "The client components call server actions, the browser application talking to the server application."},
+      {"standard": "prefer-named-functions", "reason": "The diff defines inline callbacks with logic ((result) => {...} in then, onChange, the filter predicate) — decision 8."},
+      {"standard": "built-in-temporal-types", "reason": "archivedAt is typed as string and parsed into a Date in the component."},
+      {"standard": "utc-zoned-temporal-types", "reason": "archivedAt is an instant parsed from text in the client (decision 11)."},
+      {"standard": "iso8601-millisecond-precision", "reason": "A date is read from text (archivedAt as it arrives from the server action)."},
+      {"standard": "automated-testing", "reason": "The builder builds the increment and its tests."},
+      {"standard": "leave-nothing-running", "reason": "Exercising the interface by hand requires starting a dev server and a browser (decision 2)."}
+    ],
+    "considered_not_applies": [
+      {"standard": "business-logic-ensure-authorized-requester", "reason": "The archive command already enforces owner-only in increment 1 and the diff does not change it; hiding the button is coherence, not authorization."},
+      {"standard": "business-logic-typical-domain-entity-entry-points (and the entry-point family)", "reason": "The diff only calls server actions; it does not show listArchivedProjects being written. If the builder adds it (a search over archived projects, which coherence rule 7 would push server-side), the family applies."},
+      {"standard": "failure-reporting", "reason": "Nothing decides to emit to an error tracker or alert; swallowing the list failure is a coherence/serialization finding (decision 12, C14)."},
+      {"standard": "bounded-context-layout", "reason": "Only presentation-half React components change, out of its scope."},
+      {"standard": "stacked-changes", "reason": "Increment 1 is already in production; nothing is stacked."},
+      {"standard": "expand-contract-schema-changes", "reason": "Nothing stored changes."}
+    ]
+  },
+  "C35": {
+    "applies": [
+      {"standard": "shipping-increments", "reason": "The agent reviews increment 1 of OPS-58 under the reviewer brief."},
+      {"standard": "business-logic-interface-coherence", "reason": "The job distinguishes queued, running, ready and failed, but the interface shows every non-ready state, failed included, as 'Preparing your export…' forever."},
+      {"standard": "unambiguous-states", "reason": "Failed looks like in progress, queued like running, there is no progress shown although acceptance asks for it, and a failed request is invisible."},
+      {"standard": "no-dead-ends", "reason": "A failed export stays failed and requesting a new one is the only way out, yet the interface offers no way to do it nor says it failed."},
+      {"standard": "design-system-adoption", "reason": "The project's design system @hearth/components has ProgressBar, Banner and Button, and the diff builds its own spinner and link with raw colours."},
+      {"standard": "accessibility", "reason": "A spinner with no live region or accessible status, a status change not announced, animation ignoring prefers-reduced-motion, a download link to '#'."},
+      {"standard": "internationalization", "reason": "Hard-coded 'Preparing your export…' and 'Download'."},
+      {"standard": "neverthrow-return-types", "reason": "The diff writes TypeScript functions (refresh returns a bare Promise)."},
+      {"standard": "neverthrow-wrap-exceptions", "reason": "await fetchExport(...) can reject, uncaught, inside a polling interval."},
+      {"standard": "serialization-boundaries", "reason": "The API response is read by hand with status as an untyped string, and the 'did not answer' failure mode is not handled."},
+      {"standard": "integration-logic", "reason": "The component polls the exports API: browser talking to the server."},
+      {"standard": "prefer-named-functions", "reason": "The diff defines inline arrow callbacks for onMounted and onUnmounted (decision 8)."},
+      {"standard": "automated-testing", "reason": "The reviewer judges the change's tests, and the diff carries none for a component whose acceptance has several outcomes."},
+      {"standard": "post-deploy-verification", "reason": "Its scope includes whoever reviews a change's plan; the change reaches production and the reviewer checks its post-deploy plan."}
+    ],
+    "considered_not_applies": [
+      {"standard": "pre-merge-gates", "reason": "By decision 14 a reviewer reads it only when the change carries a migration, leaves data behind, or adds or changes an entry point; this diff only consumes an existing API."},
+      {"standard": "leave-nothing-running", "reason": "The reviewer reads and reports; nothing in its work requires starting a server or browser."},
+      {"standard": "failure-reporting", "reason": "Nothing decides to report to observability."},
+      {"standard": "auditing-a-product-area", "reason": "This is a review of one change before merge, which the auditing standard places out of its scope."}
+    ]
+  },
+  "C36": {
+    "applies": [
+      {"standard": "refining-work", "reason": "/refine of a new capability whose limits and behaviour are not settled (who sees which history, which sources, retention), under the refine brief."}
+    ],
+    "considered_not_applies": [
+      {"standard": "auditing-a-product-area", "reason": "Near miss: 'audit' here means an audit trail of price changes, a capability to build; auditing a product area is judging an existing area, and the standard says a request for something that does not exist goes straight to refining."},
+      {"standard": "business-logic-interface-coherence / unambiguous-states / no-dead-ends", "reason": "They govern changes to an interface or to logic, and judging an existing area; refining writes a task, and they apply when the history screens are prototyped or built."},
+      {"standard": "business-logic-ensure-authorized-requester", "reason": "Store managers vs pricing team is recorded in the task's access-control section as refining asks; the constraint's code shape belongs to building."},
+      {"standard": "pre-merge-gates", "reason": "Five-year retention will matter for Gate 5 (retained data says why and how long) when the change is integrated, not while refining."},
+      {"standard": "expand-contract-schema-changes", "reason": "A new history table is a building-phase concern."},
+      {"standard": "built-in-temporal-types / utc-zoned-temporal-types", "reason": "'When' each change happened is an instant, but no code defines it during refining."},
+      {"standard": "integration-logic", "reason": "The supplier sync is a source the task must name; no integration code is written."}
+    ]
+  },
+  "existing": {
+    "C06": [
+      {"standard": "business-logic-interface-coherence", "reason": "State-coherent prototypes says the product's qualities hold for the prototype too; the invite step's 'already invited'/'invalid email' outcomes and the member not seeing plan or billing are logic the prototype must project faithfully."},
+      {"standard": "unambiguous-states", "reason": "The prototype must design its states (empty dashboard, checklist of what is done, invite list empty or with errors, admin vs member) and the prototype standard extends this quality to it."},
+      {"standard": "no-dead-ends", "reason": "Invitees can be removed before sending, the plan step cannot charge (must say so), and every step must be leavable; extended to prototypes by state-coherent-prototypes."}
+    ],
+    "C13": [
+      {"standard": "no-dead-ends", "reason": "The increment defines the invoice lifecycle (draft, issued, paid), business logic that decides what a person can do next; whether issued and paid invoices have a way out or say they are final is decided here."}
+    ],
+    "C14": [
+      {"standard": "business-logic-interface-coherence", "reason": "The command and its server action are the logic the booking form of increment 3 will expose; the action collapses slot-not-bookable to its kind and drops the reason, an outcome the interface will need (rules 3 and 7)."},
+      {"standard": "no-dead-ends", "reason": "It adds a permission and preconditions (working hours, overlap) that decide what the front desk can do next; a refusal must be able to say why."}
+    ],
+    "C15": [
+      {"standard": "no-dead-ends", "reason": "The order lifecycle (open, cancelled, shipped) and 'a cancelled order cannot be changed' are logic that decides what staff can do next."}
+    ],
+    "C17": [
+      {"standard": "business-logic-interface-coherence", "reason": "The command is the logic the screen of increment 2 will expose; distinct outcomes (not owner, different plans, not enough free seats) collapse into invalid-transfer with a free-text reason."},
+      {"standard": "no-dead-ends", "reason": "Owner-only permission and seat preconditions decide what a person can do next; the refusal must say why and who can do it."}
+    ],
+    "C18": [
+      {"standard": "business-logic-interface-coherence", "reason": "checkWhetherInvoiceCanBeVoided exists so the page shows the void button only when the logic allows it (rule 1, rule 4: the interface gets the fact from the logic)."},
+      {"standard": "unambiguous-states", "reason": "The list is filterable by status (nothing exists vs nothing matches) and voidability depends on a 30-day time rule the person sees through the button."},
+      {"standard": "no-dead-ends", "reason": "The voidability rule decides what staff can do next with an invoice."}
+    ],
+    "C21": [
+      {"standard": "business-logic-interface-coherence", "reason": "The form ignores the server action's outcomes, shows a confirmation computed in the browser's zone rather than the clinic's as the logic stores it."},
+      {"standard": "unambiguous-states", "reason": "The confirmation's time is shown with toLocaleTimeString in the viewer's zone without saying which (rule 7), and errors and success states are thin."},
+      {"standard": "no-dead-ends", "reason": "A failed booking gives the person no message or retry; input errors must keep the input and say what to fix."}
+    ],
+    "C22": [
+      {"standard": "business-logic-interface-coherence", "reason": "Product qualities hold for the prototype: archiving must show up in Archived and restoring on the board — one source for each fact."},
+      {"standard": "unambiguous-states", "reason": "Empty columns, empty Archived screen, archived vs active cards must be designed states in the prototype."},
+      {"standard": "no-dead-ends", "reason": "Archive needs undo and restore paths, toolbar icons currently only alert, and every state must be leavable."}
+    ],
+    "C24": [
+      {"standard": "business-logic-interface-coherence", "reason": "The increment wires the interpreter to the search box; the chips must show what was understood, and not-understood vs provider-failed must reach the accountant as distinct messages."},
+      {"standard": "unambiguous-states", "reason": "Interpreting in progress, not understood, provider failed and 'nothing matches' must look different in the list."},
+      {"standard": "no-dead-ends", "reason": "What the model understood must be correctable by hand through the chips, and a failure must keep the typed text."}
+    ]
+  }
+}
