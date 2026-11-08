@@ -65,7 +65,7 @@ The test, like the real agent, receives three parts in this order:
 | `increment-builder` | C05, C11, C12, C13, C14, C17, C19, C20, C23, C24, C27, C29, C34 |
 | `build-prototype` | C06, C22 |
 | `increment-verifier` | C09 |
-| `none` | C10, C31, C33 |
+| `none` | C10, C31, C33, C37, C38 |
 | `increment-reviewer` | C15, C16, C18, C21, C25, C26, C28, C35 |
 
 ## Expected standards

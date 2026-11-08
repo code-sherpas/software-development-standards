@@ -66,13 +66,13 @@ Each finding carries what refining needs to judge it without redoing the investi
 - **the rule it breaks**: the standard, and what that standard demands. That is not a solution; it is what any solution will have to meet;
 - **the evidence**: captures, requests and responses, sourced facts.
 
-Before recording a finding, look for it in the tracker. A finding already tracked is listed with its link, not described again. A reported error the audit stumbles on is recorded as a finding and marked as one, so that it can go to [Fixing Reported Errors](fixing-reported-errors.md). A discrepancy between the product documentation and the code is a finding too: the code says what happens.
+Before recording a finding, look for it in the tracker, as [Creating Tasks](creating-tasks.md) requires. A finding already tracked is listed with its link, not described again. A reported error the audit stumbles on is recorded as a finding and marked as one, so that it can go to [Fixing Reported Errors](fixing-reported-errors.md). A discrepancy between the product documentation and the code is a finding too: the code says what happens.
 
 Name screens, operations and jobs as the product names them. No file paths and no code: they go stale before the findings are resolved.
 
 ### 6. Write the task
 
-One task per area, in the project's task tracker — ask where, if the project's instructions say to ask. It contains:
+One task per area, in the project's task tracker — ask where, if the project's instructions say to ask. Before creating it, search for a task that already audits or refines the same area, as [Creating Tasks](creating-tasks.md) requires. It contains:
 
 - **Area**: what is in, what is out, its neighbours.
 - **Standards applied**: every standard checked, and the ones that turned out not to apply, with why.

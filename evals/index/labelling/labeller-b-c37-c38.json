@@ -1,0 +1,143 @@
+{
+  "C37": {
+    "applies": [
+      {
+        "standard": "creating-tasks",
+        "reason": "The person asks for two new tasks in the tracker for problems noticed along the way, which is exactly its scope ('a problem, a pending item or an improvement noticed along the way and recorded so it is not lost' / 'a task someone asks for directly'): the agent must first search the invoicing milestone, the known-problems board and done tasks for the same, an equivalent or a broader task, extend instead of creating when one exists, and report what it found."
+      }
+    ],
+    "considered_not_applies": [
+      {
+        "standard": "fixing-reported-errors",
+        "reason": "The first item reads like a report, but it describes a capability the product does not have (surfacing a bounced invoice email) rather than a failure to triage, and the person asks only to record it; no triage, reproduction or fix is asked, and the task-creation part is governed by creating-tasks."
+      },
+      {
+        "standard": "refining-work",
+        "reason": "The person asks to record two items so somebody picks them up later, not to settle their outcome, limits and behaviour into a refined task with an interview; refining is a later phase."
+      },
+      {
+        "standard": "auditing-a-product-area",
+        "reason": "No audit of an area is requested; two specific observations are to be filed."
+      },
+      {
+        "standard": "unambiguous-states",
+        "reason": "The 'Sent' status that hides a bounce is an ambiguous-state problem, but the work is only to file it: no interface change, no settling while refining or splitting, no judging of an area."
+      },
+      {
+        "standard": "no-dead-ends",
+        "reason": "Scrolling three hundred rows is a 'work scales' gap, but filing it is not changing an interface, settling one while refining or splitting, nor judging an area."
+      },
+      {
+        "standard": "business-logic-interface-coherence",
+        "reason": "Same as above: recording a problem in the tracker is not a change to an interface or the logic it exposes, nor refining/splitting/auditing."
+      },
+      {
+        "standard": "splitting-work-into-increments",
+        "reason": "No refined task is being split into increments."
+      }
+    ]
+  },
+  "C38": {
+    "applies": [],
+    "considered_not_applies": [
+      {
+        "standard": "creating-tasks",
+        "reason": "Nothing new is created: marking an existing task done, adding a link to it and moving two follow-ups into its own 'Pending' section are explicitly out of scope ('editing, moving or closing a task that already exists, when nothing new is created; recording something as part of a task that already exists')."
+      },
+      {
+        "standard": "post-deploy-verification",
+        "reason": "The agent neither builds, reviews the plan of, nor verifies the change; the person who integrated it already verified it in production and only asks for the task's record to be updated."
+      },
+      {
+        "standard": "shipping-increments",
+        "reason": "This is a one-off edit of a task's state, not a run shipping the increments of a split task."
+      },
+      {
+        "standard": "internationalization",
+        "reason": "The Portuguese PDF-footer follow-up is only moved as text inside the task; no text a person reads in the product is produced or changed."
+      },
+      {
+        "standard": "fixing-reported-errors",
+        "reason": "The follow-ups (a missing translation, a missing invoice number in the file name) are not being triaged or fixed; they are moved unchanged inside an existing task."
+      }
+    ]
+  },
+  "existing": {
+    "C01": [
+      {
+        "standard": "creating-tasks",
+        "reason": "Refining ends by creating (or overwriting) the refined task in the tracker; before that the tracker must be searched for the same, an equivalent or a broader task, as refining-work itself requires by reference."
+      }
+    ],
+    "C02": [
+      {
+        "standard": "creating-tasks",
+        "reason": "Splitting creates each increment as a new subtask; before planning one as new, the tracker is searched for a task that already tracks its work, as splitting-work-into-increments requires by reference."
+      }
+    ],
+    "C03": [],
+    "C04": [
+      {
+        "standard": "creating-tasks",
+        "reason": "Triage of an unresolved error ends by creating a defect task, after searching the tracker for one that tracks the same error, a duplicate or a broader task."
+      }
+    ],
+    "C05": [],
+    "C06": [],
+    "C07": [
+      {
+        "standard": "creating-tasks",
+        "reason": "Refining produces a new task in the tracker, so the search for the same, an equivalent or a broader task comes first."
+      }
+    ],
+    "C08": [
+      {
+        "standard": "creating-tasks",
+        "reason": "Splitting creates the increments as new subtasks, each searched for in the tracker before being planned as new."
+      }
+    ],
+    "C09": [],
+    "C10": [],
+    "C11": [],
+    "C12": [],
+    "C13": [],
+    "C14": [],
+    "C15": [],
+    "C16": [],
+    "C17": [],
+    "C18": [],
+    "C19": [],
+    "C20": [],
+    "C21": [],
+    "C22": [],
+    "C23": [],
+    "C24": [],
+    "C25": [],
+    "C26": [],
+    "C27": [],
+    "C28": [],
+    "C29": [],
+    "C30": [],
+    "C31": [],
+    "C32": [
+      {
+        "standard": "creating-tasks",
+        "reason": "An audit leaves one task per area with its findings; before creating it the tracker is searched for a task that already audits or refines the area, and findings already tracked are linked rather than described again."
+      }
+    ],
+    "C33": [
+      {
+        "standard": "creating-tasks",
+        "reason": "The request is an audit of an existing area whose findings must be 'written down somewhere the team can work from', i.e. a task in the tracker, which must be searched first for existing tasks covering the area or its findings."
+      }
+    ],
+    "C34": [],
+    "C35": [],
+    "C36": [
+      {
+        "standard": "creating-tasks",
+        "reason": "Refining produces a new task in the tracker, so the search for the same, an equivalent or a broader task comes first."
+      }
+    ]
+  }
+}
