@@ -1,0 +1,179 @@
+{
+  "C37": {
+    "applies": [
+      {
+        "standard": "creating-tasks",
+        "reason": "The person asks for two new tasks in the tracker for problems noticed along the way and recorded so they are not lost, which its scope names explicitly; the agent must first search the invoicing milestone, the known-problems board and the other places the work could already be (done tasks included), by what the work is about, extend a same, equivalent or broader task instead of creating one, ask before changing what an existing task agreed, and say what it found with links."
+      }
+    ],
+    "considered_not_applies": [
+      {
+        "standard": "fixing-reported-errors",
+        "reason": "Borderline: a colleague telling the team is in its scope, but what is described is a missing capability (no bounce detection or feedback after delivery fails at the recipient) and a missing filter, not something the application failed to do; and the person asks only to record them for somebody to pick up, not to triage. If the bounce were judged an application error, triage and its defect-task contents would apply to that one."
+      },
+      {
+        "standard": "refining-work",
+        "reason": "The person asks to record the two problems so somebody picks them up, not to settle what will be done; refining happens later, when someone takes the task, from the task."
+      },
+      {
+        "standard": "auditing-a-product-area",
+        "reason": "No request to audit the invoicing area or judge its readiness; two observations are being recorded."
+      },
+      {
+        "standard": "business-logic-interface-coherence",
+        "reason": "Its scope is changing an interface or exposed logic, settling it while refining or splitting, or judging an area as an audit does; recording a noticed problem is none of these, even though the 'Sent' status after a bounce is the kind of incoherence it describes."
+      },
+      {
+        "standard": "unambiguous-states",
+        "reason": "Same scope limits as coherence: no change, no refining or splitting, no audit; the agent only writes the observation down."
+      },
+      {
+        "standard": "no-dead-ends",
+        "reason": "Scrolling 300 rows is a 'work scales' gap, but the agent is not changing, settling or auditing the interface, only recording the problem."
+      },
+      {
+        "standard": "splitting-work-into-increments",
+        "reason": "The new tasks are not increments of a refined task."
+      },
+      {
+        "standard": "internationalization",
+        "reason": "Task text in a tracker is not product text a customer reads."
+      }
+    ]
+  },
+  "C38": {
+    "applies": [],
+    "considered_not_applies": [
+      {
+        "standard": "creating-tasks",
+        "reason": "Near miss: marking a task done, adding a link and moving two follow-ups into a section of the same task is editing an existing task and recording something as part of it, both explicitly out of its scope; nothing new is created."
+      },
+      {
+        "standard": "post-deploy-verification",
+        "reason": "Marking the task done is the 'done' claim this standard gates, but it governs whoever builds, reviews or verifies the change; the person who integrated it reports having verified it in production, and the agent only edits the tracker on their instruction."
+      },
+      {
+        "standard": "shipping-increments",
+        "reason": "Not a run shipping a split task's increments; the agent is not a coordinator keeping an increment's state."
+      },
+      {
+        "standard": "splitting-work-into-increments",
+        "reason": "The follow-ups are moved as they are into a section of the task, not turned into increments or subtasks."
+      },
+      {
+        "standard": "refining-work",
+        "reason": "The follow-ups are to be moved without changing them; nothing is being settled or refined."
+      },
+      {
+        "standard": "internationalization",
+        "reason": "One follow-up is about a Portuguese translation, but the agent produces no product text; it only moves the follow-up."
+      },
+      {
+        "standard": "fixing-reported-errors",
+        "reason": "The missing invoice number in the file name is an already-recorded follow-up being moved, not a new error report to triage."
+      }
+    ]
+  },
+  "existing": {
+    "C01": [
+      {
+        "standard": "creating-tasks",
+        "reason": "Refining ends with a task created in the tracker; before asking anything the refiner searches for a task that already covers the request, as creating-tasks requires (the task refining writes is named in its scope)."
+      }
+    ],
+    "C02": [
+      {
+        "standard": "creating-tasks",
+        "reason": "Splitting creates increments as subtasks; before planning each one the tracker is searched for a task that already tracks its work (increments are named in its scope)."
+      }
+    ],
+    "C03": [
+      {
+        "standard": "creating-tasks",
+        "applies": false,
+        "reason": "Shipping works on increments that already exist and only updates their state and the task; no task is created by the run's described work."
+      }
+    ],
+    "C04": [
+      {
+        "standard": "creating-tasks",
+        "reason": "Triage of an unresolved error ends with a defect task; fixing-reported-errors Step 4 requires looking for an existing task first, as creating-tasks requires (the defect triage records is named in its scope)."
+      }
+    ],
+    "C05": [
+      {
+        "standard": "creating-tasks",
+        "applies": false,
+        "reason": "The builder is blocked by another session's red main; the work is to coordinate with that session and open the PR, not to record a new task."
+      }
+    ],
+    "C06": [],
+    "C07": [
+      {
+        "standard": "creating-tasks",
+        "reason": "Refining creates the task in the tracker and must search first for the same, an equivalent or a broader task."
+      }
+    ],
+    "C08": [
+      {
+        "standard": "creating-tasks",
+        "reason": "Splitting creates increment subtasks and must search the tracker for tasks already tracking each increment's work."
+      }
+    ],
+    "C09": [],
+    "C10": [],
+    "C11": [
+      {
+        "standard": "creating-tasks",
+        "applies": false,
+        "reason": "The rename must become expand-contract across deploys, but a builder whose increment grows in what it does stops and asks through the coordinator; it does not create the task for the contract step itself."
+      }
+    ],
+    "C12": [],
+    "C13": [],
+    "C14": [],
+    "C15": [],
+    "C16": [],
+    "C17": [],
+    "C18": [],
+    "C19": [],
+    "C20": [],
+    "C21": [],
+    "C22": [],
+    "C23": [],
+    "C24": [],
+    "C25": [],
+    "C26": [],
+    "C27": [],
+    "C28": [],
+    "C29": [],
+    "C30": [
+      {
+        "standard": "creating-tasks",
+        "applies": false,
+        "reason": "This is the fix phase, started from the existing task BOOK-77, which already records the validation-report finding; the work keeps that task current and creates none."
+      }
+    ],
+    "C31": [],
+    "C32": [
+      {
+        "standard": "creating-tasks",
+        "reason": "An audit leaves one task per area and looks each finding up in the tracker before recording it; both searches are what creating-tasks requires (the task an audit leaves is named in its scope)."
+      }
+    ],
+    "C33": [
+      {
+        "standard": "creating-tasks",
+        "reason": "Going through a whole area before handing it to a new customer, recording everything off without fixing, 'written down somewhere the team can work from', is an audit that leaves a task with findings; creating it requires searching for an existing task auditing or refining the area and for findings already tracked."
+      }
+    ],
+    "C34": [],
+    "C35": [],
+    "C36": [
+      {
+        "standard": "creating-tasks",
+        "reason": "Refining creates the task in the tracker and must search first for the same, an equivalent or a broader task (e.g. an existing audit-trail or pricing task)."
+      }
+    ]
+  }
+}

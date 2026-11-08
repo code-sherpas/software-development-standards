@@ -123,7 +123,7 @@ class Entity {
 **Whatever Step 3 classified it as, create a task in the project's task tracker** to follow its progress. A report that Step 1 found already resolved needs no task: marking it and its duplicates resolved is the whole job.
 
 - **Its type is the one that represents an error or a defect** — "bug", "defect", or whatever the tracker calls it — and that already exists in the tracker. If no such type exists, create it, or ask someone who can if you cannot.
-- **Look for an existing task first.** If one already tracks this error or one of its duplicates, update that one instead of opening another.
+- **Look for an existing task first**, as [Creating Tasks](creating-tasks.md) requires. If one already tracks this error or one of its duplicates, or should include it, update that one instead of opening another.
 - **If the project has no task tracker, ask how to proceed.** Do not leave the findings only in the conversation.
 
 ### What the task contains

@@ -60,6 +60,8 @@ Each increment is a subtask of the task, in the project's task tracker, with:
 
 Nothing the task already says is repeated: every session that ships the increment reads both. No file paths and no code.
 
+**Before an increment is planned as a new subtask, search the tracker for a task that already tracks its work**, as [Creating Tasks](creating-tasks.md) requires. The plan says which existing task each such increment extends or replaces, and that is confirmed with the rest of the plan.
+
 **Sub-items the task had before it was split** — written before it was refined, such as the findings of an audit — do not decide how many increments there are or what each one holds. Together, the increments cover at least everything those sub-items covered. Once the plan is confirmed, those sub-items are deleted and the increments created in their place.
 
 ### 5. The task keeps the plan and the state, nothing else

@@ -23,6 +23,8 @@ Out of scope:
 
 Read the request — the task, if it already exists in the tracker — and the documentation the project keeps of its product and of its code before asking anything. A question the documentation already answers is not asked.
 
+**Before asking anything, search the tracker for a task that already covers the request, an equivalent one, or one whose scope should include it**, as [Creating Tasks](creating-tasks.md) requires. When there is one, that task is the request.
+
 **A task that already exists is the request, and the refined task overwrites it.** Its text, and its sub-items' if it has any, are what was asked: the sub-items are not refined one by one. The refined task covers everything they asked, or names it as out of scope. When it is published, it replaces the task's text. The sub-items that existed before are left as they are until splitting, which decides what replaces them.
 
 **Facts come from the documentation, checked against the code.** Finding one is delegated to a sub-agent that returns the fact with the place it came from, never the files; the conversation keeps the conclusion. The documentation gives the vocabulary and the intent. A fact about how the product behaves today that the task will rest on — one that, if false, would change a decision — the sub-agent also checks in the code, without asking the person: the documentation may be out of date, and the code is what the product does. When the two disagree, the code says what happens today, and the task notes the discrepancy so the documentation is corrected when that part is shipped. A fact neither holds is said to be unknown.

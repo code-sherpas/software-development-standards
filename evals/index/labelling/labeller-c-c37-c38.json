@@ -1,0 +1,147 @@
+{
+  "C37": {
+    "applies": [
+      {
+        "standard": "creating-tasks",
+        "reason": "The person asks for two new tasks in the tracker (a problem and a pending improvement noticed along the way), which is exactly 'creating any task in the project's task tracker ... a problem, a pending item or an improvement noticed along the way and recorded so it is not lost', so the invoicing milestone and the known-problems board must be searched first, including done tasks, and broader or equivalent tasks extended instead."
+      },
+      {
+        "standard": "fixing-reported-errors",
+        "reason": "The first item is a person telling the team that something failed (an invoice whose delivery bounced is still shown as 'Sent', with nothing telling the accountant), which falls in its scope 'a person telling the team', so recording it is triage: classify it, look for duplicates and record it as a defect task in domain language with the fields Step 4 requires, then ask before any fix."
+      }
+    ],
+    "considered_not_applies": [
+      {
+        "standard": "refining-work",
+        "reason": "The filter-by-customer improvement is an unsettled capability, but the person only asks to record it so somebody picks it up later; refining (interviewing until nothing is open and writing the settled task) is a later phase, not the work requested."
+      },
+      {
+        "standard": "auditing-a-product-area",
+        "reason": "Two observations from a customer demo are not a request to audit an area or to establish whether it is ready for a new use; nothing is inventoried or audited."
+      },
+      {
+        "standard": "unambiguous-states",
+        "reason": "The 'Sent' status for a bounced invoice is the kind of ambiguity it governs, but its scope is a change to an interface, settling it while refining or splitting, or judging an area in an audit; recording an observation does none of those."
+      },
+      {
+        "standard": "business-logic-interface-coherence",
+        "reason": "No interface or exposed logic is changed, settled or audited; the work is only creating tracker entries."
+      },
+      {
+        "standard": "no-dead-ends",
+        "reason": "Scrolling 300 rows is a scale gap of the kind rule 7 names, but no interface or flow is changed, settled or judged here; it is only recorded."
+      },
+      {
+        "standard": "splitting-work-into-increments",
+        "reason": "Nothing refined is being split into increments."
+      }
+    ]
+  },
+  "C38": {
+    "applies": [],
+    "considered_not_applies": [
+      {
+        "standard": "creating-tasks",
+        "reason": "Marking an existing task done, adding a link to it and moving follow-ups into its own 'Pending' section creates no task: its scope excludes 'editing, moving or closing a task that already exists' and 'recording something as part of a task that already exists, a section or a comment in it'."
+      },
+      {
+        "standard": "post-deploy-verification",
+        "reason": "The agent neither builds, reviews nor verifies the change; the person who integrated it states they verified it in production, and the agent's work is only a tracker edit."
+      },
+      {
+        "standard": "fixing-reported-errors",
+        "reason": "Nothing reports a failure; the follow-ups are known pending items copied unchanged, not error reports to triage."
+      },
+      {
+        "standard": "shipping-increments",
+        "reason": "No shipping run is in progress and no increment state is being coordinated; it is a one-off tracker update the person asks for."
+      },
+      {
+        "standard": "splitting-work-into-increments",
+        "reason": "The follow-ups are moved into a section of the same task as they are, not split into increments or subtasks."
+      },
+      {
+        "standard": "internationalization",
+        "reason": "The Portuguese footer translation is only mentioned as a follow-up being moved; no text a person reads is produced or changed."
+      }
+    ]
+  },
+  "existing": {
+    "C01": [
+      {
+        "standard": "creating-tasks",
+        "reason": "Refining ends by creating one task in the tracker (the task refining writes), and before asking anything the tracker must be searched for a task covering the request, an equivalent or a broader one."
+      }
+    ],
+    "C02": [
+      {
+        "standard": "creating-tasks",
+        "reason": "Splitting creates each increment as a subtask in the tracker, and splitting itself requires searching the tracker for an existing task that already tracks each increment's work before planning it as new."
+      }
+    ],
+    "C03": [],
+    "C04": [
+      {
+        "standard": "creating-tasks",
+        "reason": "Triage of the reported error ends by creating a defect task in the tracker, and Step 4 requires looking first for a task already tracking this error, one of its duplicates, or one that should include it."
+      }
+    ],
+    "C05": [],
+    "C06": [],
+    "C07": [
+      {
+        "standard": "creating-tasks",
+        "reason": "Refining the CEO's request ends in creating one task in the tracker, so the tracker is searched first for the same, equivalent or broader work."
+      }
+    ],
+    "C08": [
+      {
+        "standard": "creating-tasks",
+        "reason": "Splitting PROJ-605 creates its increments as subtasks in the tracker, each searched for first as creating-tasks requires."
+      }
+    ],
+    "C09": [],
+    "C10": [],
+    "C11": [],
+    "C12": [],
+    "C13": [],
+    "C14": [],
+    "C15": [],
+    "C16": [],
+    "C17": [],
+    "C18": [],
+    "C19": [],
+    "C20": [],
+    "C21": [],
+    "C22": [],
+    "C23": [],
+    "C24": [],
+    "C25": [],
+    "C26": [],
+    "C27": [],
+    "C28": [],
+    "C29": [],
+    "C30": [],
+    "C31": [],
+    "C32": [
+      {
+        "standard": "creating-tasks",
+        "reason": "The audit leaves one task in the tracker and records findings, and must search for a task already auditing or refining the area and for findings already tracked before creating anything."
+      }
+    ],
+    "C33": [
+      {
+        "standard": "creating-tasks",
+        "reason": "Going through the whole expense approvals area and writing everything that is off 'somewhere the team can work from' is an audit that leaves a task with findings in the tracker, so the tracker is searched first for the area's task and for findings already tracked."
+      }
+    ],
+    "C34": [],
+    "C35": [],
+    "C36": [
+      {
+        "standard": "creating-tasks",
+        "reason": "Refining Joana's request ends in creating one task in the tracker, so the tracker is searched first for a task covering price-change auditing or one whose scope should include it."
+      }
+    ]
+  }
+}

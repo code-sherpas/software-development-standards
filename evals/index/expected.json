@@ -20,6 +20,11 @@
         "standard": "no-dead-ends",
         "reason": "A patient refused for being too close to the appointment must be told why and what they can do.",
         "source": "decision 20"
+      },
+      {
+        "standard": "creating-tasks",
+        "reason": "Refining ends with a task created in the tracker; before asking anything the refiner searches for a task that already covers the request, as creating-tasks requires (the task refining writes is named in its scope).",
+        "source": "unanimous"
       }
     ],
     "near_miss": []
@@ -50,6 +55,11 @@
         "standard": "no-dead-ends",
         "reason": "Above the limit the page must lead the person to narrow the range rather than refuse.",
         "source": "decision 20"
+      },
+      {
+        "standard": "creating-tasks",
+        "reason": "Splitting creates increments as subtasks; before planning each one the tracker is searched for a task that already tracks its work (increments are named in its scope).",
+        "source": "unanimous"
       }
     ],
     "near_miss": []
@@ -84,6 +94,11 @@
       {
         "standard": "fixing-reported-errors",
         "reason": "A reported error (error-tracking issue pasted by support) handled under fix-error: check whether resolved, gather everything, find duplicates, classify, reproduce the root cause, create the task and ask before fixing.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "creating-tasks",
+        "reason": "Triage of an unresolved error ends with a defect task; fixing-reported-errors Step 4 requires looking for an existing task first, as creating-tasks requires (the defect triage records is named in its scope).",
         "source": "unanimous"
       }
     ],
@@ -187,6 +202,11 @@
         "standard": "no-dead-ends",
         "reason": "'Can't wreck calendars': mistakes made by an interpreted command must be correctable or undoable.",
         "source": "decision 20"
+      },
+      {
+        "standard": "creating-tasks",
+        "reason": "Refining creates the task in the tracker and must search first for the same, an equivalent or a broader task.",
+        "source": "unanimous"
       }
     ],
     "near_miss": []
@@ -212,6 +232,11 @@
         "standard": "no-dead-ends",
         "reason": "A failed summary offers to try again.",
         "source": "decision 20"
+      },
+      {
+        "standard": "creating-tasks",
+        "reason": "Splitting creates increment subtasks and must search the tracker for tasks already tracking each increment's work.",
+        "source": "unanimous"
       }
     ],
     "near_miss": [
@@ -2603,6 +2628,11 @@
         "standard": "write-persistence-representations",
         "reason": "The area's persistence schema is judged, defaults included.",
         "source": "decision 17"
+      },
+      {
+        "standard": "creating-tasks",
+        "reason": "An audit leaves one task per area and looks each finding up in the tracker before recording it; both searches are what creating-tasks requires (the task an audit leaves is named in its scope).",
+        "source": "unanimous"
       }
     ],
     "near_miss": []
@@ -2848,6 +2878,11 @@
         "standard": "write-persistence-representations",
         "reason": "The area's persistence schema is judged, defaults included.",
         "source": "decision 17"
+      },
+      {
+        "standard": "creating-tasks",
+        "reason": "Going through a whole area before handing it to a new customer, recording everything off without fixing, 'written down somewhere the team can work from', is an audit that leaves a task with findings; creating it requires searching for an existing task auditing or refining the area and for findings already tracked.",
+        "source": "unanimous"
       }
     ],
     "near_miss": []
@@ -3033,10 +3068,33 @@
         "standard": "unambiguous-states",
         "reason": "Price histories (empty, very long, a change without reason) and when each change happened must read one way.",
         "source": "decision 20"
+      },
+      {
+        "standard": "creating-tasks",
+        "reason": "Refining creates the task in the tracker and must search first for the same, an equivalent or a broader task (e.g. an existing audit-trail or pricing task).",
+        "source": "unanimous"
       }
     ],
     "near_miss": [
       "auditing-a-product-area"
+    ]
+  },
+  "C37": {
+    "expected": [
+      {
+        "standard": "creating-tasks",
+        "reason": "The person asks for two new tasks in the tracker for problems noticed along the way and recorded so they are not lost, which its scope names explicitly; the agent must first search the invoicing milestone, the known-problems board and the other places the work could already be (done tasks included), by what the work is about, extend a same, equivalent or broader task instead of creating one, ask before changing what an existing task agreed, and say what it found with links.",
+        "source": "unanimous"
+      }
+    ],
+    "near_miss": [
+      "fixing-reported-errors"
+    ]
+  },
+  "C38": {
+    "expected": [],
+    "near_miss": [
+      "creating-tasks"
     ]
   }
 }
