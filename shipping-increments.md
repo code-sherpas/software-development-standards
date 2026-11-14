@@ -98,7 +98,7 @@ No sub-agent waits for anything that takes more than a few minutes: CI, the merg
 
 The run ends when it has shipped **at most** increments, when nothing is unblocked, or when something needs the person before it can go on. When every increment is shipped, say that the task is done. Otherwise the next run starts in a new session, from the task.
 
-**When the agent runtime lets the agent start sessions, offer to start that one, and to end this one once it has.** The new session gets the task's link and the same arguments as its only context and runs this phase's skill, by the name the runtime lists it under — in Claude Code with the `base` plugin, `/base:ship-increments <task link>`. Start it only if the person accepts, never on your own. Once it has started, end this session if the runtime allows it — whatever ending one means there: archiving it, closing it, finishing it.
+**When the agent runtime lets the agent start sessions, offer to start that one, and to end this one once it has.** The new session gets the task's link and the same arguments as its only context and runs this phase's skill, by the name the runtime lists it under — in Claude Code with the `base` plugin, `/base:ship-increments <task link>`. Start it only if the person accepts, never on your own. Once it has started, end this session if the runtime allows it — whatever ending one means there: archiving it, closing it, finishing it, deleting it.
 
 **When the runtime does not let the agent start sessions, or the person declines, end with the exact instruction to carry on, ready to copy**: clear the context — in Claude Code, `/clear` — then run the phase again with the task's link and the same arguments. The person does what the agent cannot.
 

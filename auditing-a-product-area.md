@@ -88,7 +88,7 @@ If the project has no task tracker, ask how to proceed. Do not leave the finding
 
 The audit ends at the task. Say that refining comes next, in a new session, from the task. The person decides there which findings block the use the area is meant for.
 
-**When the agent runtime lets the agent start sessions, offer to start that one, and to end this one once it has.** The new session gets the task's link as its only context and runs the refining skill, by the name the runtime lists it under — in Claude Code with the `base` plugin, `/base:refine <task link>`. Start it only if the person accepts, never on your own. Once it has started, end this session if the runtime allows it — whatever ending one means there: archiving it, closing it, finishing it.
+**When the agent runtime lets the agent start sessions, offer to start that one, and to end this one once it has.** The new session gets the task's link as its only context and runs the refining skill, by the name the runtime lists it under — in Claude Code with the `base` plugin, `/base:refine <task link>`. Start it only if the person accepts, never on your own. Once it has started, end this session if the runtime allows it — whatever ending one means there: archiving it, closing it, finishing it, deleting it.
 
 **When the runtime does not let the agent start sessions, or the person declines, end with the exact instruction to carry on, ready to copy**: clear the context — in Claude Code, `/clear` — then run the refining skill with the task's link. The person does what the agent cannot, and the instruction leaves them nothing to work out.
 
