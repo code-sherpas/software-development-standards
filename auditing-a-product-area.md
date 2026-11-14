@@ -86,7 +86,13 @@ If the project has no task tracker, ask how to proceed. Do not leave the finding
 
 ### 7. Hand off
 
-The audit ends at the task. Say that refining comes next, in a new session, from the task, and end with the exact instruction to carry on, ready to copy: clear the context — in Claude Code, `/clear` — then run the refining skill with the task's link — in Claude Code with the `base` plugin, `/base:refine <task link>`. The person decides there which findings block the use the area is meant for.
+The audit ends at the task. Say that refining comes next, in a new session, from the task. The person decides there which findings block the use the area is meant for.
+
+**When the agent runtime lets the agent start sessions, offer to start that one, and to end this one once it has.** The new session gets the task's link as its only context and runs the refining skill, by the name the runtime lists it under — in Claude Code with the `base` plugin, `/base:refine <task link>`. Start it only if the person accepts, never on your own. Once it has started, end this session if the runtime allows it — whatever ending one means there: archiving it, closing it, finishing it.
+
+**When the runtime does not let the agent start sessions, or the person declines, end with the exact instruction to carry on, ready to copy**: clear the context — in Claude Code, `/clear` — then run the refining skill with the task's link. The person does what the agent cannot, and the instruction leaves them nothing to work out.
+
+If the person asks to carry on in this same session instead, say once what it costs — every call of what follows carries this session's context again — and carry on only if they confirm.
 
 ## Why This Rule Exists
 
@@ -102,7 +108,8 @@ The audit ends at the task. Say that refining comes next, in a new session, from
 - Was production only observed, and was every configuration that changes the area's behaviour observed?
 - Does every finding carry what happens, how to reproduce it, where it was observed, its consequence, the rule it breaks and the evidence — and no solution?
 - Were findings already tracked linked rather than described again?
-- Is the task free of file paths and code, and does it end with the instruction to refine it?
+- Is the task free of file paths and code, and does it name refining as the next step?
+- Was the refining session started only after the person accepted, from the task alone — or, where the runtime cannot start one, was the exact instruction to carry on given instead?
 
 ## Report the Outcome
 
@@ -112,4 +119,4 @@ When the audit ends, state:
 - the standards read in full, and why each applies;
 - the coverage: what was checked, where, and what could not be;
 - how many findings, by consequence;
-- the next phase, as the exact instruction to clear the context and refine the task.
+- the next phase, as the offer to start a session that refines the task — or, when the runtime cannot start one, as the exact instruction to clear the context and refine the task.

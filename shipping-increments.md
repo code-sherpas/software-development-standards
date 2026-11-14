@@ -96,7 +96,13 @@ No sub-agent waits for anything that takes more than a few minutes: CI, the merg
 
 ### 11. Hand off
 
-The run ends when it has shipped **at most** increments, when nothing is unblocked, or when something needs the person before it can go on. End with the exact instruction to carry on, ready to copy: clear the context — in Claude Code, `/clear` — then run the phase again with the task's link and the same arguments, by the name the agent runtime lists the skill under — in Claude Code with the `base` plugin, `/base:ship-increments <task link>`. An agent cannot clear its own context: the person does. If the person asks to carry on in this same session instead, say once what it costs — every call of what follows carries this session's context again — and carry on only if they confirm. When every increment is shipped, say that the task is done.
+The run ends when it has shipped **at most** increments, when nothing is unblocked, or when something needs the person before it can go on. When every increment is shipped, say that the task is done. Otherwise the next run starts in a new session, from the task.
+
+**When the agent runtime lets the agent start sessions, offer to start that one, and to end this one once it has.** The new session gets the task's link and the same arguments as its only context and runs this phase's skill, by the name the runtime lists it under — in Claude Code with the `base` plugin, `/base:ship-increments <task link>`. Start it only if the person accepts, never on your own. Once it has started, end this session if the runtime allows it — whatever ending one means there: archiving it, closing it, finishing it.
+
+**When the runtime does not let the agent start sessions, or the person declines, end with the exact instruction to carry on, ready to copy**: clear the context — in Claude Code, `/clear` — then run the phase again with the task's link and the same arguments. The person does what the agent cannot.
+
+If the person asks to carry on in this same session instead, say once what it costs — every call of what follows carries this session's context again — and carry on only if they confirm.
 
 ## Why This Rule Exists
 
@@ -117,6 +123,7 @@ The run ends when it has shipped **at most** increments, when nothing is unblock
 - Did anything merge without the person's permission, when they had not waived it?
 - Is every increment marked shipped verified in production?
 - Was every increment found in progress, and not owned by this run, reported instead of claimed?
+- Was the next run's session started only after the person accepted, from the task alone — or, where the runtime cannot start one, was the exact instruction to carry on given instead?
 
 ## Report the Outcome
 
@@ -125,4 +132,4 @@ When the run ends, state:
 - each increment it touched, with its status and its change request;
 - the decisions taken by agents, and the corrections made to the task, for the person to review;
 - anything that needs the person: a question, a failed verification, an increment nobody owns;
-- the next step, as the exact instruction to clear the context and run the phase again, or that the task is done.
+- the next step: that the task is done, or the offer to start a session that runs the phase again from the task — or, when the runtime cannot start one, the exact instruction to clear the context and run the phase again.

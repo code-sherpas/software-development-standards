@@ -80,7 +80,13 @@ Show the whole plan in one message: the increments with their stories, the graph
 
 ### 7. Hand off
 
-Splitting ends here. End with the exact instruction to carry on, ready to copy: clear the context — in Claude Code, `/clear` — then start shipping with the task's link, by the name the agent runtime lists the skill under — in Claude Code with the `base` plugin, `/base:ship-increments <task link>`. An agent cannot clear its own context: the person does. If the person asks to carry on in this same session instead, say once what it costs — every call of what follows carries this session's context again — and carry on only if they confirm.
+Splitting ends here. Shipping comes next, in a new session, from the task.
+
+**When the agent runtime lets the agent start sessions, offer to start that one, and to end this one once it has.** The new session gets the task's link as its only context and runs the shipping skill, by the name the runtime lists it under — in Claude Code with the `base` plugin, `/base:ship-increments <task link>`. Start it only if the person accepts, never on your own. Once it has started, end this session if the runtime allows it — whatever ending one means there: archiving it, closing it, finishing it.
+
+**When the runtime does not let the agent start sessions, or the person declines, end with the exact instruction to carry on, ready to copy**: clear the context — in Claude Code, `/clear` — then start shipping with the task's link. The person does what the agent cannot.
+
+If the person asks to carry on in this same session instead, say once what it costs — every call of what follows carries this session's context again — and carry on only if they confirm.
 
 ## Why This Rule Exists
 
@@ -98,6 +104,7 @@ Splitting ends here. End with the exact instruction to carry on, ready to copy: 
 - Does the flag strategy say which increment turns the flag on, or that none is needed?
 - Does any increment repeat what the task says, or carry file paths or code?
 - Was every wrong assumption the code revealed corrected in the task, and marked for review?
+- Was the shipping session started only after the person accepted, from the task alone — or, where the runtime cannot start one, was the exact instruction to carry on given instead?
 
 ## Report the Outcome
 
@@ -107,4 +114,4 @@ When splitting ends, state:
 - the standards read in full, and why each one applies;
 - the flag strategy;
 - the corrections made to the task, for the person to review;
-- the next phase, as the exact instruction to clear the context and run it with the task's link.
+- the next phase, as the offer to start its session from the task — or, when the runtime cannot start one, as the exact instruction to clear the context and run it with the task's link.
