@@ -73,7 +73,11 @@ If the project has no task tracker, ask how to proceed. Do not leave the result 
 
 Refining ends here. Say which phase comes next — the prototype, if the task says it needs one, or splitting it — and that it starts in a new session from the task.
 
-End with the exact instruction to carry on, ready to copy: clear the context — in Claude Code, `/clear` — then run the next phase's skill with the task's link, by the name the agent runtime lists it under — in Claude Code with the `base` plugin, `/base:build-prototype <task link>` or `/base:to-increments <task link>`. An agent cannot clear its own context: the person does, and the instruction leaves them nothing to work out. If the person asks to carry on in this same session instead, say once what it costs — every call of what follows carries this session's context again — and carry on only if they confirm.
+**When the agent runtime lets the agent start sessions, offer to start that one, and to end this one once it has.** The new session gets the task's link as its only context and runs the next phase's skill, by the name the runtime lists it under — in Claude Code with the `base` plugin, `/base:build-prototype <task link>` or `/base:to-increments <task link>`. Start it only if the person accepts, never on your own. Once it has started, end this session if the runtime allows it — whatever ending one means there: archiving it, closing it, finishing it.
+
+**When the runtime does not let the agent start sessions, or the person declines, end with the exact instruction to carry on, ready to copy**: clear the context — in Claude Code, `/clear` — then run the next phase's skill with the task's link. The person does what the agent cannot, and the instruction leaves them nothing to work out.
+
+If the person asks to carry on in this same session instead, say once what it costs — every call of what follows carries this session's context again — and carry on only if they confirm.
 
 ## Why This Rule Exists
 
@@ -92,6 +96,7 @@ A task that leaves questions open moves them into the code, where each one is an
 - Was a fact the task rests on taken from the documentation without being checked in the code, or left only in the conversation?
 - Is every term this work introduces or changes defined in the task?
 - Is the task free of file paths and code?
+- Was the next phase's session started only after the person accepted, from the task alone — or, where the runtime cannot start one, was the exact instruction to carry on given instead?
 
 ## Report the Outcome
 
@@ -101,4 +106,4 @@ When refining ends, state:
 - the standards read in full, and why each one applies;
 - the decisions taken by the agent, for the person to review;
 - the questions left open, if any, and what each blocks;
-- the next phase, as the exact instruction to clear the context and run it with the task's link.
+- the next phase, as the offer to start its session from the task — or, when the runtime cannot start one, as the exact instruction to clear the context and run it with the task's link.
