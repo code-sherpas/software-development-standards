@@ -73,7 +73,7 @@ If the project has no task tracker, ask how to proceed. Do not leave the result 
 
 Refining ends here. Say which phase comes next — the prototype, if the task says it needs one, or splitting it — and that it starts in a new session from the task.
 
-**When the agent runtime lets the agent start sessions, offer to start that one, and to end this one once it has.** The new session gets the task's link as its only context and runs the next phase's skill, by the name the runtime lists it under — in Claude Code with the `base` plugin, `/base:build-prototype <task link>` or `/base:to-increments <task link>`. Start it only if the person accepts, never on your own. Once it has started, end this session if the runtime allows it — whatever ending one means there: archiving it, closing it, finishing it.
+**When the agent runtime lets the agent start sessions, offer to start that one, and to end this one once it has.** The new session gets the task's link as its only context and runs the next phase's skill, by the name the runtime lists it under — in Claude Code with the `base` plugin, `/base:build-prototype <task link>` or `/base:to-increments <task link>`. Start it only if the person accepts, never on your own. Once it has started, end this session if the runtime allows it — whatever ending one means there: archiving it, closing it, finishing it, deleting it.
 
 **When the runtime does not let the agent start sessions, or the person declines, end with the exact instruction to carry on, ready to copy**: clear the context — in Claude Code, `/clear` — then run the next phase's skill with the task's link. The person does what the agent cannot, and the instruction leaves them nothing to work out.
 
