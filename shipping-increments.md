@@ -57,6 +57,7 @@ A sub-agent that needs an answer or a decision stops with the question, the opti
 - **Larger in what it touches** — a migration, another layer, a new entry point: the builder reads the standards that part touches, and reports them.
 - **Larger in what it does**: the builder stops and asks, through the coordinator.
 - **The task is wrong** — something it assumes is false: the builder corrects the task and marks the correction for the person to review. If the correction changes what the work does, or for whom, it asks first.
+- **Something the task and the increment do not settle**, and a user or a consumer would notice: the builder asks, through the coordinator. It is a question for the person, not a decision the builder records. A technical choice within what they settle is the builder's, and the code and the change request show it.
 
 ### 6. Build
 
@@ -64,7 +65,6 @@ The builder:
 
 - builds the increment and its tests;
 - updates, in the same change, the product documentation the increment makes untrue: the documentation describes what the product does, and this is when that changes;
-- records its decisions in the increment, each with its reason and marked for the person to review;
 - passes every gate of [Pre-Merge Gates](pre-merge-gates.md) that applies;
 - has a reviewer review it, fixes what the review finds, and opens the change request.
 
@@ -119,7 +119,7 @@ If the person asks to carry on in this same session instead, say once what it co
 - Did any question that was the person's get answered without them?
 - Was the reviewer a different agent from the builder, and did it leave the change untouched?
 - For a change with a migration, data left behind or a new or changed entry point, did the review check how gates 4 to 6 were met?
-- Does every shipped increment have its product documentation updated in its own change, and its decisions recorded?
+- Does every shipped increment have its product documentation updated in its own change?
 - Did anything merge without the person's permission, when they had not waived it?
 - Is every increment marked shipped verified in production?
 - Was every increment found in progress, and not owned by this run, reported instead of claimed?
@@ -130,6 +130,6 @@ If the person asks to carry on in this same session instead, say once what it co
 When the run ends, state:
 
 - each increment it touched, with its status and its change request;
-- the decisions taken by agents, and the corrections made to the task, for the person to review;
+- the corrections made to the task, for the person to review;
 - anything that needs the person: a question, a failed verification, an increment nobody owns;
 - the next step: that the task is done, or the offer to start a session that runs the phase again from the task — or, when the runtime cannot start one, the exact instruction to clear the context and run the phase again.

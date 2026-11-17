@@ -56,7 +56,6 @@ Each increment is a subtask of the task, in the project's task tracker, with:
 - **Design**: the prototype screens it implements, if any.
 - **Flag**: whether it ships behind one, and which.
 - **Enables**: for an enabling increment only, what it unblocks and why that cannot be built without it.
-- **Decisions**: empty when created. Shipping it fills it in.
 
 Nothing the task already says is repeated: every session that ships the increment reads both. No file paths and no code.
 
@@ -72,7 +71,7 @@ Add to the task:
 - **State**: one line per increment — pending, in progress or shipped, and its change request. Shipping keeps it up to date. It is the only place a new session needs to read to know where to carry on.
 - **Next step**: the instruction to start shipping.
 
-Decisions and details live in each increment, not here: the task is read by every session that follows, and its size is paid on each of them.
+Details live in each increment, not here: the task is read by every session that follows, and its size is paid on each of them.
 
 ### 6. Confirm once, then create
 
@@ -90,7 +89,7 @@ If the person asks to carry on in this same session instead, say once what it co
 
 ## Why This Rule Exists
 
-**Measured in this organization:** an initiative split this way — some thirty increments, each with its blockers, behind a flag until the increment that replaced the old experience — reached production complete and verified in eight days. Its parent task also kept every decision of every increment and grew to 87,000 characters, read in full by every session that resumed the work. Decisions now live in each increment, and the task keeps only the plan and the state.
+**Measured in this organization:** an initiative split this way — some thirty increments, each with its blockers, behind a flag until the increment that replaced the old experience — reached production complete and verified in eight days. Its parent task also kept every decision of every increment and grew to 87,000 characters, read in full by every session that resumed the work. Details now live in each increment, and the task keeps only the plan and the state.
 
 ## Review Questions
 
