@@ -105,6 +105,16 @@ Run these, in order, on the prototype as it will be reviewed:
 
 When a defect is found, fix it in the prototype and add the check that would have caught it to the scenario scripts.
 
+## Hand Off
+
+When the prototype was built for a refined task — the phase that comes after [Refining Work](refining-work.md) when the task says it needs one — the prototype ends here. Say that splitting comes next, in a new session, from the task.
+
+**When the agent runtime lets the agent start sessions, offer to start that one, and to end this one once it has.** The new session gets the task's link as its only context and runs the splitting skill, by the name the runtime lists it under — in Claude Code with the `base` plugin, `/base:to-increments <task link>`. Start it only if the person accepts, never on your own. Once it has started, detach it from this one where the runtime ties them, so it is not ended with it — see [Leave Nothing Running](leave-nothing-running.md), rule 6 — then end this session if the runtime allows it — whatever ending one means there: archiving it, closing it, finishing it, deleting it.
+
+**When the runtime does not let the agent start sessions, or the person declines, end with the exact instruction to carry on, ready to copy**: clear the context — in Claude Code, `/clear` — then run the splitting skill with the task's link. The person does what the agent cannot.
+
+A prototype that no task asked for has no next phase to hand to: report the outcome and stop.
+
 ## Why This Rule Exists
 
 **Measured in this organization.** A prototype of live lessons was reviewed as "functional" for weeks before anyone checked the claim. When someone did, it had controls that did nothing, counts that disagreed with the lists beside them, times written by hand, and a home screen that rendered under every other screen because a node had been dragged out of its condition. Incorporating a new feature into it, the same review found, among others: a handler silently overwritten by a list with the same name, so the button that closed the rooms did nothing; catalog cards that all opened the same course; a page title that did not match its menu entry; a popup that stretched its dialog into a scrollbar; a footer offset by a sidebar that the mobile layout does not have; controls cut off at 320 pixels; white text on the brand orange at 4.04:1; and the prototype's own simulation bars covering the mobile navigation at 320 pixels and the button to leave a call at 200% zoom. Every one of them looked right in the screen where it was made. None of them was visible without exercising the prototype as a whole, in every configuration.
