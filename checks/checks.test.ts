@@ -21,8 +21,10 @@ import { fileURLToPath } from "node:url";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const CHECKS = join(ROOT, "checks");
 // The events claude-code-plugins' runner handles. A new one needs the runner
-// first: what it does with a finding depends on the event.
-const EVENTS = ["Stop", "SubagentStop"];
+// first: what it does with a finding depends on the event. On `Stop` and
+// `SubagentStop` a finding stops the hand-back once; on `PreToolUse` it has the
+// person asked before the tool runs.
+const EVENTS = ["Stop", "SubagentStop", "PreToolUse"];
 // What the runner accepts as a script path, and nothing else.
 const SCRIPT_PATH = /^checks\/[a-z0-9-]+\/[a-z0-9-]+\.sh$/;
 
