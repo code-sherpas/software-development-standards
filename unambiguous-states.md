@@ -70,7 +70,8 @@ What is true right now is found at a glance, not read out of paragraphs.
 - **A short value, and the explanation apart.** Each fact shown has a short value — a word, a number, a name, a date, a state — and that value is what the eye scans. What explains it goes apart and subordinate to it: a secondary note under the value, or behind a disclosure the person opens. A fact given only as a sentence, with its value somewhere inside, is a finding.
 - **Grouped by the question they answer.** Facts that answer the same question — what it is, where it is used, who sees it — sit together under that question, apart from the facts that answer another one. A block of facts all with the same weight makes the person read every one to find the one they need.
 - **Said once.** What a badge, a state or a notice on the same screen already says is not said again in prose.
-- **Enumerations are counted.** Related items are shown as a count by kind — "3 courses · 2 paths" — that leads to the full list, not as a sentence that names them one after another.
+- **Quantities are figures the eye finds without reading.** A quantity the person compares or looks for is shown as a number set apart, with its unit beside it, one per element — never inside a sentence, nor strung with others on one line between separators such as "1 template · 7 assessments · 6 ratings".
+- **Enumerations are counted, as a list.** Related items are shown as a count by kind that leads to the full items, not as a sentence that names them one after another. The counts are a list, one element per kind, not a sentence. What is being counted — directly, or inherited from what hangs below the item — is said once, in a sentence before the list, not repeated in each count.
 - **Explanations shrink, they do not disappear.** Why an action is refused and how to leave a state, as [No Dead Ends](no-dead-ends.md) and [Business Logic and Interface Coherence](business-logic-interface-coherence.md) require, stay on the screen as the note under the value. Making the screen scannable never removes them.
 
 ## Detection
@@ -83,7 +84,7 @@ What is true right now is found at a glance, not read out of paragraphs.
 
 ## Why This Rule Exists
 
-**Measured in this organization**, for rule 9. On 2026-11-17, in a prototype of a skills taxonomy, the detail panel of an item gave each fact as a sentence of 15 to 30 words, all with the same weight, one after another. Each sentence was correct and none was ambiguous on its own, yet the person reviewing it pointed out that the effort needed to process the panel was high: to learn one fact they had to read them all. It was fixed by grouping the facts by the question they answer and giving each one a short value with its explanation as a note.
+**Measured in this organization**, for rule 9. On 2026-11-17, in a prototype of a skills taxonomy, the detail panel of an item gave each fact as a sentence of 15 to 30 words, all with the same weight, one after another. Each sentence was correct and none was ambiguous on its own, yet the person reviewing it pointed out that the effort needed to process the panel was high: to learn one fact they had to read them all. It was fixed by grouping the facts by the question they answer and giving each one a short value with its explanation as a note. The same review then found that a note like "1 assessment template · 7 assessments · 6 ratings" read as a list of items to be worked through rather than as three numbers; it became a row of tiles, one per kind, with the number large and what it counts beneath it, in a semantic list, after a sentence saying what is counted.
 
 Rule 9 rests on four well-established principles:
 
@@ -103,6 +104,7 @@ Rule 9 rests on four well-established principles:
 - Can every time be read only one way?
 - Does every state word mean the same everywhere?
 - Does every fact shown have a short value with its explanation apart, grouped by the question it answers, said once, with enumerations counted — and are the reasons for a refusal and the ways out still there?
+- Is there any quantity or enumeration inside a sentence that the person has to read in full to find it?
 
 ## Report the Outcome
 
