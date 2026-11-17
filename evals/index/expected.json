@@ -2301,7 +2301,7 @@
       },
       {
         "standard": "fixing-reported-errors",
-        "reason": "Step 6 and 7: fix from the task, at the layer it names, stop and update the task if the work contradicts it, close only after the deploy is live and a quiet window.",
+        "reason": "Step 6 and 7: fix from the task, at the layer it names, stop and update the task if the work contradicts it, close only after the deploy is live and the failure, exercised in production, no longer reproduces.",
         "source": "unanimous"
       },
       {

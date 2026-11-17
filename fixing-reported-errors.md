@@ -25,9 +25,18 @@ Out of scope: deciding whether a component should report a failure at all. That 
 **Before investigating anything else, find out whether the report corresponds to an error that is already resolved**, and gather credible evidence in one direction or the other:
 
 - the change that fixed it, and the deploy that carries it — confirmed live, as in [Post-Deploy Verification](post-deploy-verification.md), not merely merged;
-- no occurrence since that deploy, over a window in which the situation that triggered it has happened again. Silence from an error that fires once a month says nothing after a day.
+- **the failure exercised in production, and no longer reproduced**: the situation that triggered it recreated where the error happened, through the path the affected consumer takes — a person through the interface, another application through its contract, a job through its trigger — and the system seen doing what it should instead.
 
-"It has not happened lately" is not evidence on its own, and neither is a commit message that claims to fix something similar. If the evidence is not credible either way, treat the error as not resolved.
+"It has not happened lately" is not evidence on its own, and neither is a commit message that claims to fix something similar. Nor is silence in error tracking: an error that fires once a month says nothing after a day of quiet, and a failure nobody reports — a control that does nothing, a screen that hides the way on — never fires at all. If the evidence is not credible either way, treat the error as not resolved.
+
+### Exercising the failure in production
+
+**The agent exercises it itself, connecting to production**, whenever the project's configuration supports it: dedicated test accounts, test tenants or organizations, and a way for the agent to log in with them without a credential passing through the conversation. It follows the rules of [Post-Deploy Verification](post-deploy-verification.md) for those accounts and that data — no real money, no real people, and it cleans up what it creates.
+
+- **Recreate the triggering situation, not a neighbouring one.** The reproduction from Step 3 is the recipe: the same inputs, the same state, the same device or window, the same role — translated to the test accounts.
+- **Observe the behaviour, not the absence of a report.** What the affected consumer would see or receive, seen working: the screen, the response, the job's effect.
+- **When it cannot be exercised** — the project's configuration does not support it, or the situation cannot be recreated in production without real money, real people or data that is not the team's — stop and ask, as [Post-Deploy Verification](post-deploy-verification.md) asks when it cannot verify: what is missing, what would unblock it, and whether a person running the steps is acceptable. Until the person decides, the error is not resolved.
+- **When it still reproduces**, the error is not resolved: say so with the evidence, as [Post-Deploy Verification](post-deploy-verification.md) asks when a change fails.
 
 **If it is resolved**, mark it resolved in the project's error-tracking system, if there is one. Then look for its duplicates (see below) and mark them resolved too.
 
@@ -153,9 +162,9 @@ class Entity {
 ## Step 7: Close the Loop
 
 - **Keep the task current**: its status, and the link to the change.
-- **The error is resolved only as Step 1 defines it**: the deploy that carries the fix confirmed live, and no occurrence since over a window in which the triggering situation has happened again. Merging the fix, deploying it, or the regression test passing is not that evidence.
-- **Until there is that evidence, the task stays open** and says which window is still running. A task is never closed on the strength of the fix alone.
-- **Once there is, close the task, and mark the original report and every duplicate resolved**, recording in the task the deploy and the window that make up the evidence.
+- **The error is resolved only as Step 1 defines it**: the deploy that carries the fix confirmed live, and the failure exercised in production and no longer reproduced. Merging the fix, deploying it, or the regression test passing is not that evidence.
+- **Until there is that evidence, the task stays open** and says what is missing. A task is never closed on the strength of the fix alone.
+- **Once there is, close the task, and mark the original report and every duplicate resolved**, recording in the task the deploy and how the failure was exercised in production: the account, the path, and what was observed.
 - **Add a short post-mortem to the task**: the root cause in one or two sentences, and the one design change that would prevent this class of error from recurring.
 
 ## Review Questions
@@ -172,7 +181,8 @@ class Entity {
 - Was the task shared, and did the fix wait for an answer?
 - Is the regression test at the layer the fix lives in?
 - Was every departure from the task written into it and approved?
-- Were the task closed, and the report and its duplicates marked resolved, only after the deploy was confirmed live and the window passed quiet?
+- Were the task closed, and the report and its duplicates marked resolved, only after the deploy was confirmed live and the failure, exercised in production through the affected consumer's path, no longer reproduced?
+- Did the agent exercise it itself where the project's configuration allows, and ask where it does not?
 
 ## Report the Outcome
 
@@ -189,4 +199,4 @@ When finishing the fix, state:
 
 - where the fix and its regression test were placed, and why that layer rather than the point that reported the error;
 - any departure from the task, and who approved it;
-- the deploy that carried the fix, the window observed, and whether the task is closed and the report and its duplicates resolved — or which evidence is still pending.
+- the deploy that carried the fix, how the failure was exercised in production and what was observed, and whether the task is closed and the report and its duplicates resolved — or which evidence is still pending.
