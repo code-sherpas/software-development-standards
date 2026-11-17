@@ -44,6 +44,8 @@ When an action needs something that does not exist yet — a category before an 
 
 Every capability a person may use is reachable through the product's navigation, in the place they would look for it. A capability reachable only by knowing its address is not offered.
 
+**In a hierarchy, every layout can go up and down.** The detail of an item lets the person reach its parent and its children at every viewport the product supports. What one layout shows beside the detail — a tree, a list of children — another layout that hides it makes reachable from the view it does show. Going back to the start of the hierarchy to go one level down is a dead end.
+
 ### 7. Work scales with what people need to do
 
 When a person routinely needs to do the same thing many times — add fifty members, assign thirty people, change twenty items — there is a way to do it at that scale, or the gap is a finding with how often it happens and how long it takes.
@@ -68,6 +70,7 @@ Leaving a flow halfway keeps what was done, or warns before discarding it. A fai
 - Can what was created be corrected and removed, and is every destructive action confirmed or undoable?
 - Does every prerequisite lead to where it is created?
 - Is every capability reachable through the navigation?
+- In a hierarchy, can the detail of an item reach its parent and its children at every viewport, without going back to the start?
 - Is there a way to do at scale what people need to do many times?
 - Does an interruption or a failure keep the person's work?
 
