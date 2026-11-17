@@ -105,6 +105,7 @@ If the person asks to carry on in this same session instead, say once what it co
 - Were every applicable standard and the index read in full, by the audit and by each sub-agent?
 - Does the inventory cover entities, entry points with their outcomes, screens and paths, roles and switches, states and goals — and was every item checked against every standard that applies to it?
 - Does every finding rest on observation or on code with a path to reproduce it?
+- Does any operation in the area change what records already made mean, as [Business Logic and Interface Coherence](business-logic-interface-coherence.md) rule 7 describes?
 - Was production only observed, and was every configuration that changes the area's behaviour observed?
 - Does every finding carry what happens, how to reproduce it, where it was observed, its consequence, the rule it breaks and the evidence — and no solution?
 - Were findings already tracked linked rather than described again?

@@ -69,6 +69,8 @@ What is true right now is found at a glance, not read out of paragraphs.
 
 - **A short value, and the explanation apart.** Each fact shown has a short value — a word, a number, a name, a date, a state — and that value is what the eye scans. What explains it goes apart and subordinate to it: a secondary note under the value, or behind a disclosure the person opens. A fact given only as a sentence, with its value somewhere inside, is a finding.
 - **Grouped by the question they answer.** Facts that answer the same question — what it is, where it is used, who sees it — sit together under that question, apart from the facts that answer another one. A block of facts all with the same weight makes the person read every one to find the one they need.
+- **Every list says what it is.** A list has a heading that names what it holds — "Effects", "What is in use", "What you can do" — so the person knows what the items are before reading any of them.
+- **A warning looks like a warning.** A notice that warns of something is told apart from one that only informs by more than its colour — an icon and a tone of its own — as [Accessibility](accessibility.md) asks of every distinction.
 - **Said once.** What a badge, a state or a notice on the same screen already says is not said again in prose.
 - **Quantities are figures the eye finds without reading.** A quantity the person compares or looks for is shown as a number set apart, with its unit beside it, one per element — never inside a sentence, nor strung with others on one line between separators such as "1 template · 7 assessments · 6 ratings".
 - **Enumerations are counted, as a list.** Related items are shown as a count by kind that leads to the full items, not as a sentence that names them one after another. The counts are a list, one element per kind, not a sentence. What is being counted — directly, or inherited from what hangs below the item — is said once, in a sentence before the list, not repeated in each count.
@@ -107,6 +109,7 @@ Rule 9 rests on four well-established principles:
 - Does every fact shown have a short value with its explanation apart, grouped by the question it answers, said once, with enumerations counted — and are the reasons for a refusal and the ways out still there?
 - Is there any quantity or enumeration inside a sentence that the person has to read in full to find it?
 - Does any refusal repeat in prose facts the screen already shows, or put them inside a sentence?
+- Does every list have a heading that says what it is, and is every warning told apart from information by more than colour?
 
 ## Report the Outcome
 

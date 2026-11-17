@@ -95,6 +95,7 @@ A task that leaves questions open moves them into the code, where each one is an
 - Is each decision attributed, and is each of the agent's marked for review?
 - Was a fact the task rests on taken from the documentation without being checked in the code, or left only in the conversation?
 - Is every term this work introduces or changes defined in the task?
+- Does any operation this work adds or changes alter what records already made mean, and does the task decide what happens to them, as [Business Logic and Interface Coherence](business-logic-interface-coherence.md) rule 7 requires?
 - Is the task free of file paths and code?
 - Was the next phase's session started only after the person accepted, from the task alone — or, where the runtime cannot start one, was the exact instruction to carry on given instead?
 

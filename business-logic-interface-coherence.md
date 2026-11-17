@@ -47,7 +47,19 @@ Every constraint the logic enforces on input — a required field, a length, a s
 
 An action with consequences beyond its own item — a deletion that cascades, a change that notifies, a state change that cannot be undone — says what will happen, as the logic will actually do it, before it happens. A confirmation that names fewer consequences than the logic applies is a false statement.
 
-### 7. Change the logic, not around it
+### 7. What was recorded keeps its meaning
+
+Records already made — an assessment, a rating, an order, a history entry — keep pointing at what they referenced, and anything that reads them later, a report among them, reads them through it. An operation on something they reference can therefore change what they mean without touching them: moving an item to another parent, renaming it, rewriting its description, reassigning it.
+
+- **Before an operation like that is allowed, what it does to the meaning of the records that reference the item is established**, in the logic, not only in the interface.
+- **When the meaning would change, there are two ways, and only two:**
+  - the operation is not offered on an item that records reference;
+  - correcting is separated from changing the meaning: what does not change the meaning — a typo, a clearer wording of the same thing — can still be edited, and what does is done by retiring the item and creating another, or by a new version, so that the past records keep what they meant.
+- **The interface says so at the moment of the operation, before saving**: which records reference the item, and what the person can do instead — as rule 6 asks for consequences and [No Dead Ends](no-dead-ends.md) for refusals.
+
+A change of meaning that happens silently is a false statement about the past: every record still looks right, and none of them says what was really recorded.
+
+### 8. Change the logic, not around it
 
 When a better interface needs something the logic does not offer — a check before submitting, the reason an action is unavailable, a projection of several entities, a new outcome — the logic is extended, or its public interface changed, to offer it. The rule is never reimplemented in the interface, and the interface never reaches past the logic's public interface to get it.
 
@@ -58,6 +70,11 @@ When a better interface needs something the logic does not offer — a check bef
 3. For every pair of operation and person, find the interface path. Mark each pair: offered and allowed, offered and refused, allowed and not offered.
 4. For every outcome and every state, find what the person sees. An outcome or a state with no presentation, or two with the same one, is a finding.
 5. For every fact the interface shows, find where it is computed.
+6. For every operation that moves, renames, edits or reassigns an item, list the records that reference it and what each one would mean afterwards. A record whose meaning changes without the person being told before saving is a finding.
+
+## Why This Rule Exists
+
+**Measured in this organization**, for rule 7. On 2026-11-17, refining a skills taxonomy found two operations that changed the past without anyone seeing it. Moving a behaviour to another skill left every rating already made on it pointing at a behaviour of the other skill, because a rating stores both. Rewriting the name or the description of something already assessed made the reports, which read the current structure, show the new text as if that had been what was rated. Both operations were correct one by one, and both were offered with no warning.
 
 ## Review Questions
 
@@ -70,6 +87,7 @@ When a better interface needs something the logic does not offer — a check bef
 - Does every state the logic distinguishes have its own presentation, and every presentation a state?
 - Does the interface use the domain's terms, the same everywhere?
 - Does every confirmation state the consequences the logic will apply?
+- Does any operation change what records already made mean? If so, is it not offered, or is correcting separated from changing the meaning — and does the person learn it before saving?
 - Where the interface needed something new, was the logic extended rather than worked around?
 
 ## Report the Outcome
