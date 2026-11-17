@@ -124,6 +124,7 @@ A prototype is where a team agrees on behaviour. When its screens contradict eac
 - Does anything cover a control in use? Is any fixed element offset for a layout it is not in?
 - Can every flow be completed with the keyboard, with focus going where it should?
 - Does any interactive element contain another one? Does every control keep its name in every layout?
+- Can every panel and summary be scanned: each fact a short value with its explanation as a note, grouped by the question it answers, nothing a badge or a notice already says repeated in prose — as [Unambiguous States](unambiguous-states.md) requires?
 - Were the scenario scripts, the random exploration, the captures in every configuration and the keyboard pass run on this version?
 
 ## Report the Outcome
