@@ -62,6 +62,12 @@ Before archiving a session, look at the sessions it started — in Claude Deskto
 
 Measured in this organization, on 2026-11-17: Claude Desktop's `archive_session` archives, with the session it names, the idle sessions it started that have no pull request of their own, whether their task is done or not; archiving stops their process and cleans up their worktree. From the interface the person chooses which of them go; through the tool, which an agent can call in auto mode without asking, nobody does.
 
+**A session that inherits the task is not this one's to end.** When a phase ends by starting the session that carries the task on — refining handing it to the prototype or to splitting, splitting to shipping, one shipping run to the next, an audit to refining — that session does not work for this one: it replaces it, and it has to outlive it. Where the runtime ties a started session to the one that started it, so that ending one ends the other, **detach the inheriting session right after starting it**, before ending this one. In Claude Desktop: `start_session`, then `detach_session` with the id it returned — the same as «Detach to top level» in the sidebar. Start it in its own worktree: `detach_session` refuses a session that shares one (`use_worktree: false`), and a session the person placed, such as a fork.
+
+**Detach only the one that inherits the task.** The sessions this one starts to do or check its own work — a builder, a reviewer or a verifier of [Shipping Increments](shipping-increments.md), a subtask — report back to it, and stay tied to it and decided on as above. If detaching fails, do not end this session: say so, and leave the person to detach it or end this one by hand.
+
+Measured in this organization, on 2026-11-17: Claude Desktop's `detach_session` asks for no approval, cannot be undone by the agent, and stops the session that started the detached one from being told about its turns. A runtime that does not tie sessions together, or does not let the agent start them, needs none of this.
+
 ### 7. A check enforces it where the agent runtime allows
 
 A rule an agent has to remember is followed until the turn it is not. Where the agent runtime can run code when control is handed back, an automated check backs this standard:
@@ -94,6 +100,7 @@ Leftovers are cheap for whoever leaves them and paid by whoever comes next: a po
 - After stopping something, did the agent check it was gone — the whole tree, not only the process it targeted?
 - Did the agent stop, or propose to stop, anything it did not start? Was the person asked first?
 - Before archiving a session, did the agent say which of the sessions it started had finished their task and which had not — and did it archive any with its task open without the person saying so?
+- When the session started one to inherit its task, was that one detached before this one ended, where the runtime ties them — and only that one?
 - Where the runtime allows a check, is it in place, does it ignore what is not the session's, and does it refer to this standard instead of restating it?
 
 ## Report the Outcome
@@ -103,4 +110,5 @@ When handing back control, state:
 - what you started that is still running, which one, and why you kept it;
 - what you stopped, and how you saw it stopped;
 - before archiving a session, which of the sessions it started have finished their task and which are still open, and what each open one is waiting for;
+- the session started to inherit the task, if any, and whether it was detached from this one;
 - anything not yours that is in the way, and the permission you asked for — never that you stopped it on your own.
