@@ -124,7 +124,8 @@ An automated checker finds only a fraction of accessibility defects, and green r
 - whether **focus order** is meaningful, or where focus goes after an action;
 - whether an ARIA pattern was implemented with the **keyboard behaviour** it implies;
 - whether colour is the **only** channel carrying a distinction;
-- whether captions are **accurate**.
+- whether captions are **accurate**;
+- whether the information can be **scanned** — a fact buried in a sentence passes every check, and costs every reader the effort of finding it (see [Unambiguous States](unambiguous-states.md)).
 
 Every one of those requires a person, or an agent, to operate the interface. Steps 2 and 5 of the workflow are not optional extras on top of step 4.
 

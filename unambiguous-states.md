@@ -63,12 +63,34 @@ Dates and times are shown in the zone that matters to the person, saying which z
 
 A word that names a state means the same in every screen. A term that names one thing here and another thing there makes the state behind it ambiguous, however clear each screen is alone — see [Business Logic and Interface Coherence](business-logic-interface-coherence.md).
 
+### 9. The facts can be scanned
+
+What is true right now is found at a glance, not read out of paragraphs.
+
+- **A short value, and the explanation apart.** Each fact shown has a short value — a word, a number, a name, a date, a state — and that value is what the eye scans. What explains it goes apart and subordinate to it: a secondary note under the value, or behind a disclosure the person opens. A fact given only as a sentence, with its value somewhere inside, is a finding.
+- **Grouped by the question they answer.** Facts that answer the same question — what it is, where it is used, who sees it — sit together under that question, apart from the facts that answer another one. A block of facts all with the same weight makes the person read every one to find the one they need.
+- **Said once.** What a badge, a state or a notice on the same screen already says is not said again in prose.
+- **Enumerations are counted.** Related items are shown as a count by kind — "3 courses · 2 paths" — that leads to the full list, not as a sentence that names them one after another.
+- **Explanations shrink, they do not disappear.** Why an action is refused and how to leave a state, as [No Dead Ends](no-dead-ends.md) and [Business Logic and Interface Coherence](business-logic-interface-coherence.md) require, stay on the screen as the note under the value. Making the screen scannable never removes them.
+
 ## Detection
 
 1. Build the table of rule 1 for the area: lifecycle × data × request × role × time × device, keeping only the combinations that change what should be shown.
 2. Reach every combination — in the product, or by provoking it locally when it needs data that cannot be created where real people work — and capture what is shown.
 3. Put side by side the captures of states that mean different things. Two that look the same are a finding.
 4. For each capture, answer as the person would: where am I, what is true, what just happened, what can I do. A question without one answer is a finding.
+5. For each capture that shows facts about an item, read only the group headings and the first words of each line. What is true should still be there; a value that can only be found by reading a sentence, a group that mixes questions, and a fact said twice are findings.
+
+## Why This Rule Exists
+
+**Measured in this organization**, for rule 9. On 2026-11-17, in a prototype of a skills taxonomy, the detail panel of an item gave each fact as a sentence of 15 to 30 words, all with the same weight, one after another. Each sentence was correct and none was ambiguous on its own, yet the person reviewing it pointed out that the effort needed to process the panel was high: to learn one fact they had to read them all. It was fixed by grouping the facts by the question they answer and giving each one a short value with its explanation as a note.
+
+Rule 9 rests on four well-established principles:
+
+- **Extraneous cognitive load** (Sweller): every word read to find a value is effort spent on the presentation, not on the person's task, and it competes with the task for the same limited working memory.
+- **Scannability** (Krug, and the F-shaped reading pattern described by Nielsen Norman Group): people scan a screen before they read it, and read down the left edge and the first words of each line. A value that is not among those words is not seen.
+- **Grouping by proximity** (Gestalt): what sits together is read as belonging together, so facts placed by the question they answer are found by that question.
+- **Progressive disclosure**: the detail is there when the person asks for it, and does not stand between them and the facts when they do not.
 
 ## Review Questions
 
@@ -80,6 +102,7 @@ A word that names a state means the same in every screen. A term that names one 
 - Does a partial outcome say what succeeded and what did not?
 - Can every time be read only one way?
 - Does every state word mean the same everywhere?
+- Does every fact shown have a short value with its explanation apart, grouped by the question it answers, said once, with enumerations counted — and are the reasons for a refusal and the ways out still there?
 
 ## Report the Outcome
 
