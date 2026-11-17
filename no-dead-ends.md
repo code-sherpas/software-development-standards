@@ -28,7 +28,7 @@ For each kind of person the area serves, list what they come to do, from start t
 
 ### 3. A refusal says what it can
 
-When a person cannot do something they would reasonably expect to, the product says why and what would change it: the missing permission and who can grant it, the missing configuration and where it is set, the state that must come first. It names roles, not private people, and it never reveals what the person may not know — see [Unambiguous States](unambiguous-states.md) for a refusal that must also cover a resource's absence.
+When a person cannot do something they would reasonably expect to, the product says why and what would change it: the missing permission and who can grant it, the missing configuration and where it is set, the state that must come first. It names roles, not private people, and it never reveals what the person may not know — see [Unambiguous States](unambiguous-states.md) for a refusal that must also cover a resource's absence, and its rule 9 for the shape a refusal takes: what cannot be done, why in one sentence, and the way out, pointing to the facts the screen already shows rather than repeating them.
 
 ### 4. Mistakes can be corrected
 
