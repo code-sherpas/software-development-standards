@@ -54,13 +54,22 @@ Another session's resources, the person's own browser, a stack that predates the
 
 Measured in this organization: a command meant to stop a session's own development stack, run after its workspace had been deregistered, resolved the workspace to the main checkout and **destroyed that checkout's database**. The tool's own notion of "mine" had silently become somebody else's.
 
-### 6. A check enforces it where the agent runtime allows
+### 6. Sessions you started: idle is not done, and archiving asks the person
+
+An agent session this one started — a side session, one it handed a task to — is something it started that keeps running, and it is decided on like the rest. **Idle is not done**: a session that is not working may be waiting for the person's answer, or holding its task halfway.
+
+Before archiving a session, look at the sessions it started — in Claude Desktop, `list_sessions` with `linked: true` — and tell the person which have finished their task and which are still open, and what each open one is waiting for. **Archive none whose task is still open unless the person says so.**
+
+Measured in this organization, on 2026-11-17: Claude Desktop's `archive_session` archives, with the session it names, the idle sessions it started that have no pull request of their own, whether their task is done or not; archiving stops their process and cleans up their worktree. From the interface the person chooses which of them go; through the tool, which an agent can call in auto mode without asking, nobody does.
+
+### 7. A check enforces it where the agent runtime allows
 
 A rule an agent has to remember is followed until the turn it is not. Where the agent runtime can run code when control is handed back, an automated check backs this standard:
 
 - it looks only for resources it can tie to **this** session, by the mechanism of rule 1, and says nothing about anybody else's;
-- it interrupts the hand-back **once**, naming what it found, so the agent decides: stop it, or keep it and say why;
+- when it runs as control is handed back, it interrupts the hand-back **once**, naming what it found, so the agent decides: stop it, or keep it and say why;
 - **it never traps the session**: the second time, it only reminds;
+- when it runs before an action that cannot be undone, such as archiving a session, it has the person asked before the action happens, in auto mode too;
 - **its message refers to this standard** rather than restating it, so the rule lives in one place.
 
 A check covers the resources it knows how to detect. What it does not detect still falls under this standard.
@@ -69,6 +78,7 @@ The checks of this standard live in this repository, next to it — see [Automat
 
 - `checks/leave-nothing-running/no-browser-left-open.sh` — a visible Playwright browser this session opened, still open when the turn or a sub-agent's run ends.
 - `checks/leave-nothing-running/no-server-left-listening.sh` — a process this session's agent started, still listening on a TCP port when the turn or a sub-agent's run ends: a development server, a watcher, a preview. What Claude Code runs for itself, such as an MCP server, is not counted.
+- `checks/leave-nothing-running/ask-before-archiving.sh` — the agent is about to archive a Claude Desktop session with `archive_session`, and the person is asked first, also in auto mode. The check cannot see the state of the sessions that one started, so it asks **every time**, even when all of them have finished their task; the agent's job is to tell the person which have and which have not before they answer.
 
 ## Why This Rule Exists
 
@@ -83,6 +93,7 @@ Leftovers are cheap for whoever leaves them and paid by whoever comes next: a po
 - How did the agent know each resource was its own: a mechanism, or how it looked?
 - After stopping something, did the agent check it was gone — the whole tree, not only the process it targeted?
 - Did the agent stop, or propose to stop, anything it did not start? Was the person asked first?
+- Before archiving a session, did the agent say which of the sessions it started had finished their task and which had not — and did it archive any with its task open without the person saying so?
 - Where the runtime allows a check, is it in place, does it ignore what is not the session's, and does it refer to this standard instead of restating it?
 
 ## Report the Outcome
@@ -91,4 +102,5 @@ When handing back control, state:
 
 - what you started that is still running, which one, and why you kept it;
 - what you stopped, and how you saw it stopped;
+- before archiving a session, which of the sessions it started have finished their task and which are still open, and what each open one is waiting for;
 - anything not yours that is in the way, and the permission you asked for — never that you stopped it on your own.
