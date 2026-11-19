@@ -40,6 +40,14 @@ Out of scope: a static mockup that nobody presents as interactive, and a throwaw
 - nothing in the simulation control is mistaken for product interface: distinct styling, distinct position, distinct label;
 - the simulation control never covers the product interface it sits on. At every viewport it stays clear of navigation bars, footers and controls — moving above them, wrapping, or collapsing to an icon — because a reviewer who cannot reach a control underneath it concludes the design is broken.
 
+**Every simulation control earns its place.**
+
+- **Each one leads to a state the prototype designs that no other control reaches.** A control that changes nothing visible on these screens — a clock nothing here depends on, a role that sees and does exactly what another one does — is removed. It makes the reviewer look for a difference that is not there.
+- **Only the states that matter here.** When several settings lead to the same few states on these screens, the control offers those states, not the settings: if only "all four modules off" changes anything here, the control is that one switch, not four checkboxes.
+- **What simulates another area belongs to that area's prototype.** How another part of the product behaves — which menu entry opens each module, how another screen reacts — is simulated in the prototype of that part. Here stays only what changes this screen.
+
+**A simulated device draws its layers inside itself.** When the prototype shows a device inside another window — a phone frame on a desktop page — the dialogs, sheets, menus and their backdrops of the simulated device open inside the frame, clipped to it, never over the surrounding window. A form that opens outside the phone is a layout the phone cannot have.
+
 ## Coherent State
 
 **One model, everything derived from it.** The prototype holds one state of what has happened — who is where, what was created, what was changed, what time it is — and every screen computes what it shows from that state. Two places never keep their own copy of the same fact.
@@ -119,6 +127,8 @@ A prototype that no task asked for has no next phase to hand to: report the outc
 
 **Measured in this organization.** A prototype of live lessons was reviewed as "functional" for weeks before anyone checked the claim. When someone did, it had controls that did nothing, counts that disagreed with the lists beside them, times written by hand, and a home screen that rendered under every other screen because a node had been dragged out of its condition. Incorporating a new feature into it, the same review found, among others: a handler silently overwritten by a list with the same name, so the button that closed the rooms did nothing; catalog cards that all opened the same course; a page title that did not match its menu entry; a popup that stretched its dialog into a scrollbar; a footer offset by a sidebar that the mobile layout does not have; controls cut off at 320 pixels; white text on the brand orange at 4.04:1; and the prototype's own simulation bars covering the mobile navigation at 320 pixels and the button to leave a call at 200% zoom. Every one of them looked right in the screen where it was made. None of them was visible without exercising the prototype as a whole, in every configuration.
 
+**Measured in this organization**, for the simulation controls. On 2026-11-19, a review of a prototype of a skills taxonomy found a simulation bar with a clock that nothing on its screens depended on; a role that saw and did exactly what another one did; four checkboxes, one per module, where the only state that changed these screens was "all four off", and that also simulated which menu entry opened each module, which belongs to the prototype of the navigation; and, in the mobile mode drawn as a phone inside the desktop window, a form to create an item that opened over the whole window instead of inside the phone.
+
 A prototype is where a team agrees on behaviour. When its screens contradict each other, the team agrees on nothing, and the implementation picks one of the contradictions at random.
 
 ## Review Questions
@@ -126,6 +136,8 @@ A prototype is where a team agrees on behaviour. When its screens contradict eac
 - Is there any control that does nothing? Does what is out of scope say so?
 - Can every state the design describes be reached, and left?
 - Are the states that need other people or time available as simulations, marked as outside the design, reachable in every device mode — and do their controls stay clear of the interface at every viewport?
+- Does every simulation control lead to a state no other control reaches, one that changes these screens? Does any simulate what belongs to another area's prototype?
+- In a simulated device drawn inside another window, do dialogs, sheets and their backdrops open inside the device?
 - After each action, does every place that shows the affected fact show the new value?
 - Do consequences persist when leaving and coming back, or switching roles?
 - Do times and durations come from a clock?
