@@ -41,6 +41,7 @@ Every constraint the logic enforces on input — a required field, a length, a s
 ### 5. The same words and the same states
 
 - The interface uses the domain's terms: one term per concept, one concept per term, the same in every screen, message and notification.
+- **A concept that goes takes its words with it.** When a decision removes a concept from the domain, the words that only served to tell something apart from it go too: a qualifier, a label, a group, a column. They keep implying the concept is still there, and the person looks for it.
 - **States map one to one.** Every state the logic distinguishes that matters to the person can be told apart in the interface, and the interface shows no state the logic does not have. When several logic states are shown as one on purpose, the mapping is a written decision, and it is total: no logic state is left without a presentation.
 
 ### 6. Consequences are stated as the logic will apply them
@@ -76,6 +77,8 @@ When a better interface needs something the logic does not offer — a check bef
 
 **Measured in this organization**, for rule 7. On 2026-11-17, refining a skills taxonomy found two operations that changed the past without anyone seeing it. Moving a behaviour to another skill left every rating already made on it pointing at a behaviour of the other skill, because a rating stores both. Rewriting the name or the description of something already assessed made the reports, which read the current structure, show the new text as if that had been what was rated. Both operations were correct one by one, and both were offered with no warning.
 
+**Measured in this organization**, for rule 5. On 2026-11-19, in the prototype of the same taxonomy, a decision had removed the possibility of sharing items between organizations. The screens still said "141 own items" and kept a group titled "Who sees it": "own" only meant something next to shared items, and "Who sees it" only had an answer while sharing existed. Every word was correct when written; the concept that gave them their meaning was gone.
+
 ## Review Questions
 
 - Is any action offered that the logic will refuse for this person in this state?
@@ -86,6 +89,7 @@ When a better interface needs something the logic does not offer — a check bef
 - After an action, does every place showing the fact change?
 - Does every state the logic distinguishes have its own presentation, and every presentation a state?
 - Does the interface use the domain's terms, the same everywhere?
+- Is any word left that only told something apart from a concept that no longer exists?
 - Does every confirmation state the consequences the logic will apply?
 - Does any operation change what records already made mean? If so, is it not offered, or is correcting separated from changing the meaning — and does the person learn it before saving?
 - Where the interface needed something new, was the logic extended rather than worked around?
