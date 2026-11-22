@@ -252,7 +252,7 @@
       },
       {
         "standard": "post-deploy-verification",
-        "reason": "The agent verifies a deployed increment in production as the guest does, with the dedicated test account, observing the claim, the neighbourhood (going back from payment) and error tracking.",
+        "reason": "The agent verifies a deployed increment in production as the guest does, with the dedicated test account, observing the claim and the neighbourhood (going back from payment).",
         "source": "unanimous"
       },
       {

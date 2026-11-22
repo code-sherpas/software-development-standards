@@ -46,7 +46,6 @@ Identify every consumer of the change, then use **their** path, not a shortcut t
 
 - **The claim.** Whatever the change says it does, seen doing it.
 - **The neighbourhood.** At least one adjacent flow the change could plausibly regress, used the same way. A change is verified by what it did not break as much as by what it does.
-- **The quiet signals.** Error tracking and logs over a window after the verification — a change can look perfect in the one path you drove and fail for the next request.
 
 ### With accounts and data that exist for it
 
@@ -103,7 +102,6 @@ A change that passed every gate and was never used in production has been verifi
 - Who are this change's consumers, and which path does each of them take?
 - Was each path used in production the way that consumer uses it, or through a shortcut to the same code?
 - What adjacent flow could this have broken, and was it used too?
-- Did error tracking stay quiet over a window after the verification?
 - Were the accounts and data dedicated to testing, marked as internal, and cleaned up?
 - Did any credential pass through a conversation or a repository?
 - If verification failed or could not be done, was the person told — with the evidence — and did they decide?
@@ -115,6 +113,5 @@ When finishing a change, state:
 - which deploy carried it, and how you confirmed it was live;
 - each consumer, the path you used for it, the account you used, and what you observed;
 - the adjacent flow you used and what you observed;
-- the error-tracking window you checked;
 - what you created in production and whether you removed it;
 - any step you could not verify, why, and who waived it, in which words.
