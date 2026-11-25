@@ -62,11 +62,11 @@ The test, like the real agent, receives three parts in this order:
 | `to-increments` | C02, C08 |
 | `ship-increments` | C03 |
 | `fix-error` | C04, C30 |
-| `increment-builder` | C05, C11, C12, C13, C14, C17, C19, C20, C23, C24, C27, C29, C34 |
+| `increment-builder` | C05, C11, C12, C13, C14, C17, C19, C20, C23, C24, C27, C29, C34, C42 |
 | `build-prototype` | C06, C22 |
 | `increment-verifier` | C09 |
-| `none` | C10, C31, C33, C37, C38 |
-| `increment-reviewer` | C15, C16, C18, C21, C25, C26, C28, C35 |
+| `none` | C10, C31, C33, C37, C38, C39, C41 |
+| `increment-reviewer` | C15, C16, C18, C21, C25, C26, C28, C35, C40 |
 
 ## Expected standards
 

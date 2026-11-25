@@ -21,7 +21,7 @@ Out of scope: log lines, internal error identifiers, and developer-facing toolin
 
 **There is exactly one place that says which locales exist, and everything else derives from it.** Anything that declares them again is how a locale comes to exist halfway.
 
-**Where the list lives matters.** It belongs where every consumer can read it and none of them owns it — not inside the frontend, not inside one service. And it has to be reachable from the tests: a list that can only be reached through a global mock is a list no test can check. If importing the real list from a test is impossible for a technical reason, that reason is a defect in where the list lives, not a fact to work around.
+**Where the list lives matters.** It belongs where every consumer can read it and none of them owns it — not inside the web application, not inside one web service. And it has to be reachable from the tests: a list that can only be reached through a global mock is a list no test can check. If importing the real list from a test is impossible for a technical reason, that reason is a defect in where the list lives, not a fact to work around.
 
 ## Adding a Locale
 

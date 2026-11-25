@@ -10,9 +10,9 @@ The layers inside each context are the visible shape of [Dependency Direction](d
 
 ## What Counts as In Scope
 
-Any repository holding business logic — a service, or the server half of an application. It governs where code lives, not what it does.
+Any repository holding business logic — a web service, a worker, or the server-side code of a web application. It governs where code lives, not what it does.
 
-Out of scope: the presentation half of a front-end application, which follows its framework's routing conventions; and tooling, configuration and scripts.
+Out of scope: the interface code of a web application or another application a person operates, which follows its framework's routing conventions; and tooling, configuration and scripts.
 
 ## The Layout
 

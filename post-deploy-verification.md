@@ -27,7 +27,7 @@ Everything Gate 3 lists as *looking* regression-proof — a rename, a dependency
 
 **Whoever integrated the change verifies it**, exactly as with the pre-merge gates. A report from the author, from another session or from another agent is evidence about their run.
 
-**After the deploy that carries the change is live — confirmed, not assumed.** Check that the running version contains the change: the deployed commit, the image tag, the version the service reports. The main branch containing it says nothing about what is running. A deploy can still be building, can have been cancelled because a newer commit superseded it, or can have failed to build while every check on the pull request was green.
+**After the deploy that carries the change is live — confirmed, not assumed.** Check that the running version contains the change: the deployed commit, the image tag, the version the application reports. The main branch containing it says nothing about what is running. A deploy can still be building, can have been cancelled because a newer commit superseded it, or can have failed to build while every check on the pull request was green.
 
 **Before the task is reported as done.** "Merged" and "deployed" are states of the pipeline; "done" is a claim about the product, and it waits for this.
 

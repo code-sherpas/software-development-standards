@@ -33,7 +33,7 @@ The proof is that the same failure means opposite things to different callers.
 Take a uniqueness violation when creating a user:
 
 - For the flow that provisions a person on their **first login**, it is expected. Two requests for the same brand-new person arrive at once, both find nothing, both write, and the loser repairs by reading what the winner created. The person was served correctly.
-- For the flows that **mint the identifier at an identity service** moments before writing, the same violation means that service handed back somebody who already exists. That is a real anomaly and it must stay loud.
+- For the flows that **mint the identifier at an identity web service** moments before writing, the same violation means that service handed back somebody who already exists. That is a real anomaly and it must stay loud.
 
 Same error code, opposite meanings, one component raising it. No rule written inside that component can be right for both callers. Deciding there means choosing which of the two to get wrong.
 
