@@ -41,3 +41,15 @@ Business Logic and Interface Coherence, Unambiguous States, No Dead Ends, Design
 Creating Tasks was added, with cases C37 and C38. Three new labellers that read the 61 standards in full labelled C37–C38 fully and, for C01–C36, only whether Creating Tasks applies: `labeller-a-c37-c38.json`, `labeller-b-c37-c38.json`, `labeller-c-c37-c38.json`. They agreed unanimously on C01–C36 (it applies to C01, C02, C04, C07, C08, C32, C33 and C36) and on C38 (nothing applies; Creating Tasks is a near miss, as its scope leaves out editing a task that exists).
 
 23. C37: fixing-reported-errors does not apply (2 of 3). An invoice that still shows «Sent» after its email bounced is a capability the product lacks, not a failure of what it does, and the person asks only to record it. It is a near miss.
+
+## Application Type Names, two reworded scopes and four new cases (David, 2026-11-25)
+
+Application Type Names was added, with cases C39 to C42, and the scopes of Bounded Context Layout and Dependency Direction were reworded in its vocabulary (a web service, a worker, the server-side code of a web application; another application of the organization). Three new labellers that read the 62 standards in full labelled C39–C42 fully and, for C01–C38, only whether each of those three standards applies: `labeller-a-c39-c42.json`, `labeller-b-c39-c42.json`, `labeller-c-c39-c42.json`. On C01–C38 they agreed unanimously: Application Type Names applies to none; Dependency Direction applies to the same cases as before; Bounded Context Layout applies to the same cases plus C21, whose server action writes to the database and is server-side code of a web application that the framework's routing does not place. In C41 all three judged Application Type Names and Dependency Direction near misses: folders holding a bounded context, and the directory layout, are outside their scopes.
+
+24. C39: pre-merge-gates applies (2 of 3). Writing the first README into a new repository commits to its main branch, which is a route into it.
+25. C39: post-deploy-verification does not apply (1 of 3). Creating an empty hosting service and a monitoring project takes no change to production. It is a near miss.
+26. C41: integration-logic applies (2 of 3), by decision 1: the repository that moves talks to the database.
+27. C41: business-logic does not apply (1 of 3). Moving files writes and changes no rule; decision 5 covers the entry-point family, not Business Logic. It is a near miss.
+28. C42: domain-entity-uuidv4-ids applies (2 of 3). The appointment's id is sent to another application in the request's path, which its scope names.
+29. C42: internationalization applies (2 of 3). The SMS a patient reads now states a date and time taken from data, as the amount does in C29.
+30. C42: prefer-named-functions does not apply (1 of 3), by decisions 8 and 13: the diff only changes lines inside `send_due_reminders`, a named function that already existed. It is a near miss.

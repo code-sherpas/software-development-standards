@@ -72,7 +72,7 @@ Its cost is CI: each merge rebases every layer above, and they all run their che
 
 **Merge a group — the top layer, or one in the middle — only when every layer in the group is ready, with its gates verified, and at least one of these holds:**
 
-- **the layers are not separately meaningful in production** — they were split so the review would be readable, not so each could ship on its own: a schema and a backend nothing calls until the interface above them exists. The real change is the group;
+- **the layers are not separately meaningful in production** — they were split so the review would be readable, not so each could ship on its own: a schema and server-side code nothing calls until the interface above them exists. The real change is the group;
 - **the expensive checks run only at the top of the stack**, so the group lands from the top rather than on a skipped check (see below).
 
 **Never merge a higher layer to carry along lower ones that are not ready** — another person's layer, or one whose pre-merge plan nobody ran. The merge lands them all the same.

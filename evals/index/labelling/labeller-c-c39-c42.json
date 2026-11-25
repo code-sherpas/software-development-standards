@@ -1,0 +1,314 @@
+{
+  "C39": {
+    "applies": [
+      { "standard": "application-type-names", "reason": "The work names two new applications (their GitHub repositories, the Render service and the Sentry project), chooses their types (a web service that also runs scheduled reminders, and a cross-platform React Native application, not an Android or iOS one), must keep the product part consistent with clinic-web-application and clinic-web-service, and writes README overviews of how the applications relate, all named in the standard's scope." }
+    ],
+    "considered_not_applies": [
+      { "standard": "bounded-context-layout", "reason": "The new web service's repository will hold business logic, but this request places no source code in it, only a README; the layout governs where code lives." },
+      { "standard": "integration-logic", "reason": "The READMEs describe how the applications talk to each other, but no code that makes them communicate is written; integration logic is code." },
+      { "standard": "failure-reporting", "reason": "Creating a Sentry project is not code deciding to emit a failure to an error tracker." },
+      { "standard": "leave-nothing-running", "reason": "The Render service is what the person asked to have running, the deliverable, which the standard leaves out of scope; nothing else is started." },
+      { "standard": "post-deploy-verification", "reason": "No product change reaches a consumer: the repositories hold only READMEs and the hosting service has nothing of the product deployed yet." },
+      { "standard": "pre-merge-gates", "reason": "The READMEs are the first content of brand-new repositories; nothing is integrated into an existing main branch, and documentation is on the closed list of exemptions anyway." },
+      { "standard": "creating-tasks", "reason": "No task is created in a tracker; the work is set-up and documentation." },
+      { "standard": "refining-work", "reason": "The person asks for concrete set-up, not for the reminders feature to be settled; the request's outcome is clear." }
+    ]
+  },
+  "C40": {
+    "applies": [
+      { "standard": "application-type-names", "reason": "The diff names an application's compose service and container (`payouts-api`, `payouts-api-local`) and image (`payouts-backend`) while the README calls its repository `acme/payouts-server`, and adds an architecture section that says frontend, backends and API and mentions a `web-service/` folder inside the web application, all of which the scope covers (one name everywhere, catalogue words, rule 7 for a part named after a type)." },
+      { "standard": "shipping-increments", "reason": "The role is the increment's reviewer, which this standard defines and whose review it governs." }
+    ],
+    "considered_not_applies": [
+      { "standard": "integration-logic", "reason": "The compose entry starts the payouts service and maps a port; it adds no code that exchanges data between applications." },
+      { "standard": "pre-merge-gates", "reason": "By decisions 6 and 14 the reviewer reads it only when the change carries a migration, leaves data behind or touches an entry point; this one has none." },
+      { "standard": "post-deploy-verification", "reason": "The change is local-stack configuration and documentation, both on the closed list of exemptions; nothing changes in production." },
+      { "standard": "leave-nothing-running", "reason": "The reviewer reads the change and does not need to start the stack (decision 2)." },
+      { "standard": "bounded-context-layout", "reason": "No source file is created or moved." }
+    ]
+  },
+  "C41": {
+    "applies": [
+      { "standard": "bounded-context-layout", "reason": "Renaming and moving a bounded context's folder in a web service, so that the context is named after the business it now holds, is exactly where code lives in a repository holding business logic." },
+      { "standard": "business-logic", "reason": "The four moved files are business-logic entry points; recognising them as such is what the rest of the entry-point family rests on, as in C28's move." },
+      { "standard": "business-logic-entry-point-one-per-module", "reason": "Decision 5: the change moves business-logic entry points, so the family's always-applicable standards apply." },
+      { "standard": "business-logic-entry-point-prefer-top-level-functions", "reason": "Decision 5: moving entry points brings in the family's always-applicable standards." },
+      { "standard": "business-logic-entry-point-command-query-separation", "reason": "Decision 5: moving entry points brings in the family's always-applicable standards." },
+      { "standard": "business-logic-entry-point-cqs-handler-signatures", "reason": "Decision 5: moving entry points brings in the family's always-applicable standards." },
+      { "standard": "business-logic-entry-point-colocate-types", "reason": "Decision 5; also, moving the entry points and fixing imports decides whether their command and success types move with them in the same files." },
+      { "standard": "business-logic-entry-point-primitive-input-types", "reason": "Decision 5: moving entry points brings in the family's always-applicable standards." },
+      { "standard": "business-logic-entry-point-execution-context", "reason": "Decision 5: moving entry points brings in the family's always-applicable standards." },
+      { "standard": "business-logic-typical-domain-entity-entry-points", "reason": "Decision 5: moving entry points brings in the family's always-applicable standards." },
+      { "standard": "business-logic-entry-point-database-transaction", "reason": "Decision 5, with a database: the context has a repository, so its entry points reach the service's database." },
+      { "standard": "business-logic-entry-point-transaction-isolation-levels", "reason": "Decision 5, with a database: the moved entry points work through a repository on the service's database." },
+      { "standard": "business-logic-entry-point-use-repositories", "reason": "Decision 5: the moved entry points store or read entities through the repository that moves with them." },
+      { "standard": "business-logic-entry-point-repository-interface", "reason": "Decision 5; also, fixing the imports touches how the entry points reference the repository, which this standard governs." },
+      { "standard": "business-logic-entry-point-repository-domain-types", "reason": "Decision 5: the moved entry points exchange entities with a repository." },
+      { "standard": "integration-logic", "reason": "Decision 1: the moved repository is code that talks to a database." }
+    ],
+    "considered_not_applies": [
+      { "standard": "application-type-names", "reason": "Near miss: its scope leaves out folders inside an application, including those that hold a bounded context, and the request keeps the repository, the image and the Render service named as they are." },
+      { "standard": "dependency-direction", "reason": "Near miss: its scope leaves out the project's directory layout; moving files and fixing import paths adds no collaborator and changes no dependency." },
+      { "standard": "business-logic-entry-point-domain-entity-payload-types", "reason": "Decision 5 brings it in only when the entry points return entity data, which the request does not say." },
+      { "standard": "business-logic-ensure-authenticated-requester", "reason": "Decision 5 brings it in only when the caller must be authenticated, which the request does not say." },
+      { "standard": "business-logic-ensure-authorized-requester", "reason": "As for authentication: nothing in the request says the entry points restrict who calls them." },
+      { "standard": "repository-no-business-logic", "reason": "Decision 4 needs a repository method written or edited; the repository is moved, not changed." },
+      { "standard": "business-logic-entry-point-repository-operations", "reason": "No repository interface or method is defined or changed." },
+      { "standard": "pre-merge-gates", "reason": "The person asks for the rename, not for it to be integrated; the gates are for whoever merges it (Gate 3's warning about renames is theirs)." },
+      { "standard": "post-deploy-verification", "reason": "It falls to whoever integrated and deployed the change; this request does neither." },
+      { "standard": "expand-contract-schema-changes", "reason": "Nothing stored changes; only source folders move." },
+      { "standard": "automated-testing", "reason": "No test is written or changed in what it asserts; at most test imports are re-pointed." },
+      { "standard": "leave-nothing-running", "reason": "Checking a rename needs typecheck and tests, nothing the request says keeps running (decision 2)." },
+      { "standard": "prefer-named-functions", "reason": "Decision 8: no function is defined." }
+    ]
+  },
+  "C42": {
+    "applies": [
+      { "standard": "shipping-increments", "reason": "The role is the increment's builder, which this standard defines (build, tests, gates, review)." },
+      { "standard": "integration-logic", "reason": "The diff makes the worker call clinic-web-service over HTTP, parse its response and handle its contract (404, statuses, timeout), and the worker also talks to its database (decision 1)." },
+      { "standard": "dependency-direction", "reason": "The application-layer entry point imports httpx and reads the environment to reach another application of the organization; that collaborator must be an interface the logic declares and an adapter handed in, which is this standard's scope." },
+      { "standard": "bounded-context-layout", "reason": "The client for the clinic has to be placed in the reminders context (a secondary adapter) instead of inside `application/`, so the increment creates server-side source in a worker that holds business logic." },
+      { "standard": "application-type-names", "reason": "The diff adds a compose service for another application named `clinic-api`, while that application is `clinic-web-service`; naming an application's compose service is in scope, and rule 3 asks for the same name everywhere." },
+      { "standard": "serialization-boundaries", "reason": "The appointment arrives as JSON and its fields are read by hand (`appointment[\"status\"]`, a string `starts_at`) instead of being rebuilt once at the edge, and a call that does not answer is not handled as the second failure mode." },
+      { "standard": "built-in-temporal-types", "reason": "The diff passes the textual `starts_at` into the reminder; it must be parsed into a built-in temporal type, and deciding whether an appointment time is an instant or a civil time is this standard's question." },
+      { "standard": "utc-zoned-temporal-types", "reason": "Parsing a zone-aware value (`…Z`) from another application and keeping it normalized, decision 11." },
+      { "standard": "iso8601-millisecond-precision", "reason": "The code parses a textual date-time from a contract that uses ISO 8601 with milliseconds." },
+      { "standard": "neverthrow-return-types", "reason": "Its scope covers every function in any stack through its equivalent; the edited entry point and the new client in Python return failures (clinic unreachable, not found) that callers must handle." },
+      { "standard": "neverthrow-wrap-exceptions", "reason": "`httpx.get` and `response.json()` raise on network failure, timeout and bad bodies, recoverable failures that must be captured at their source into a result (acceptance: the reminder stays pending)." },
+      { "standard": "failure-reporting", "reason": "When the clinic cannot be reached the run recovers by leaving the reminder pending for the next run; deciding whether and where that failure is reported is this standard's scope." },
+      { "standard": "business-logic", "reason": "The change adds the rule that a cancelled appointment's reminder is skipped and that a reminder states the current time." },
+      { "standard": "business-logic-ensure-business-constraints", "reason": "Decision 10: the cancelled-appointment check is a required-state check guarding the send." },
+      { "standard": "domain-entity", "reason": "The reminder gains behaviour (`with_starts_at`, `mark_skipped`) that changes its state." },
+      { "standard": "immutable-domain-entities", "reason": "Those new operations on the reminder must return a new instance with the same identity." },
+      { "standard": "domain-entity-uuidv4-ids", "reason": "The appointment's id is mapped into another application's URL, a transport boundary in the scope." },
+      { "standard": "business-logic-entry-point-one-per-module", "reason": "Decision 5: the builder writes a business-logic entry point (`send_due_reminders`)." },
+      { "standard": "business-logic-entry-point-prefer-top-level-functions", "reason": "Decision 5: the builder writes a business-logic entry point." },
+      { "standard": "business-logic-entry-point-command-query-separation", "reason": "Decision 5; the entry point changes state and returns a count." },
+      { "standard": "business-logic-entry-point-cqs-handler-signatures", "reason": "Decision 5; its name and parameters do not follow the handler signature." },
+      { "standard": "business-logic-entry-point-colocate-types", "reason": "Decision 5: the builder writes a business-logic entry point." },
+      { "standard": "business-logic-entry-point-primitive-input-types", "reason": "Decision 5: the builder writes a business-logic entry point." },
+      { "standard": "business-logic-entry-point-execution-context", "reason": "Decision 5: the builder writes a business-logic entry point." },
+      { "standard": "business-logic-typical-domain-entity-entry-points", "reason": "Decision 5; marking a reminder skipped or sent is a finite-state change." },
+      { "standard": "business-logic-entry-point-database-transaction", "reason": "Decision 5 with a database (Postgres); its exception for reads from another application, asked before the transaction with a deadline and revalidated on write, is exactly this change." },
+      { "standard": "business-logic-entry-point-transaction-isolation-levels", "reason": "Decision 5 with a database: the entry point writes reminders in a transaction." },
+      { "standard": "business-logic-entry-point-use-repositories", "reason": "Decision 5: the entry point reads and stores reminders." },
+      { "standard": "business-logic-entry-point-repository-interface", "reason": "Decision 5: the entry point depends on `ReminderRepository`." },
+      { "standard": "business-logic-entry-point-repository-domain-types", "reason": "Decision 5: the entry point exchanges reminders with a repository." },
+      { "standard": "expand-contract-schema-changes", "reason": "Decision 7: marking reminders as skipped adds a status value to what is stored, which the version still running during the deploy reads." },
+      { "standard": "internationalization", "reason": "The SMS a patient reads now states a date and time taken from another application; it has to be formatted with the locale, not printed as the raw string." },
+      { "standard": "automated-testing", "reason": "The builder asks whether the change is ready for its tests, which it writes next, covering the cancelled, not found and unreachable paths." },
+      { "standard": "leave-nothing-running", "reason": "Decision 2: exercising the change runs the compose stack (Postgres, the clinic-web-service container) that keeps running." },
+      { "standard": "pre-merge-gates", "reason": "The builder passes every gate that applies before opening the change request, as Shipping Increments rule 6 says." },
+      { "standard": "post-deploy-verification", "reason": "A change to the worker's behaviour in production that the increment's verification must use through the job's real trigger." }
+    ],
+    "considered_not_applies": [
+      { "standard": "prefer-named-functions", "reason": "Decisions 8 and 13: the diff only changes lines inside an existing named function." },
+      { "standard": "repository-no-business-logic", "reason": "Decision 4 needs a repository method written or edited; the diff only calls existing ones." },
+      { "standard": "business-logic-entry-point-repository-operations", "reason": "No repository interface or method is defined; `find_due` and `save` already exist." },
+      { "standard": "business-logic-entry-point-domain-entity-payload-types", "reason": "The entry point returns a count, not entity data." },
+      { "standard": "business-logic-ensure-authenticated-requester", "reason": "A scheduled worker job with no requester, as decided for C23." },
+      { "standard": "business-logic-ensure-authorized-requester", "reason": "No requester to authorize in a scheduled job." },
+      { "standard": "write-persistence-representations", "reason": "The diff does not touch the persistence representation; a new status value may or may not need it, which the case does not show." },
+      { "standard": "aggregate-boundaries", "reason": "No new relationship between entities; the reminder already references the appointment by id." },
+      { "standard": "domain-entity-reference-direction", "reason": "No reference added or changed." },
+      { "standard": "domain-entity-typed-ids", "reason": "No identifier type is defined or changed." },
+      { "standard": "domain-service", "reason": "No logic spanning aggregates; the appointment is another application's data." },
+      { "standard": "accessibility", "reason": "A plain-text SMS has no interface to perceive or operate in the standard's sense." },
+      { "standard": "no-dead-ends", "reason": "No interface and no rule deciding what a person can do next." },
+      { "standard": "unambiguous-states", "reason": "The patient sees only the SMS; there is no interface state to design." },
+      { "standard": "collaborating-across-agent-sessions", "reason": "Nothing in the case involves another session's work." }
+    ]
+  },
+  "existing": {
+    "C01": [
+      { "standard": "application-type-names", "applies": false, "reason": "Refining patient rescheduling adds a capability to the existing booking page; no application is created, split, named or described." },
+      { "standard": "bounded-context-layout", "applies": false, "reason": "Refining places no code; where code lives is decided when it is built." },
+      { "standard": "dependency-direction", "applies": false, "reason": "No code is written or reviewed." }
+    ],
+    "C02": [
+      { "standard": "application-type-names", "applies": false, "reason": "The CSV export and the field rename name no application and describe no system of applications." },
+      { "standard": "bounded-context-layout", "applies": false, "reason": "Splitting into increments decides no file placement." },
+      { "standard": "dependency-direction", "applies": false, "reason": "No code is written or reviewed." }
+    ],
+    "C03": [
+      { "standard": "application-type-names", "applies": false, "reason": "The coordinator ships increments; nothing is named." },
+      { "standard": "bounded-context-layout", "applies": false, "reason": "The coordinator never builds." },
+      { "standard": "dependency-direction", "applies": false, "reason": "The coordinator never builds." }
+    ],
+    "C04": [
+      { "standard": "application-type-names", "applies": false, "reason": "Triage of an error names no application." },
+      { "standard": "bounded-context-layout", "applies": false, "reason": "Triage ends at a task; no code is placed." },
+      { "standard": "dependency-direction", "applies": false, "reason": "Triage writes no code; the owning layer is decided from the project's conventions, not this standard." }
+    ],
+    "C05": [
+      { "standard": "application-type-names", "applies": false, "reason": "Unblocking a red main branch names nothing." },
+      { "standard": "bounded-context-layout", "applies": false, "reason": "The branch is done; no source is created or moved now." },
+      { "standard": "dependency-direction", "applies": false, "reason": "No business logic is written or reviewed in this step." }
+    ],
+    "C06": [
+      { "standard": "application-type-names", "applies": false, "reason": "A prototype in a design folder is not an application being named." },
+      { "standard": "bounded-context-layout", "applies": false, "reason": "Prototype pages hold no business logic in a repository's server-side code." },
+      { "standard": "dependency-direction", "applies": false, "reason": "No business logic with collaborators." }
+    ],
+    "C07": [
+      { "standard": "application-type-names", "applies": false, "reason": "Using an existing LLM provider account creates no application of the organization." },
+      { "standard": "bounded-context-layout", "applies": false, "reason": "Refining places no code." },
+      { "standard": "dependency-direction", "applies": false, "reason": "No code is written; the provider dependency is a later builder's concern." }
+    ],
+    "C08": [
+      { "standard": "application-type-names", "applies": false, "reason": "No application is named or described." },
+      { "standard": "bounded-context-layout", "applies": false, "reason": "Splitting places no code." },
+      { "standard": "dependency-direction", "applies": false, "reason": "No code is written or reviewed." }
+    ],
+    "C09": [
+      { "standard": "application-type-names", "applies": false, "reason": "The verifier changes nothing and names nothing." },
+      { "standard": "bounded-context-layout", "applies": false, "reason": "No code." },
+      { "standard": "dependency-direction", "applies": false, "reason": "No code." }
+    ],
+    "C10": [
+      { "standard": "application-type-names", "applies": false, "reason": "Rotating a secret and turning on a flag rename nothing." },
+      { "standard": "bounded-context-layout", "applies": false, "reason": "No code." },
+      { "standard": "dependency-direction", "applies": false, "reason": "No code." }
+    ],
+    "C11": [
+      { "standard": "application-type-names", "applies": false, "reason": "A column and field rename inside one application." },
+      { "standard": "bounded-context-layout", "applies": false, "reason": "Lines change inside existing files; nothing is created or moved (decision 3)." },
+      { "standard": "dependency-direction", "applies": false, "reason": "A field rename through existing layers adds or changes no collaborator of the business logic." }
+    ],
+    "C12": [
+      { "standard": "application-type-names", "applies": false, "reason": "A table is not a resource named after an application (a database, a queue, a bucket)." },
+      { "standard": "bounded-context-layout", "applies": false, "reason": "Only the schema and a migration change; no application source." },
+      { "standard": "dependency-direction", "applies": false, "reason": "No business logic reads or writes the table yet." }
+    ],
+    "C13": [
+      { "standard": "application-type-names", "applies": false, "reason": "Domain code inside one application." },
+      { "standard": "bounded-context-layout", "applies": true, "reason": "Creates new files under a billing context's `domain/`, so where they live is in question." },
+      { "standard": "dependency-direction", "applies": true, "reason": "The domain generates ids with `randomUUID` in place, an ambient dependency the standard names." }
+    ],
+    "C14": [
+      { "standard": "application-type-names", "applies": false, "reason": "No application named." },
+      { "standard": "bounded-context-layout", "applies": true, "reason": "Creates application, domain and primary-adapter files in the scheduling context." },
+      { "standard": "dependency-direction", "applies": true, "reason": "The entry point imports concrete repositories from the secondary adapter instead of having them handed in." }
+    ],
+    "C15": [
+      { "standard": "application-type-names", "applies": false, "reason": "No application named." },
+      { "standard": "bounded-context-layout", "applies": true, "reason": "The change under review creates `types/`, `domain/` and `application/` files for orders." },
+      { "standard": "dependency-direction", "applies": true, "reason": "The application service takes a `PrismaClient`, a vendor type, directly." }
+    ],
+    "C16": [
+      { "standard": "application-type-names", "applies": false, "reason": "No application named." },
+      { "standard": "bounded-context-layout", "applies": false, "reason": "Only an existing repository implementation changes; nothing is created or moved." },
+      { "standard": "dependency-direction", "applies": true, "reason": "The port in `application` exposes a JPA entity, and the adapter reads the clock and a request context in place." }
+    ],
+    "C17": [
+      { "standard": "application-type-names", "applies": false, "reason": "No application named." },
+      { "standard": "bounded-context-layout", "applies": true, "reason": "Creates a new command handler file in the subscriptions context." },
+      { "standard": "dependency-direction", "applies": true, "reason": "The entry point imports concrete repositories from secondary adapters of two contexts." }
+    ],
+    "C18": [
+      { "standard": "application-type-names", "applies": false, "reason": "No application named." },
+      { "standard": "bounded-context-layout", "applies": true, "reason": "Creates application files and reaches into another context's adapters." },
+      { "standard": "dependency-direction", "applies": true, "reason": "Prisma types cross the repository interface and the clock is read in place." }
+    ],
+    "C19": [
+      { "standard": "application-type-names", "applies": false, "reason": "A webhook route; no application named." },
+      { "standard": "bounded-context-layout", "applies": false, "reason": "Decision 3: only a Next.js route placed by the framework's routing." },
+      { "standard": "dependency-direction", "applies": true, "reason": "The entry adapter decides and writes through Prisma itself instead of translating and delegating." }
+    ],
+    "C20": [
+      { "standard": "application-type-names", "applies": false, "reason": "The client talks to another team's application but names no application identifier and writes no documentation about the system." },
+      { "standard": "bounded-context-layout", "applies": true, "reason": "Creates a secondary-adapter file in the quotes context (decision 3)." },
+      { "standard": "dependency-direction", "applies": true, "reason": "A client for another application of the organization, whose interface must belong to the caller." }
+    ],
+    "C21": [
+      { "standard": "application-type-names", "applies": false, "reason": "No application named." },
+      { "standard": "bounded-context-layout", "applies": true, "reason": "The change creates a server action that writes appointments with Prisma inside the route folder; a server action's place is not set by the routing, and server-side code of a web application is now named in the scope." },
+      { "standard": "dependency-direction", "applies": true, "reason": "The server action calls Prisma directly instead of delegating to an entry point." }
+    ],
+    "C22": [
+      { "standard": "application-type-names", "applies": false, "reason": "A prototype; nothing named." },
+      { "standard": "bounded-context-layout", "applies": false, "reason": "Interface code of a prototype, no business logic." },
+      { "standard": "dependency-direction", "applies": false, "reason": "No business logic with collaborators." }
+    ],
+    "C23": [
+      { "standard": "application-type-names", "applies": false, "reason": "A job on the existing worker; nothing named." },
+      { "standard": "bounded-context-layout", "applies": true, "reason": "Creates a new job file in a worker's code (decision 3)." },
+      { "standard": "dependency-direction", "applies": true, "reason": "The repository reads the clock in place and the job constructs a boto3 client at module level." }
+    ],
+    "C24": [
+      { "standard": "application-type-names", "applies": false, "reason": "Using an LLM provider names no application of the organization." },
+      { "standard": "bounded-context-layout", "applies": true, "reason": "Creates a new server-side file for the search (decision 3)." },
+      { "standard": "dependency-direction", "applies": true, "reason": "The code constructs the Anthropic SDK client where it is used." }
+    ],
+    "C25": [
+      { "standard": "application-type-names", "applies": false, "reason": "Tests only." },
+      { "standard": "bounded-context-layout", "applies": false, "reason": "A test file, no business-logic source placed." },
+      { "standard": "dependency-direction", "applies": false, "reason": "The clock is already injected; no production code changes." }
+    ],
+    "C26": [
+      { "standard": "application-type-names", "applies": false, "reason": "The ADR and API reference describe entities and fields, not which applications the system has." },
+      { "standard": "bounded-context-layout", "applies": false, "reason": "Documentation only." },
+      { "standard": "dependency-direction", "applies": false, "reason": "Documentation only." }
+    ],
+    "C27": [
+      { "standard": "application-type-names", "applies": false, "reason": "A CI workflow change." },
+      { "standard": "bounded-context-layout", "applies": false, "reason": "Configuration is out of scope." },
+      { "standard": "dependency-direction", "applies": false, "reason": "No business logic." }
+    ],
+    "C28": [
+      { "standard": "application-type-names", "applies": false, "reason": "The folders are contexts and layers inside one application, out of scope." },
+      { "standard": "bounded-context-layout", "applies": true, "reason": "Moves billing into its own context split by layer, and adds a `shared` helper." },
+      { "standard": "dependency-direction", "applies": true, "reason": "A shared helper reaches the Stripe gateway and code outside the context imports its adapter." }
+    ],
+    "C29": [
+      { "standard": "application-type-names", "applies": false, "reason": "The two services' folders are edited, not named or described." },
+      { "standard": "bounded-context-layout", "applies": false, "reason": "Lines change inside existing files; nothing is created or moved." },
+      { "standard": "dependency-direction", "applies": true, "reason": "The consumer imports an infrastructure repository and generates ids in place." }
+    ],
+    "C30": [
+      { "standard": "application-type-names", "applies": false, "reason": "No application named." },
+      { "standard": "bounded-context-layout", "applies": false, "reason": "Edits an existing route and its adapter, placed by the routing (like C19)." },
+      { "standard": "dependency-direction", "applies": true, "reason": "The entry adapter now looks up the clinic's zone and decides the fallback." }
+    ],
+    "C31": [
+      { "standard": "application-type-names", "applies": false, "reason": "Splitting a pull request names nothing." },
+      { "standard": "bounded-context-layout", "applies": false, "reason": "Code is split into layers of pull requests, not placed or moved in the tree." },
+      { "standard": "dependency-direction", "applies": false, "reason": "No business logic written or reviewed." }
+    ],
+    "C32": [
+      { "standard": "application-type-names", "applies": false, "reason": "The audit judges a product area; this standard's scope is naming and describing applications, and it has no clause for judging an existing area." },
+      { "standard": "bounded-context-layout", "applies": true, "reason": "Decision 17: an audit reads every code-level standard that applies to the area." },
+      { "standard": "dependency-direction", "applies": true, "reason": "Decision 17: an audit reads every code-level standard that applies to the area." }
+    ],
+    "C33": [
+      { "standard": "application-type-names", "applies": false, "reason": "As in C32: the audit covers one area, not the naming of applications." },
+      { "standard": "bounded-context-layout", "applies": true, "reason": "Decision 17, and the person asks for code that does not follow how they build things." },
+      { "standard": "dependency-direction", "applies": true, "reason": "Decision 17." }
+    ],
+    "C34": [
+      { "standard": "application-type-names", "applies": false, "reason": "Interface components." },
+      { "standard": "bounded-context-layout", "applies": false, "reason": "Interface code of a web application is out of scope." },
+      { "standard": "dependency-direction", "applies": false, "reason": "The interface calls existing server actions; no business logic written." }
+    ],
+    "C35": [
+      { "standard": "application-type-names", "applies": false, "reason": "An interface component." },
+      { "standard": "bounded-context-layout", "applies": false, "reason": "Interface code is out of scope." },
+      { "standard": "dependency-direction", "applies": false, "reason": "No business logic." }
+    ],
+    "C36": [
+      { "standard": "application-type-names", "applies": false, "reason": "Refining a price-history feature creates or describes no application." },
+      { "standard": "bounded-context-layout", "applies": false, "reason": "Refining places no code." },
+      { "standard": "dependency-direction", "applies": false, "reason": "No code." }
+    ],
+    "C37": [
+      { "standard": "application-type-names", "applies": false, "reason": "Creating two tasks names no application." },
+      { "standard": "bounded-context-layout", "applies": false, "reason": "No code." },
+      { "standard": "dependency-direction", "applies": false, "reason": "No code." }
+    ],
+    "C38": [
+      { "standard": "application-type-names", "applies": false, "reason": "Editing a task." },
+      { "standard": "bounded-context-layout", "applies": false, "reason": "No code." },
+      { "standard": "dependency-direction", "applies": false, "reason": "No code." }
+    ]
+  }
+}

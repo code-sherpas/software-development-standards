@@ -4,7 +4,7 @@
 
 Define integration logic as the code required for two independent applications to communicate.
 
-Use the broadest meaning of application: a browser-based application, web service, database, message broker, worker, daemon, or any program that runs as its own process on the same machine or on a remote one.
+Use the broadest meaning of application: a web application, web service, database, message broker, worker, or any program that runs as its own process on the same machine or on a remote one — what the C4 model calls a container. [Application Type Names](application-type-names.md) names each type.
 
 Integration logic often exists on both sides of the communication. Each participating application may contain code that prepares, sends, receives, validates, translates, or acknowledges data so the integration works end to end.
 

@@ -1663,6 +1663,11 @@
         "standard": "no-dead-ends",
         "reason": "A failed booking must keep the input and say what to fix.",
         "source": "unanimous"
+      },
+      {
+        "standard": "bounded-context-layout",
+        "reason": "Creates a server action that writes appointments to the database inside the route folder, server-side code whose place in a context the layout governs.",
+        "source": "unanimous"
       }
     ],
     "near_miss": [
@@ -3095,6 +3100,309 @@
     "expected": [],
     "near_miss": [
       "creating-tasks"
+    ]
+  },
+  "C39": {
+    "expected": [
+      {
+        "standard": "application-type-names",
+        "reason": "The work names two new applications in every place the standard lists — their repositories, the Render service and the Sentry project — chooses their types (a web service other programs call, and a React Native application for Android and iOS), and writes READMEs that describe which applications the system has and how they relate, where the request's words 'backend' and 'app' are the synonyms rule 8 replaces.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "pre-merge-gates",
+        "reason": "Writing the README in each new repository commits it straight onto that repository's main branch, and every route into the main branch is in scope; the README itself falls under Gate 3's documentation exemption, but the Gate 1 conditions that apply to any landing still hold.",
+        "source": "decision 24"
+      }
+    ],
+    "near_miss": [
+      "post-deploy-verification"
+    ]
+  },
+  "C40": {
+    "expected": [
+      {
+        "standard": "application-type-names",
+        "reason": "The diff names an application in a compose service (`payouts-api`), a container (`payouts-api-local`) and an image (`payouts-backend`) that disagree with each other and with the repository it cites (`acme/payouts-server`), and its README architecture section describes the applications with 'frontend', 'backends' and 'API' and names a co-located `web-service/` part without saying it runs in the same process — all within this standard's scope.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "shipping-increments",
+        "reason": "The agent is the reviewer of an increment, a role Shipping Increments defines: it checks the change against the standards and the acceptance, returns findings and never edits what it reviews.",
+        "source": "unanimous"
+      }
+    ],
+    "near_miss": []
+  },
+  "C41": {
+    "expected": [
+      {
+        "standard": "bounded-context-layout",
+        "reason": "The work renames a bounded context's folder after the business it now serves and moves its server-side files — entry points and repository — to the new place, which is exactly where code lives in a repository holding business logic.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "business-logic-entry-point-colocate-types",
+        "reason": "Decision 5: moving business-logic entry points brings in this always-applicable standard of the family; where their signature types live is also part of what moves.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "business-logic-entry-point-command-query-separation",
+        "reason": "Decision 5: moving business-logic entry points brings in this always-applicable standard of the family.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "business-logic-entry-point-cqs-handler-signatures",
+        "reason": "Decision 5: moving business-logic entry points brings in this always-applicable standard of the family.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "business-logic-entry-point-database-transaction",
+        "reason": "Decision 5, with a database: the context's repository persists the invoices of a web service, so the moved entry points access a database.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "business-logic-entry-point-execution-context",
+        "reason": "Decision 5: moving business-logic entry points brings in this always-applicable standard of the family.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "business-logic-entry-point-one-per-module",
+        "reason": "Decision 5: the work moves four business-logic entry points, and this standard of the family always applies to them.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "business-logic-entry-point-prefer-top-level-functions",
+        "reason": "Decision 5: moving business-logic entry points brings in this always-applicable standard of the family.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "business-logic-entry-point-primitive-input-types",
+        "reason": "Decision 5: moving business-logic entry points brings in this always-applicable standard of the family.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "business-logic-entry-point-repository-domain-types",
+        "reason": "Decision 5: the moved entry points exchange entities with the repository that moves with them.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "business-logic-entry-point-repository-interface",
+        "reason": "Decision 5: the moved entry points depend on a repository, and the imports being fixed are how they reach it.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "business-logic-entry-point-transaction-isolation-levels",
+        "reason": "Decision 5, with a database: the moved entry points access the database through their repository.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "business-logic-entry-point-use-repositories",
+        "reason": "Decision 5: the moved entry points store and read entities through the repository that moves with them.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "business-logic-typical-domain-entity-entry-points",
+        "reason": "Decision 5: moving business-logic entry points brings in this always-applicable standard of the family.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "integration-logic",
+        "reason": "Decision 1: the repository that moves is code that talks to a database, and a move is a refactor that must preserve that exchange.",
+        "source": "decision 26"
+      }
+    ],
+    "near_miss": [
+      "application-type-names",
+      "dependency-direction",
+      "business-logic"
+    ]
+  },
+  "C42": {
+    "expected": [
+      {
+        "standard": "application-type-names",
+        "reason": "The diff names an application in a compose service (`clinic-api`) and an environment variable (`CLINIC_API_URL`) that differ from the name its image and repository carry, `clinic-web-service`, which rule 3 requires everywhere.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "automated-testing",
+        "reason": "The builder is about to write the increment's tests, including the failure paths of cancelled and unreachable appointments.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "bounded-context-layout",
+        "reason": "The change decides where the clinic client lives in a worker that holds business logic, and puts it in `application/` where the layout's `secondary-adapter` is the place for clients of other systems.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "built-in-temporal-types",
+        "reason": "The change takes a temporal value across a transport boundary and passes it on as a raw string instead of a built-in temporal type, and the reminder must state the appointment's date and time correctly.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "business-logic",
+        "reason": "The worker decides, from the clinic's current data, whether a reminder is sent, skipped or left pending — a business workflow.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "business-logic-ensure-business-constraints",
+        "reason": "Decision 10: checking that the appointment is not cancelled before sending is a required-state check guarding a business operation in an entry point.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "business-logic-entry-point-colocate-types",
+        "reason": "Decision 5: the change writes a business-logic entry point.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "business-logic-entry-point-command-query-separation",
+        "reason": "Decision 5: the entry point changes state (sends, marks sent or skipped) and returns a count, which this standard governs.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "business-logic-entry-point-cqs-handler-signatures",
+        "reason": "Decision 5: the change writes a business-logic entry point whose name and parameters this standard governs.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "business-logic-entry-point-database-transaction",
+        "reason": "Decision 5, with a database (Postgres in the compose file); its exception that reads from another application happen before the transaction, never inside it, is exactly the shape of this change.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "business-logic-entry-point-execution-context",
+        "reason": "Decision 5: the change writes a business-logic entry point.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "business-logic-entry-point-one-per-module",
+        "reason": "Decision 5: the change writes the `send_due_reminders` entry point.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "business-logic-entry-point-prefer-top-level-functions",
+        "reason": "Decision 5: the change writes a business-logic entry point.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "business-logic-entry-point-primitive-input-types",
+        "reason": "Decision 5: the change writes a business-logic entry point.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "business-logic-entry-point-repository-domain-types",
+        "reason": "Decision 5: the entry point exchanges `Reminder` entities with its repository.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "business-logic-entry-point-repository-interface",
+        "reason": "Decision 5: the entry point depends on a repository.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "business-logic-entry-point-transaction-isolation-levels",
+        "reason": "Decision 5, with a database: the entry point is a command writing reminders.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "business-logic-entry-point-use-repositories",
+        "reason": "Decision 5: the entry point reads and saves reminders through `ReminderRepository`.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "business-logic-typical-domain-entity-entry-points",
+        "reason": "Decision 5: the change writes a business-logic entry point.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "dependency-direction",
+        "reason": "The entry point in `application/` imports `httpx` and reads the environment in place, instead of declaring an interface for the clinic and having its implementation handed in.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "domain-entity",
+        "reason": "The acceptance adds a skipped state and the diff relies on `mark_skipped` and `with_starts_at` on `Reminder`, lifecycle and behaviour the increment must give the entity.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "expand-contract-schema-changes",
+        "reason": "Decision 7: the reminders the worker stores gain a new status value, `skipped`, which a version still running may read.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "failure-reporting",
+        "reason": "When the clinic cannot be reached the worker recovers by retrying on the next run, a caller that recovers from a failure, so where that failure is reported, and the one no retry recovers, must be decided.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "immutable-domain-entities",
+        "reason": "The increment adds state-changing operations to the `Reminder` entity, which must return new instances.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "integration-logic",
+        "reason": "The worker now calls `clinic-web-service` over HTTP, builds the request and interprets its response, and it reads and writes reminders in its database (decision 1).",
+        "source": "unanimous"
+      },
+      {
+        "standard": "iso8601-millisecond-precision",
+        "reason": "The worker parses `starts_at`, a textual timestamp from another application's contract.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "leave-nothing-running",
+        "reason": "Decision 2: exercising the worker requires starting the compose stack with its database and the clinic container, which keep running.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "neverthrow-return-types",
+        "reason": "Decision 17 extends it to any stack: the edited entry point and the new clinic call have failures the caller must handle, which belong in their return types.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "neverthrow-wrap-exceptions",
+        "reason": "Decision 17 extends it to any stack: `httpx.get` and `response.json()` raise on network and parse failures, recoverable failures that the acceptance (stay pending, retry next run) needs captured as results.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "post-deploy-verification",
+        "reason": "The change reaches production, and the builder proposing it writes its post-deploy plan: the job observed through its effect as its schedule triggers it.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "pre-merge-gates",
+        "reason": "Shipping Increments makes the builder pass every gate that applies before opening the change request, including exercising the worker by hand.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "serialization-boundaries",
+        "reason": "The appointment crosses an HTTP boundary and is read by hand from the flattened JSON, and the acceptance needs both failure modes — a 404 or error answer and no answer at all — told apart and handled.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "shipping-increments",
+        "reason": "The agent is the builder of an increment: it builds it and its tests, passes the gates, has it reviewed and opens the change request.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "utc-zoned-temporal-types",
+        "reason": "As decided for C14 (decision 11), parsing an appointment's start sent as a UTC instant is parsing a timezone-aware value.",
+        "source": "unanimous"
+      },
+      {
+        "standard": "domain-entity-uuidv4-ids",
+        "reason": "The change maps the appointment's identifier carried by the reminder onto another application's contract, as decided for C19 and C30.",
+        "source": "decision 28"
+      },
+      {
+        "standard": "internationalization",
+        "reason": "The SMS a patient reads now carries the appointment time taken from the clinic's response, text derived from data that must be formatted for the patient's locale and zone, as C29's reminder amount was.",
+        "source": "decision 29"
+      }
+    ],
+    "near_miss": [
+      "prefer-named-functions"
     ]
   }
 }

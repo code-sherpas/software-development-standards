@@ -12,7 +12,7 @@ Every collaborator business logic needs that lives outside it:
 
 - persistence — covered in detail by [Repository Interface](business-logic-entry-point-repository-interface.md), which is this rule applied to repositories;
 - a payment provider, an identity provider, a mail sender, an object store, a queue, a search index;
-- another service of the organization, reached over the network — see [Integration Logic](integration-logic.md);
+- another application of the organization, such as a web service, reached over the network — see [Integration Logic](integration-logic.md);
 - the ambient things that look free and are not: the clock, the random source, the id generator, the environment.
 
 Out of scope: dependencies between modules within the same layer, and the project's directory layout, which is a repository convention.
@@ -41,7 +41,7 @@ A conditional in an entry adapter is the tell: if the code is choosing between o
 
 The layering is not the point; the consequences are.
 
-- **A rule reachable only through its transport can only be exercised through it.** Business logic that lives in an HTTP handler needs an HTTP request to be tested, and a second entry point to the same operation — a job, a CLI, another service — either duplicates it or does without it.
+- **A rule reachable only through its transport can only be exercised through it.** Business logic that lives in an HTTP handler needs an HTTP request to be tested, and a second entry point to the same operation — a job, a command-line application, another application — either duplicates it or does without it.
 - **A vendor in a signature spreads.** It starts in one adapter and ends in the type of something the domain returns, and by then replacing the vendor is a migration rather than a swap.
 - **The dependency you did not declare is the one you cannot replace in a test.** Time and randomness are the usual ones, and the tests that work around them are the flaky ones.
 
