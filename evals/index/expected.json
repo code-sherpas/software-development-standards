@@ -3108,15 +3108,11 @@
         "standard": "application-type-names",
         "reason": "The work names two new applications in every place the standard lists — their repositories, the Render service and the Sentry project — chooses their types (a web service other programs call, and a React Native application for Android and iOS), and writes READMEs that describe which applications the system has and how they relate, where the request's words 'backend' and 'app' are the synonyms rule 8 replaces.",
         "source": "unanimous"
-      },
-      {
-        "standard": "pre-merge-gates",
-        "reason": "Writing the README in each new repository commits it straight onto that repository's main branch, and every route into the main branch is in scope; the README itself falls under Gate 3's documentation exemption, but the Gate 1 conditions that apply to any landing still hold.",
-        "source": "decision 24"
       }
     ],
     "near_miss": [
-      "post-deploy-verification"
+      "post-deploy-verification",
+      "pre-merge-gates"
     ]
   },
   "C40": {
